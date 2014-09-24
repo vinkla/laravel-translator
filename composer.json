@@ -1,0 +1,25 @@
+{
+	"name": "vinkla/laravel-translator",
+	"description": "Simple translator",
+	"keywords": [
+		"translations",
+		"translator",
+		"laravel"
+	],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Vincent Klaiber",
+			"email": "me@vinkla.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"illuminate/support": "~5.0"
+	},
+	"autoload": {
+		"psr-0": {
+			"Vinkla\\Translator": "src/"
+		}
+	}
+}
