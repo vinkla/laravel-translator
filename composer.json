@@ -11,12 +11,13 @@
 	"authors": [
 		{
 			"name": "Vincent Klaiber",
-			"email": "me@vinkla.com"
+			"email": "me@vinkla.com",
+			"homepage": "http://vinkla.com"
 		}
 	],
 	"require": {
 		"php": ">=5.4.0",
-		"illuminate/support": "~5.0"
+		"illuminate/support": "~4.0"
 	},
 	"autoload": {
 		"psr-0": {
