@@ -1,6 +1,6 @@
 {
 	"name": "vinkla/laravel-translator",
-	"description": "Simple translator",
+	"description": "Simple translator for Laravel Eloquent models.",
 	"keywords": [
 		"translations",
 		"translator",
