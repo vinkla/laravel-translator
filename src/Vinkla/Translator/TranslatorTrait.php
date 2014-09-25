@@ -20,7 +20,7 @@ trait TranslatorTrait {
 	 */
 	public function translate()
 	{
-		if (!$this->translator or !class_exists($this->translator))
+		if (!$this->translator || !class_exists($this->translator))
 		{
 			throw new TranslatorException('Please set the $translator property to your translation model path.');
 		}
@@ -37,16 +37,6 @@ trait TranslatorTrait {
 	}
 
 	/**
-	 * Fetch the localisation key.
-	 *
-	 * @return string
-	 */
-	private function getLocaleKey()
-	{
-		return $this->localeKey ? $this->localeKey : 'locale_id';
-	}
-
-	/**
 	 * Fetch the default localisation key comparison.
 	 *
 	 * @return mixed
@@ -54,5 +44,15 @@ trait TranslatorTrait {
 	public function getLocale()
 	{
 		return Session::get($this->getLocaleKey());
+	}
+
+	/**
+	 * Fetch the localisation key.
+	 *
+	 * @return string
+	 */
+	private function getLocaleKey()
+	{
+		return $this->localeKey ? $this->localeKey : 'locale_id';
 	}
 }
