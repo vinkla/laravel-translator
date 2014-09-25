@@ -1,4 +1,23 @@
-Translator (WIP)
-================
+Laravel Translator
+==================
 
-Translator package thath integrates well with Laravel. Please **NOTE** that this is work in progress. Documentation is coming soon…
+This package gives you an easy way to translate Eloquent models for multiple localizations.
+
+## Install
+
+Pull this package in through Composer.
+
+```json
+
+{
+    "require": {
+        "vinkla/translator": "0.1.*"
+    }
+}
+
+```
+
+## Usage
+
+Comming soon…
+
