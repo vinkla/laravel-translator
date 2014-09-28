@@ -25,6 +25,6 @@ return [
 	|
 	*/
 
-	'key' => 'locale_id'
+	'key' => 'locale'
 
 ];
