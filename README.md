@@ -17,12 +17,18 @@ Pull this package in through Composer.
 
 ```
 
-## Usage
+Then add the service provider to `config/app.php` in the providers array (not required).
 
-Comming soon…
+```bash
+'Vinkla\Translator\TranslatorServiceProvider'
+```
 
 ## Cascading Configuration Files
 
 ```bash
 php artisan config:publish vinkla/translator
 ```
+
+## Usage
+
+Comming soon…
