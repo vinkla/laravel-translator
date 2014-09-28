@@ -2,6 +2,9 @@
 
 abstract class Translator {
 
+	/**
+	 * @var mixed
+	 */
 	protected $entity;
 
 	/**
@@ -20,11 +23,6 @@ abstract class Translator {
 	 */
 	public function __get($property)
 	{
-		if (method_exists($this, $property))
-		{
-			return $this->{$property}();
-		}
-
 		return $this->entity->{$property};
 	}
 }

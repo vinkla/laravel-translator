@@ -1,9 +1,16 @@
 <?php namespace Vinkla\Translator;
 
 use Vinkla\Translator\Exceptions\TranslatorException;
-use Illuminate\Support\Facades\Session;
+use Config, Session;
 
 trait TranslatorTrait {
+
+	/**
+	 * The default localization key.
+	 *
+	 * @var string
+	 */
+	private $defaultLocaleKey = 'locale_id';
 
 	/**
 	 * Translator instance.
@@ -53,6 +60,6 @@ trait TranslatorTrait {
 	 */
 	private function getLocaleKey()
 	{
-		return $this->localeKey ? $this->localeKey : 'locale_id';
+		return $this->localeKey ? $this->localeKey : $this->defaultLocaleKey;
 	}
 }
