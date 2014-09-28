@@ -21,3 +21,8 @@ Pull this package in through Composer.
 
 Comming soon…
 
+## Cascading Configuration Files
+
+```bash
+php artisan config:publish vinkla/translator
+```

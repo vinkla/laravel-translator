@@ -8,11 +8,11 @@ use Vinkla\Translator\Exceptions\TranslatorException;
 trait TranslatorTrait {
 
 	/**
-	 * The default localization key.
+	 * The default localization column key.
 	 *
 	 * @var string
 	 */
-	protected $localeKey = 'locale_id';
+	protected $localeKey;
 
 	/**
 	 * Translator instance.
@@ -55,7 +55,7 @@ trait TranslatorTrait {
 	 */
 	public function locale()
 	{
-		if (Config::get('translator.driver') === 'session')
+		if (Config::get('translator::driver') === 'session')
 		{
 			return Session::get($this->getLocaleKey());
 		}
@@ -70,6 +70,6 @@ trait TranslatorTrait {
 	 */
 	public function getLocaleKey()
 	{
-		return $this->localeKey ?: Config::get('translator.key');
+		return $this->localeKey ?: Config::get('translator::key');
 	}
 }
