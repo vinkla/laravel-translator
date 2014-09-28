@@ -45,6 +45,8 @@ trait TranslatorTrait {
 
 	/**
 	 * Fetch the default localisation key comparison.
+	 * If you not want to fetch the localization id from
+	 * a session, this could be overwritten in the modal.
 	 *
 	 * @return mixed
 	 */
