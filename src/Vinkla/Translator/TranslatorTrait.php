@@ -1,7 +1,9 @@
 <?php namespace Vinkla\Translator;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Session;
 use Vinkla\Translator\Exceptions\TranslatorException;
-use Config, Session;
 
 trait TranslatorTrait {
 
@@ -10,7 +12,7 @@ trait TranslatorTrait {
 	 *
 	 * @var string
 	 */
-	private $defaultLocaleKey = 'locale_id';
+	protected $localeKey = 'locale_id';
 
 	/**
 	 * Translator instance.
@@ -39,29 +41,35 @@ trait TranslatorTrait {
 
 		return $this->translatorInstance
 			->where($this->getForeignKey(), $this->id)
-			->where($this->getLocaleKey(), $this->getLocale())
+			->where($this->getLocaleKey(), $this->locale())
 			->first();
 	}
 
 	/**
-	 * Fetch the default localisation key comparison.
-	 * If you not want to fetch the localization id from
-	 * a session, this could be overwritten in the modal.
+	 * Fetch the default localisation data comparison.
+	 *
+	 * If you not want to fetch the localisation identifier from
+	 * another resource, this could be overwritten in the modal.
 	 *
 	 * @return mixed
 	 */
-	public function getLocale()
+	public function locale()
 	{
-		return Session::get($this->getLocaleKey());
+		if (Config::get('translator.driver') === 'session')
+		{
+			return Session::get($this->getLocaleKey());
+		}
+
+		return App::getLocale();
 	}
 
 	/**
-	 * Fetch the localisation key.
+	 * Fetch the localisation column key.
 	 *
 	 * @return string
 	 */
-	private function getLocaleKey()
+	public function getLocaleKey()
 	{
-		return $this->localeKey ? $this->localeKey : $this->defaultLocaleKey;
+		return $this->localeKey ?: Config::get('translator.key');
 	}
 }
