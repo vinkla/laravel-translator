@@ -49,7 +49,7 @@ trait TranslatorTrait {
 	 * Fetch the default localisation data comparison.
 	 *
 	 * If you not want to fetch the localisation identifier from
-	 * another resource, this could be overwritten in the modal.
+	 * another resource, this can be overwritten in the model.
 	 *
 	 * @return mixed
 	 */
