@@ -101,6 +101,6 @@ That's it! You're done. Now you can do:
 <p>{{ $post->translate()->content }}</p>
 ```
 
-### License
+## License
 
 The Translator package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
