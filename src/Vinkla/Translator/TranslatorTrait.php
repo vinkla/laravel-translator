@@ -41,19 +41,29 @@ trait TranslatorTrait {
 
 		return $this->translatorInstance
 			->where($this->getForeignKey(), $this->id)
-			->where($this->getLocaleKey(), $this->locale())
+			->where($this->getLocaleKey(), $this->getLocale())
 			->first();
+	}
+
+	/**
+	 * Setup a one to many relation.
+	 *
+	 * @return mixed
+	 */
+	public function translations()
+	{
+		return $this->hasMany($this->translator);
 	}
 
 	/**
 	 * Fetch the default localisation data comparison.
 	 *
-	 * If you not want to fetch the localisation identifier from
+	 * If you want to fetch the localisation identifier from
 	 * another resource, this can be overwritten in the model.
 	 *
 	 * @return mixed
 	 */
-	public function locale()
+	public function getLocale()
 	{
 		if (Config::get('translator::driver') === 'session')
 		{
@@ -72,4 +82,5 @@ trait TranslatorTrait {
 	{
 		return $this->localeKey ?: Config::get('translator::key');
 	}
+
 }
