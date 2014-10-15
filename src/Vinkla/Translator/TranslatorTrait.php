@@ -29,6 +29,17 @@ trait TranslatorTrait {
 	 */
 	public function translate()
 	{
+		return $this->getTranslation();
+	}
+
+	/**
+	 * Fetch the translation by their relations.
+	 *
+	 * @throws TranslatorException
+	 * @return mixed
+	 */
+	private function getTranslation()
+	{
 		if (!$this->translator || !class_exists($this->translator))
 		{
 			throw new TranslatorException('Please set the $translator property to your translation model path.');
@@ -39,30 +50,43 @@ trait TranslatorTrait {
 			$this->translatorInstance = new $this->translator();
 		}
 
-		return $this->getTranslation();
-	}
-
-	/**
-	 * Setup a one to many relation.
-	 *
-	 * @return mixed
-	 */
-	public function translations()
-	{
-		return $this->hasMany($this->translator);
-	}
-
-	/**
-	 * Fetch the translation by their relations.
-	 *
-	 * @return mixed
-	 */
-	private function getTranslation()
-	{
 		return $this->translatorInstance
-			->where($this->getForeignKey(), $this->id)
 			->where($this->getLocaleKey(), $this->getLocale())
+			->where($this->getForeignKey(), $this->id)
 			->first();
+	}
+
+	/**
+	 * Set a given attribute on the model.
+	 *
+	 * @param $key
+	 * @param $value
+	 * @return mixed
+	 */
+	public function setAttribute($key, $value)
+	{
+		if (in_array($key, $this->translatedAttributes))
+		{
+			return $this->getTranslation()->$key = $value;
+		}
+
+		return parent::setAttribute($key, $value);
+	}
+
+	/**
+	 * Get an attribute from the model.
+	 *
+	 * @param $key
+	 * @return mixed
+	 */
+	public function getAttribute($key)
+	{
+		if (in_array($key, $this->translatedAttributes))
+		{
+			return $this->getTranslation() ? $this->getTranslation()->$key : null;
+		}
+
+		return parent::getAttribute($key);
 	}
 
 	/**
@@ -91,6 +115,16 @@ trait TranslatorTrait {
 	public function getLocaleKey()
 	{
 		return $this->localeKey ?: Config::get('translator::key');
+	}
+
+	/**
+	 * Setup a one to many relation.
+	 *
+	 * @return mixed
+	 */
+	public function translations()
+	{
+		return $this->hasMany($this->translator);
 	}
 
 }
