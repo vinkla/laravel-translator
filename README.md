@@ -57,7 +57,7 @@ Schema::create('post_translations', function(Blueprint $table)
 {
     $table->increments('id');
 
-    // Translatable columns.
+    // Translatable columns
     $table->string('title');
     $table->string('content');
 
@@ -80,10 +80,10 @@ Here's an example of a translatable Laravel Eloquent model.
 ```php
 <?php namespace Acme\Posts;
 
-use Eloquent;
+use Illuminate\Database\Eloquent\Model;
 use Vinkla\Translator\TranslatorTrait;
 
-class Post extends Eloquent {
+class Post extends Model {
 
 	use TranslatorTrait;
 
@@ -92,6 +92,11 @@ class Post extends Eloquent {
      */
     protected $translator = 'Acme\Posts\PostTranslation';
 
+	/**
+     * @var array
+     */
+    protected $translatedAttributes = ['title', 'content'];
+
 }
 ```
 
@@ -99,6 +104,12 @@ That's it! You're done. Now you can do:
 ```php
 <h1>{{ $post->translate()->title }}</h1>
 <p>{{ $post->translate()->content }}</p>
+```
+
+Or if you added the `$translatedAttributes` (not required) array to your model:
+```php
+<h1>{{ $post->title }}</h1>
+<p>{{ $post->content }}</p>
 ```
 
 ## License
