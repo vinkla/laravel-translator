@@ -10,7 +10,7 @@ Pull this package in through Composer.
 ```json
 {
     "require": {
-        "vinkla/translator": "0.2.*"
+        "vinkla/translator": "0.3.*"
     }
 }
 ```
