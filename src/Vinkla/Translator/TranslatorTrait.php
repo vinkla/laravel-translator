@@ -108,13 +108,23 @@ trait TranslatorTrait {
 	}
 
 	/**
-	 * Fetch the localisation column key.
+	 * Get the localisation column key.
 	 *
 	 * @return string
 	 */
 	public function getLocaleKey()
 	{
 		return $this->localeKey ?: Config::get('translator::key');
+	}
+
+	/**
+	 * Set the localisation column key.
+	 *
+	 * @param string $localeKey
+	 */
+	public function setLocaleKey($localeKey)
+	{
+		$this->localeKey = $localeKey;
 	}
 
 	/**
