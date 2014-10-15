@@ -39,10 +39,7 @@ trait TranslatorTrait {
 			$this->translatorInstance = new $this->translator();
 		}
 
-		return $this->translatorInstance
-			->where($this->getForeignKey(), $this->id)
-			->where($this->getLocaleKey(), $this->getLocale())
-			->first();
+		return $this->getTranslation();
 	}
 
 	/**
@@ -53,6 +50,19 @@ trait TranslatorTrait {
 	public function translations()
 	{
 		return $this->hasMany($this->translator);
+	}
+
+	/**
+	 * Fetch the translation by their relations.
+	 *
+	 * @return mixed
+	 */
+	private function getTranslation()
+	{
+		return $this->translatorInstance
+			->where($this->getForeignKey(), $this->id)
+			->where($this->getLocaleKey(), $this->getLocale())
+			->first();
 	}
 
 	/**
