@@ -34,7 +34,7 @@ php artisan publish:config vinkla/translator
 
 ## Usage
 
-Below we have some example [migrations](#migrations) and [models](#models). More documentation is comming soon…
+Below we have some example [migrations](#migrations) and [models](#models).
 
 #### Migrations
 Here's an example of the localisations migration.
@@ -123,6 +123,14 @@ Or if you added the `$translatedAttributes` array to your model (not required), 
 <img src="{{ $article->thumbnail }}">
 <p>{{ $article->content }}</p>
 ```
+
+## Future Features
+
+Below is a list of features that I would like to see in future releases. Please submit and [issue](issue) if you want to add anything, or better yet, create an [pull request](pulls)!
+
+- Add create, update, delete functionality to the translator trait.
+- Add a bootstrap command to scaffold the localisations migration.
+- Add generator command to scaffold new translations migrations.
 
 ## License
 
