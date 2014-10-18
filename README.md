@@ -7,7 +7,7 @@ This package gives you an easy way to translate Eloquent models into multiple la
 
 ## Install
 
-Pull this package in through Composer.
+Require this package in your `composer.json` and update composer.
 
 ```json
 {
@@ -16,8 +16,6 @@ Pull this package in through Composer.
     }
 }
 ```
-
-#### Configuration Files
 
 Add the service provider to `config/app.php` in the providers array.
 
@@ -46,30 +44,36 @@ Schema::create('locales', function(Blueprint $table)
 });
 ```
 
-Migrations for the base table and the translatable relation table.
+Add the Laravel migration for the base table which you want to translate.
 
 ```php
-Schema::create('posts', function(Blueprint $table)
+Schema::create('articles', function(Blueprint $table)
 {
     $table->increments('id');
+    $table->string('thumbnail');
     $table->timestamps();
 });
+```
 
-Schema::create('post_translations', function(Blueprint $table)
+Add the Laravel migration for the translatable relation table.
+
+```php
+Schema::create('article_translations', function(Blueprint $table)
 {
     $table->increments('id');
 
-    // Translatable columns
+    // Translatable attributes
     $table->string('title');
     $table->string('content');
+    // Translatable attributes
 
-    $table->integer('post_id')->unsigned()->index();
-    $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+    $table->integer('article_id')->unsigned()->index();
+    $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
 
     $table->integer('locale_id')->unsigned()->index();
     $table->foreign('locale_id')->references('id')->on('locales')->onDelete('cascade');
 
-    $table->unique(['post_id', 'locale_id']);
+    $table->unique(['article_id', 'locale_id']);
 
     $table->timestamps();
 });
@@ -80,19 +84,19 @@ Schema::create('post_translations', function(Blueprint $table)
 Here's an example of a translatable Laravel Eloquent model.
 
 ```php
-<?php namespace Acme\Posts;
+<?php namespace Acme\Articles;
 
 use Illuminate\Database\Eloquent\Model;
 use Vinkla\Translator\TranslatorTrait;
 
-class Post extends Model {
+class Article extends Model {
 
 	use TranslatorTrait;
 
 	/**
      * @var string
      */
-    protected $translator = 'Acme\Posts\PostTranslation';
+    protected $translator = 'Acme\Articles\ArticleTranslation';
 
 	/**
      * @var array
@@ -104,14 +108,16 @@ class Post extends Model {
 
 That's it! You're done. Now you can do:
 ```php
-<h1>{{ $post->translate()->title }}</h1>
-<p>{{ $post->translate()->content }}</p>
+<h1>{{ $article->translate()->title }}</h1>
+<img src="{{ $article->thumbnail }}">
+<p>{{ $article->translate()->content }}</p>
 ```
 
-Or if you added the `$translatedAttributes` (not required) array to your model:
+Or if you added the `$translatedAttributes` array to your model (not required), you can do:
 ```php
-<h1>{{ $post->title }}</h1>
-<p>{{ $post->content }}</p>
+<h1>{{ $article->title }}</h1>
+<img src="{{ $article->thumbnail }}">
+<p>{{ $article->content }}</p>
 ```
 
 ## License
