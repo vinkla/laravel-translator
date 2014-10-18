@@ -25,9 +25,9 @@ Add the service provider to `config/app.php` in the providers array.
 'Vinkla\Translator\TranslatorServiceProvider'
 ```
 
-To add the configuration files to the `app/packages` directory, run the command below.
+To add the configuration files to the `app/config/packages` directory, run the command below.
 ```bash
-php artisan config:publish vinkla/translator
+php artisan publish:config vinkla/translator
 ```
 
 ## Usage
