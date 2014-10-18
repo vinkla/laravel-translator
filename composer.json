@@ -2,16 +2,11 @@
 	"name": "vinkla/translator",
 	"description": "Simple translator for Laravel Eloquent models.",
 	"homepage": "https://github.com/vinkla/translator",
-	"keywords": [
-		"translations",
-		"translator",
-		"laravel"
-	],
+	"keywords": ["translations", "translator", "laravel", "language"],
 	"license": "MIT",
 	"authors": [
 		{
 			"name": "Vincent Klaiber",
-			"email": "me@vinkla.com",
 			"homepage": "http://vinkla.com"
 		}
 	],
@@ -19,9 +14,13 @@
 		"php": ">=5.4.0",
 		"illuminate/support": "~4.0"
 	},
+	"require-dev": {
+		"phpunit/phpunit": "~4.0"
+	},
 	"autoload": {
 		"psr-0": {
 			"Vinkla\\Translator": "src/"
 		}
-	}
+	},
+	"minimum-stability": "stable"
 }
