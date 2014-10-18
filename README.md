@@ -126,7 +126,7 @@ Or if you added the `$translatedAttributes` array to your model (not required), 
 
 ## Future Features
 
-Below is a list of features that I would like to see in future releases. Please submit and [issue](issue) if you want to add anything, or better yet, create an [pull request](pulls)!
+Below is a list of features that I would like to see in future releases. Please submit and [issue](https://github.com/vinkla/translator/issues) if you want to add anything, or better yet, create an [pull request](https://github.com/vinkla/translator/pulls)!
 
 - Add create, update, delete functionality to the translator trait.
 - Add a bootstrap command to scaffold the localisations migration.
