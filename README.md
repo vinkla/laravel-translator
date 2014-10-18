@@ -43,7 +43,7 @@ Here's an example of the localisations migration.
 Schema::create('locales', function(Blueprint $table)
 {
     $table->increments('id');
-    $table->string('language', 2);
+    $table->string('language', 2); // en, sv, da, no, etc.
     $table->timestamps();
 });
 ```
