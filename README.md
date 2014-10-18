@@ -1,6 +1,8 @@
 Laravel Translator
 ==================
 
+![image](https://raw.githubusercontent.com/vinkla/vinkla.github.io/master/images/laravel-translator.png)
+
 This package gives you an easy way to translate Eloquent models into multiple languages.
 
 ## Install
