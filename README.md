@@ -5,6 +5,10 @@ Laravel Translator
 
 This package gives you an easy way to translate Eloquent models into multiple languages.
 
+[![Build Status](https://img.shields.io/travis/vinkla/translator/master.svg?style=flat)](https://travis-ci.org/vinkla/translator)
+	[![Latest Stable Version](http://img.shields.io/packagist/v/vinkla/translator.svg?style=flat)](https://packagist.org/packages/vinkla/translator)
+	[![License](https://img.shields.io/packagist/l/vinkla/translator.svg?style=flat)](https://packagist.org/packages/vinkla/translator)
+
 ## Install
 
 Require this package in your `composer.json` and update composer.
