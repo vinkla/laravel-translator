@@ -110,6 +110,8 @@ class Article extends Model {
 }
 ```
 
+### Fetching data
+
 That's it! You're done. Now you can do:
 ```php
 <h1>{{ $article->translate()->title }}</h1>
@@ -131,6 +133,10 @@ Below is a list of features that I would like to see in future releases. Please 
 - Add create, update, delete functionality to the translator trait.
 - Add bootstrap command to generate the localisations migration.
 - Add generator command to scaffold new translations migrations.
+
+## Contributing
+
+Thank you for considering contributing to the Translator package. If you are submitting a bug-fix, or an enhancement that is **not** a breaking change, submit your pull request to the the latest stable release of the package, the `master` branch. If you are submitting a breaking change or an entirely new component, submit your pull request to the `develop` branch.
 
 ## License
 
