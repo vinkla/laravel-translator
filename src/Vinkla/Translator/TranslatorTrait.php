@@ -50,8 +50,25 @@ trait TranslatorTrait {
 			$this->translatorInstance = new $this->translator();
 		}
 
+		// Fetch the translation by their locale.
+		$translation = $this->getTranslationByLocale($this->getLocale());
+
+		if ($translation) { return $translation; }
+
+		// If the translations wasn't found, fetch by fallback translation.
+		return $this->getTranslationByLocale($this->getFallback());
+	}
+
+	/**
+	 * Fetch the translation by their locale.
+	 *
+	 * @param $locale
+	 * @return mixed
+	 */
+	public function getTranslationByLocale($locale)
+	{
 		return $this->translatorInstance
-			->where($this->getLocaleKey(), $this->getLocale())
+			->where($this->getLocaleKey(), $locale)
 			->where($this->getForeignKey(), $this->id)
 			->first();
 	}
@@ -90,7 +107,7 @@ trait TranslatorTrait {
 	}
 
 	/**
-	 * Fetch the default localisation data comparison.
+	 * Get the default locale being used.
 	 *
 	 * If you want to fetch the localisation identifier from
 	 * another resource, this can be overwritten in the model.
@@ -108,7 +125,22 @@ trait TranslatorTrait {
 	}
 
 	/**
-	 * Get the localisation column key.
+	 * Get the fallback locale being used.
+	 *
+	 * @return mixed
+	 */
+	public function getFallback()
+	{
+		if (Config::get('translator::driver') === 'session')
+		{
+			return Config::get('translator::fallback_locale');
+		}
+
+		return App::getLocale();
+	}
+
+	/**
+	 * Get the locale column key.
 	 *
 	 * @return string
 	 */
@@ -118,17 +150,7 @@ trait TranslatorTrait {
 	}
 
 	/**
-	 * Set the localisation column key.
-	 *
-	 * @param string $localeKey
-	 */
-	public function setLocaleKey($localeKey)
-	{
-		$this->localeKey = $localeKey;
-	}
-
-	/**
-	 * Setup a one to many relation.
+	 * Setup a one-to-many relation.
 	 *
 	 * @return mixed
 	 */

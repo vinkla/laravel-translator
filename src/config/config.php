@@ -25,6 +25,19 @@ return [
 	|
 	*/
 
-	'key' => 'locale'
+	'key' => 'locale',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Session Fallback Locale
+	|--------------------------------------------------------------------------
+	|
+	| If driver is set to 'session' you can set the default locale key
+	| identifier to compare with. If using 'app' as driver this will ignored
+	| and the locale key will be fetched from Laravel's app configuration.
+	|
+	*/
+
+	'fallback_locale' => 'en'
 
 ];
