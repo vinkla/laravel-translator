@@ -45,6 +45,7 @@ trait TranslatorTrait {
 	 * Fetch the translation by their relations and locale.
 	 *
 	 * @param $locale
+	 * @param bool $fallback
 	 * @throws TranslatorException
 	 * @return mixed
 	 */
@@ -60,9 +61,15 @@ trait TranslatorTrait {
 			$this->translatorInstance = new $this->translator();
 		}
 
+		$locale = $locale ?: $this->getLocale();
+
 		// Fetch the translation by their locale.
-		$translation = $this->getTranslationByLocale($locale ?: $this->getLocale());
-		if ($translation) { return $translation; }
+		$translation = $this->getTranslationByLocale($locale);
+
+		if ($translation)
+		{
+			return $translation;
+		}
 
 		// If the translations wasn't found, fetch by fallback translation.
 		if ($fallback)
@@ -72,7 +79,7 @@ trait TranslatorTrait {
 
 		// If fallback is set to false, create a new instance.
 		return $this->newTranslatorInstance([
-			$this->getLocaleKey() => $this->getLocale()
+			$this->getLocaleKey() => $locale
 		]);
 	}
 
