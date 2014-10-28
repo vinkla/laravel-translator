@@ -1,5 +1,6 @@
 <?php namespace Vinkla\Translator;
 
+use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
@@ -13,6 +14,8 @@ trait TranslatorTrait {
 	 * @var string
 	 */
 	protected $localeKey;
+
+	protected $translation;
 
 	/**
 	 * Translator instance.
@@ -40,7 +43,7 @@ trait TranslatorTrait {
 	 * @throws TranslatorException
 	 * @return mixed
 	 */
-	private function getTranslation($locale = null)
+	private function getTranslation($locale = null, $fallback = true)
 	{
 		if (!$this->translator || !class_exists($this->translator))
 		{
@@ -54,11 +57,18 @@ trait TranslatorTrait {
 
 		// Fetch the translation by their locale.
 		$translation = $this->getTranslationByLocale($locale ?: $this->getLocale());
-
 		if ($translation) { return $translation; }
 
 		// If the translations wasn't found, fetch by fallback translation.
-		return $this->getTranslationByLocale($this->getFallback());
+		if ($fallback)
+		{
+			return $this->getTranslationByLocale($this->getFallback());
+		}
+
+		// If fallback is set to false, create a new instance.
+		return $this->newTranslatorInstance([
+			$this->getLocaleKey() => $this->getLocale()
+		]);
 	}
 
 	/**
@@ -73,6 +83,94 @@ trait TranslatorTrait {
 			->where($this->getLocaleKey(), $locale)
 			->where($this->getForeignKey(), $this->id)
 			->first();
+	}
+
+	/**
+	 * Fill the model with an array of attributes.
+	 *
+	 * @param array $attributes
+	 * @return $this
+	 *
+	 * @throws \Illuminate\Database\Eloquent\MassAssignmentException
+	 */
+	public function fill(array $attributes)
+	{
+		$totallyGuarded = $this->totallyGuarded();
+
+		foreach ($attributes as $key => $value)
+		{
+			if (!in_array($key, $this->translatedAttributes))
+			{
+				continue;
+			}
+
+			$this->translation = $this->getTranslation($this->getLocale(), false);
+
+			if ($this->isFillable($key))
+			{
+				$this->translation->setAttribute($key, $value);
+			}
+			elseif ($totallyGuarded)
+			{
+				throw new MassAssignmentException($key);
+			}
+
+			unset($attributes[$key]);
+		}
+
+		return parent::fill($attributes);
+	}
+
+	/**
+	 * Save the model to the database.
+	 *
+	 * @param array $options
+	 * @return bool
+	 */
+	public function save(array $options = [])
+	{
+		$saved = parent::save($options);
+
+		if ($saved)
+		{
+			$this->translations()->save($this->translation);
+		}
+
+		return $saved;
+	}
+
+	/**
+	 * Update the model in the database.
+	 *
+	 * @param array $attributes
+	 * @return bool|int
+	 */
+	public function update(array $attributes = [])
+	{
+		$updated = parent::update($attributes);
+
+		if ($updated)
+		{
+			$this->translations()->save($this->translation);
+		}
+
+		return $updated;
+	}
+
+	/**
+	 * Create a new instance of the translator model.
+	 *
+	 * @param array $attributes
+	 * @param bool $exists
+	 * @return mixed
+	 */
+	public function newTranslatorInstance($attributes = [], $exists = false)
+	{
+		$model = new $this->translatorInstance((array) $attributes);
+
+		$model->exists = $exists;
+
+		return $model;
 	}
 
 	/**
