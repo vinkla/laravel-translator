@@ -24,21 +24,23 @@ trait TranslatorTrait {
 	/**
 	 * Prepare a translator instance and fetch translations.
 	 *
+	 * @param $locale
 	 * @throws TranslatorException
 	 * @return mixed
 	 */
-	public function translate()
+	public function translate($locale = null)
 	{
-		return $this->getTranslation();
+		return $this->getTranslation($locale);
 	}
 
 	/**
-	 * Fetch the translation by their relations.
+	 * Fetch the translation by their relations and locale.
 	 *
+	 * @param $locale
 	 * @throws TranslatorException
 	 * @return mixed
 	 */
-	private function getTranslation()
+	private function getTranslation($locale = null)
 	{
 		if (!$this->translator || !class_exists($this->translator))
 		{
@@ -51,7 +53,7 @@ trait TranslatorTrait {
 		}
 
 		// Fetch the translation by their locale.
-		$translation = $this->getTranslationByLocale($this->getLocale());
+		$translation = $this->getTranslationByLocale($locale ?: $this->getLocale());
 
 		if ($translation) { return $translation; }
 
