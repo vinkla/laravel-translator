@@ -15,6 +15,11 @@ trait TranslatorTrait {
 	 */
 	protected $localeKey;
 
+	/**
+	 * The current translation.
+	 *
+	 * @var mixed
+	 */
 	protected $translation;
 
 	/**
@@ -99,10 +104,7 @@ trait TranslatorTrait {
 
 		foreach ($attributes as $key => $value)
 		{
-			if (!in_array($key, $this->translatedAttributes))
-			{
-				continue;
-			}
+			if (!in_array($key, $this->translatedAttributes)) { continue; }
 
 			$this->translation = $this->getTranslation($this->getLocale(), false);
 
