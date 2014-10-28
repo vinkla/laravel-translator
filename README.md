@@ -16,7 +16,7 @@ Require this package in your `composer.json` and update composer.
 ```json
 {
     "require": {
-        "vinkla/translator": "0.3.*"
+        "vinkla/translator": "~0.3"
     }
 }
 ```
