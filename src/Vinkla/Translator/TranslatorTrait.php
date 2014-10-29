@@ -61,10 +61,8 @@ trait TranslatorTrait {
 			$this->translatorInstance = new $this->translator();
 		}
 
-		$locale = $locale ?: $this->getLocale();
-
 		// Fetch the translation by their locale.
-		$translation = $this->getTranslationByLocale($locale);
+		$translation = $this->getTranslationByLocale($locale ?: $this->getLocale());
 
 		if ($translation)
 		{
@@ -79,7 +77,7 @@ trait TranslatorTrait {
 
 		// If fallback is set to false, create a new instance.
 		return $this->newTranslatorInstance([
-			$this->getLocaleKey() => $locale
+			$this->getLocaleKey() => $this->getLocale() ?: $this->getFallback()
 		]);
 	}
 
