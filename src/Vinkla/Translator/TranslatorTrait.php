@@ -140,7 +140,7 @@ trait TranslatorTrait {
 	{
 		$saved = parent::save($options);
 
-		if ($saved)
+		if ($saved && $this->translation)
 		{
 			$this->translations()->save($this->translation);
 		}
