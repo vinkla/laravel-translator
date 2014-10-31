@@ -6,10 +6,7 @@ Laravel Translator
 This package gives you an easy way to translate Eloquent models into multiple languages.
 
 ```php
-// Fetch the Eloquent object.
-$foo = Foo::first();
-
-// Display the default title.
+// Display the default title for an Eloquent object.
 echo $foo->title;
 
 // Change the current language to Swedish.
