@@ -15,6 +15,7 @@ App::setLocale('sv');
 // Display the translated title in Swedish.
 echo $foo->title;
 ```
+Read more about how this package was created and why it exists [in this blog post](http://vinkla.com/2014/11/laravel-translator/).
 
 [![Build Status](https://img.shields.io/travis/vinkla/translator/master.svg?style=flat)](https://travis-ci.org/vinkla/translator)
 	[![Latest Stable Version](http://img.shields.io/packagist/v/vinkla/translator.svg?style=flat)](https://packagist.org/packages/vinkla/translator)
