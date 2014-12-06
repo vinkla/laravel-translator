@@ -112,6 +112,11 @@ class Article extends Model {
 	use TranslatorTrait;
 
 	/**
+	 * @var array
+	 */
+	protected $fillable = ['thumbnail'];
+
+	/**
 	 * @var string
 	 */
 	protected $translator = 'Acme\Articles\ArticleTranslation';
@@ -120,6 +125,22 @@ class Article extends Model {
 	 * @var array
 	 */
 	protected $translatedAttributes = ['title', 'content'];
+
+}
+```
+
+The ArticleTranslation is basically an empty Eloquent object. They only thing you will need to add is the `$fillable` attributes array for translated attributes.
+```php
+<?php namespace Acme\Articles;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ArticleTranslation extends Model {
+
+	/**
+	 * @var array
+	 */
+	protected $fillable = ['title', 'content'];
 
 }
 ```
