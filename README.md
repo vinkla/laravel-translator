@@ -129,7 +129,7 @@ class Article extends Model {
 }
 ```
 
-The ArticleTranslation is basically an empty Eloquent object. They only thing you will need to add is the `$fillable` attributes array for translated attributes.
+The ArticleTranslation is basically an empty Eloquent object. They only thing you will need to add is the `$fillable` array for translatable attributes.
 ```php
 <?php namespace Acme\Articles;
 
