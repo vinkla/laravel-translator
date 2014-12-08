@@ -51,6 +51,7 @@ php artisan publish:config vinkla/translator
 Below we have examples of [migrations](#migrations), [models](#models) and [templating](#templating).
 
 #### Migrations
+
 Here's an example of the localisations migration.
 
 ```php
@@ -60,6 +61,11 @@ Schema::create('locales', function(Blueprint $table)
 	$table->string('language', 2); // en, sv, da, no, etc.
 	$table->timestamps();
 });
+```
+
+This example migration comes out of the box with this package. Run the command below to add it in your database.
+```bash
+php artisan migrate --package="vinkla/translator"
 ```
 
 Add the Laravel migration for the base table which you want to translate.
