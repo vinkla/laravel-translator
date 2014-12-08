@@ -23,8 +23,6 @@ Read more about how this package was created and why it exists [in this blog pos
 
 ## Installation
 
-The library requires at least **PHP version 5.4** and comes with a **Laravel Service Provider** to simplify the framework integration.
-
 Require this package in your `composer.json` and update composer.
 
 ```json
