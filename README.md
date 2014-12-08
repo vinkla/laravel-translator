@@ -48,7 +48,7 @@ php artisan publish:config vinkla/translator
 
 Below we have examples of [migrations](#migrations), [models](#models) and [templating](#templating).
 
-#### Migrations
+### Migrations
 
 Here's an example of the localisations migration.
 
@@ -101,7 +101,7 @@ Schema::create('article_translations', function(Blueprint $table)
 });
 ```
 
-#### Models
+### Models
 
 Here's an example of a translatable Laravel Eloquent model.
 
