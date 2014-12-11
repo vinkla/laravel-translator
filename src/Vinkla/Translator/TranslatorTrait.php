@@ -34,23 +34,13 @@ trait TranslatorTrait {
 		return $this->getTranslation();
 	}
 
-	private function getTranslation()
-	{
-		if (!$this->translation)
-		{
-			$this->setTranslation();
-		}
-
-		return $this->translation;
-	}
-
 	/**
 	 * Fetch the translation by their relations and locale.
 	 *
 	 * @throws TranslatorException
 	 * @return mixed
 	 */
-	private function setTranslation()
+	private function getTranslation()
 	{
 		if (!$this->translator || !class_exists($this->translator))
 		{
@@ -62,13 +52,19 @@ trait TranslatorTrait {
 			$this->translatorInstance = new $this->translator();
 		}
 
+		// If there already is a current translation, use it.
+		if ($this->translation)
+		{
+			return $this->translation;
+		}
+
 		// Fetch the translation by their locale id.
 		$translation = $this->getTranslationByLocale($this->getLocaleId());
 
-		if (!$this->translation)
+		if (!$translation)
 		{
 			// If we can't find a translation, create a new instance.
-			$this->translation = $this->newTranslatorInstance();
+			$translation = $this->newTranslation();
 		}
 
 		return $translation;
@@ -106,9 +102,9 @@ trait TranslatorTrait {
 
 			$this->translation = $this->getTranslation();
 
-			if ($this->translation->isFillable($key))
+			if ($this->isFillable($key))
 			{
-				$this->translation->setAttribute($key, $value);
+				$this->setAttribute($key, $value);
 			}
 			elseif ($totallyGuarded)
 			{
@@ -206,23 +202,17 @@ trait TranslatorTrait {
 	}
 
 	/**
-	 * Create a new instance of the translator model.
+	 * Create a new translation instance of the translator model.
 	 *
 	 * @param array $attributes
 	 * @param bool $exists
 	 * @return mixed
 	 */
-	public function newTranslatorInstance($attributes = [], $exists = false)
+	public function newTranslation($attributes = [], $exists = false)
 	{
 		$attributes = array_add($attributes, 'locale_id', $this->getLocaleId());
 
 		$model = new $this->translatorInstance((array) $attributes);
-
-		$fillable = $this->getFillable();
-
-		array_push($fillable, 'locale_id');
-
-		$model->fillable($fillable);
 
 		$model->exists = $exists;
 
@@ -264,7 +254,7 @@ trait TranslatorTrait {
 	 */
 	public function translations()
 	{
-		return $this->hasMany($this->translatorInstance);
+		return $this->hasMany($this->translator);
 	}
 
 }
