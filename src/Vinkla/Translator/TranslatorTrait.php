@@ -30,6 +30,11 @@ trait TranslatorTrait {
 	protected $translatorInstance;
 
 	/**
+	 * @var mixed
+	 */
+	protected $localeInstance;
+
+	/**
 	 * Prepare a translator instance and fetch translations.
 	 *
 	 * @param $locale
@@ -45,11 +50,10 @@ trait TranslatorTrait {
 	 * Fetch the translation by their relations and locale.
 	 *
 	 * @param $locale
-	 * @param bool $fallback
 	 * @throws TranslatorException
 	 * @return mixed
 	 */
-	private function getTranslation($locale = null, $fallback = true)
+	private function getTranslation($localeId = null)
 	{
 		if (!$this->translator || !class_exists($this->translator))
 		{
@@ -62,35 +66,29 @@ trait TranslatorTrait {
 		}
 
 		// Fetch the translation by their locale.
-		$translation = $this->getTranslationByLocale($locale ?: $this->getLocale());
+		$translation = $this->getTranslationByLocale($localeId ?: $this->getLocale()->id);
 
 		if ($translation)
 		{
 			return $translation;
 		}
 
-		// If the translations wasn't found, fetch by fallback translation.
-		if ($fallback)
-		{
-			return $this->getTranslationByLocale($this->getFallback());
-		}
-
-		// If fallback is set to false, create a new instance.
+		// If we can't find a translation, create a new instance.
 		return $this->newTranslatorInstance([
-			$this->getLocaleKey() => $this->getLocale() ?: $this->getFallback()
+			$this->getLocaleKey() => $this->getLocale()->id
 		]);
 	}
 
 	/**
 	 * Fetch the translation by their locale.
 	 *
-	 * @param $locale
+	 * @param $localeId
 	 * @return mixed
 	 */
-	public function getTranslationByLocale($locale)
+	public function getTranslationByLocale($localeId)
 	{
 		return $this->translatorInstance
-			->where($this->getLocaleKey(), $locale)
+			->where('locale_id', $localeId)
 			->where($this->getForeignKey(), $this->id)
 			->first();
 	}
@@ -111,7 +109,7 @@ trait TranslatorTrait {
 		{
 			if (!in_array($key, $this->translatedAttributes)) { continue; }
 
-			$this->translation = $this->getTranslation($this->getLocale(), false);
+			$this->translation = $this->getTranslation($this->getLocale()->id, false);
 
 			if ($this->isFillable($key))
 			{
@@ -223,27 +221,15 @@ trait TranslatorTrait {
 	 */
 	public function getLocale()
 	{
-		if (Config::get('translator::driver') === 'session')
+		if (!$this->localeInstance)
 		{
-			return Session::get($this->getLocaleKey());
+			$this->setLocaleInstance();
 		}
 
-		return App::getLocale();
-	}
-
-	/**
-	 * Get the fallback locale being used.
-	 *
-	 * @return mixed
-	 */
-	public function getFallback()
-	{
-		if (Config::get('translator::driver') === 'session')
-		{
-			return Config::get('translator::fallback_locale');
-		}
-
-		return App::getLocale();
+		return $this->localeInstance->where(
+			$this->getLocaleKey(),
+			App::getLocale()
+		)->first();
 	}
 
 	/**
@@ -253,7 +239,12 @@ trait TranslatorTrait {
 	 */
 	public function getLocaleKey()
 	{
-		return $this->localeKey ?: Config::get('translator::key');
+		return Config::get('translator::key');
+	}
+
+	public function setLocaleInstance()
+	{
+		$this->localeInstance = App::make(Config::get('translator::locale'));
 	}
 
 	/**
