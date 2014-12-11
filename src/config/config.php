@@ -4,40 +4,27 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
-	| Application Locale Driver
+	| Locale Eloquent Model
 	|--------------------------------------------------------------------------
 	|
-	| Either use the App::getLocale() to fetch the current locale key or use
-	| the session driver to fetch the data you want to compare with.
-	|
-	| Supported: 'app', 'session'
+	| This is the Eloquent model that handles what languages you support within
+	| your project. Please provide the full namespaced path.
 	|
 	*/
 
-	'driver' => 'app',
+	'locale' => 'Acme\Locales\Locale',
+
 
 	/*
 	|--------------------------------------------------------------------------
-	| Localisation Column Key
+	| Locale Identifier Column
 	|--------------------------------------------------------------------------
 	|
-	| The default localisation column identifier to compare the data with.
+	| Specify the column that you want to compare with when fetching
+	| translations trough the App::getLocale() method.
 	|
 	*/
 
-	'key' => 'locale',
-
-	/*
-	|--------------------------------------------------------------------------
-	| Session Fallback Locale
-	|--------------------------------------------------------------------------
-	|
-	| If driver is set to 'session' you can set the default locale key
-	| identifier to compare with. If using 'app' as driver this will ignored
-	| and the locale key will be fetched from Laravel's app configuration.
-	|
-	*/
-
-	'fallback_locale' => 'en'
+	'key' => 'language'
 
 ];

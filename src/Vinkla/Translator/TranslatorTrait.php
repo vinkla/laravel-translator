@@ -3,17 +3,11 @@
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Vinkla\Translator\Exceptions\TranslatorException;
+use Vinkla\Translator\Models\Translation;
 
 trait TranslatorTrait {
-
-	/**
-	 * The default localization column key.
-	 *
-	 * @var string
-	 */
-	protected $localeKey;
 
 	/**
 	 * The current translation.
@@ -23,7 +17,7 @@ trait TranslatorTrait {
 	protected $translation;
 
 	/**
-	 * Translator instance.
+	 * The translation instance.
 	 *
 	 * @var mixed
 	 */
@@ -32,24 +26,21 @@ trait TranslatorTrait {
 	/**
 	 * Prepare a translator instance and fetch translations.
 	 *
-	 * @param $locale
 	 * @throws TranslatorException
 	 * @return mixed
 	 */
-	public function translate($locale = null)
+	public function translate()
 	{
-		return $this->getTranslation($locale);
+		return $this->getTranslation();
 	}
 
 	/**
 	 * Fetch the translation by their relations and locale.
 	 *
-	 * @param $locale
-	 * @param bool $fallback
 	 * @throws TranslatorException
 	 * @return mixed
 	 */
-	private function getTranslation($locale = null, $fallback = true)
+	private function getTranslation()
 	{
 		if (!$this->translator || !class_exists($this->translator))
 		{
@@ -61,36 +52,34 @@ trait TranslatorTrait {
 			$this->translatorInstance = new $this->translator();
 		}
 
-		// Fetch the translation by their locale.
-		$translation = $this->getTranslationByLocale($locale ?: $this->getLocale());
-
-		if ($translation)
+		// If there already is a current translation, use it.
+		if ($this->translation)
 		{
-			return $translation;
+			return $this->translation;
 		}
 
-		// If the translations wasn't found, fetch by fallback translation.
-		if ($fallback)
+		// Fetch the translation by their locale id.
+		$translation = $this->getTranslationByLocale($this->getLocaleId());
+
+		if (!$translation)
 		{
-			return $this->getTranslationByLocale($this->getFallback());
+			// If we can't find a translation, create a new instance.
+			$translation = $this->newTranslation();
 		}
 
-		// If fallback is set to false, create a new instance.
-		return $this->newTranslatorInstance([
-			$this->getLocaleKey() => $this->getLocale() ?: $this->getFallback()
-		]);
+		return $translation;
 	}
 
 	/**
 	 * Fetch the translation by their locale.
 	 *
-	 * @param $locale
+	 * @param $localeId
 	 * @return mixed
 	 */
-	public function getTranslationByLocale($locale)
+	public function getTranslationByLocale($localeId)
 	{
 		return $this->translatorInstance
-			->where($this->getLocaleKey(), $locale)
+			->where('locale_id', $localeId)
 			->where($this->getForeignKey(), $this->id)
 			->first();
 	}
@@ -111,11 +100,11 @@ trait TranslatorTrait {
 		{
 			if (!in_array($key, $this->translatedAttributes)) { continue; }
 
-			$this->translation = $this->getTranslation($this->getLocale(), false);
+			$this->translation = $this->getTranslation();
 
 			if ($this->isFillable($key))
 			{
-				$this->translation->setAttribute($key, $value);
+				$this->setAttribute($key, $value);
 			}
 			elseif ($totallyGuarded)
 			{
@@ -165,22 +154,6 @@ trait TranslatorTrait {
 	}
 
 	/**
-	 * Create a new instance of the translator model.
-	 *
-	 * @param array $attributes
-	 * @param bool $exists
-	 * @return mixed
-	 */
-	public function newTranslatorInstance($attributes = [], $exists = false)
-	{
-		$model = new $this->translatorInstance((array) $attributes);
-
-		$model->exists = $exists;
-
-		return $model;
-	}
-
-	/**
 	 * Set a given attribute on the model.
 	 *
 	 * @param $key
@@ -214,36 +187,36 @@ trait TranslatorTrait {
 	}
 
 	/**
-	 * Get the default locale being used.
-	 *
-	 * If you want to fetch the localisation identifier from
-	 * another resource, this can be overwritten in the model.
+	 * Get the current locale set within the app.
 	 *
 	 * @return mixed
 	 */
-	public function getLocale()
+	public function getLocaleId()
 	{
-		if (Config::get('translator::driver') === 'session')
-		{
-			return Session::get($this->getLocaleKey());
-		}
+		$localeInstance = $this->getLocaleInstance();
 
-		return App::getLocale();
+		$key = $this->getLocaleKey();
+		$value = App::getLocale();
+
+		return $localeInstance->where($key, $value)->first()->id;
 	}
 
 	/**
-	 * Get the fallback locale being used.
+	 * Create a new translation instance of the translator model.
 	 *
+	 * @param array $attributes
+	 * @param bool $exists
 	 * @return mixed
 	 */
-	public function getFallback()
+	public function newTranslation($attributes = [], $exists = false)
 	{
-		if (Config::get('translator::driver') === 'session')
-		{
-			return Config::get('translator::fallback_locale');
-		}
+		$attributes = array_add($attributes, 'locale_id', $this->getLocaleId());
 
-		return App::getLocale();
+		$model = new $this->translatorInstance((array) $attributes);
+
+		$model->exists = $exists;
+
+		return $model;
 	}
 
 	/**
@@ -253,7 +226,25 @@ trait TranslatorTrait {
 	 */
 	public function getLocaleKey()
 	{
-		return $this->localeKey ?: Config::get('translator::key');
+		return Config::get('translator::key') ?: 'language';
+	}
+
+	/**
+	 * Fetch the locale instance.
+	 *
+	 * @return mixed
+	 * @throws TranslatorException
+	 */
+	public function getLocaleInstance()
+	{
+		if (!Config::has('translator::locale'))
+		{
+			throw new TranslatorException(
+				"Please set the 'locale' property in the configuration to your Locale model path."
+			);
+		}
+
+		return App::make(Config::get('translator::locale'));
 	}
 
 	/**

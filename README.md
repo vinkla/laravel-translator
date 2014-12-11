@@ -28,7 +28,7 @@ Require this package in your `composer.json` and update composer.
 ```json
 {
 	"require": {
-		"vinkla/translator": "~0.4"
+		"vinkla/translator": "~1.0"
 	}
 }
 ```
@@ -46,7 +46,7 @@ php artisan publish:config vinkla/translator
 
 ## Getting started
 
-Below we have examples of [migrations](#migrations), [models](#models) and [templating](#templating).
+Below we have examples of [migrations](#migrations), [models](#models), [seeding](#seeding) and [templating](#templating).
 
 ### Migrations
 
@@ -102,6 +102,22 @@ Schema::create('article_translations', function(Blueprint $table)
 ```
 
 ### Models
+Firstly you'll need to setup the `Locale` Eloquent model. Then add the `Locale` model path to the configuration file.
+
+```php
+<?php namespace Acme\Locales;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Locale extends Model {
+
+	/**
+	 * @var array
+	 */
+	protected $fillable = ['language'];
+
+}
+```
 
 Here's an example of a translatable Laravel Eloquent model.
 
@@ -133,7 +149,7 @@ class Article extends Model {
 }
 ```
 
-The ArticleTranslation is basically an empty Eloquent object. They only thing you will need to add is the `$fillable` array for translatable attributes.
+The ArticleTranslation basically is an empty Eloquent object. The only thing you will need to add is the `$fillable` array with the `locale_id` and your translatable attributes.
 ```php
 <?php namespace Acme\Articles;
 
@@ -144,8 +160,35 @@ class ArticleTranslation extends Model {
 	/**
 	 * @var array
 	 */
-	protected $fillable = ['title', 'content'];
+	protected $fillable = ['title', 'content', 'locale_id'];
 
+}
+```
+
+### Seeding
+Before you start to populate your database with translations you'll need to add languages to the locales table that you want to support. Below is an example seeder.
+
+```php
+<?php
+
+use Acme\Locales\Locale;
+use Illuminate\Database\Seeder;
+
+class LocaleTableSeeder extends Seeder {
+
+	public function run()
+	{
+		$rows = [
+			['language' => 'en'],
+			['language' => 'sv'],
+			['language' => 'no']
+		];
+
+		foreach ($rows as $row)
+		{
+			Locale::create($row);
+		}
+	}
 }
 ```
 
@@ -158,7 +201,7 @@ That's it! You're done. Now you can do:
 <p>{{ $article->translate()->content }}</p>
 ```
 
-Or if you added the `$translatedAttributes` array to your model (not required), you can do:
+With a little magic from the `$translatedAttributes` array, you can even do this:
 ```php
 <h1>{{ $article->title }}</h1>
 <img src="{{ $article->thumbnail }}">
