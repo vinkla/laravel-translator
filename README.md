@@ -201,7 +201,7 @@ That's it! You're done. Now you can do:
 <p>{{ $article->translate()->content }}</p>
 ```
 
-Or if you added the `$translatedAttributes` array to your model (not required), you can do:
+With a little magic from the `$translatedAttributes` array, you can even do this:
 ```php
 <h1>{{ $article->title }}</h1>
 <img src="{{ $article->thumbnail }}">
