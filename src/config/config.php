@@ -14,7 +14,6 @@ return [
 
 	'locale' => 'Acme\Locales\Locale',
 
-
 	/*
 	|--------------------------------------------------------------------------
 	| Locale Identifier Column
