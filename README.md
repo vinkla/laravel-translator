@@ -178,15 +178,11 @@ class LocaleTableSeeder extends Seeder {
 
 	public function run()
 	{
-		$rows = [
-			['language' => 'en'],
-			['language' => 'sv'],
-			['language' => 'no']
-		];
+		$languages = ['en', 'sv', 'no'];
 
-		foreach ($rows as $row)
+		foreach ($languages as $language)
 		{
-			Locale::create($row);
+			Locale::create(compact('language'));
 		}
 	}
 }
@@ -201,7 +197,7 @@ That's it! You're done. Now you can do:
 <p>{{ $article->translate()->content }}</p>
 ```
 
-With a little magic from the `$translatedAttributes` array, you can even do this:
+With a little magic from the `$translatedAttributes` array you can even do this:
 ```php
 <h1>{{ $article->title }}</h1>
 <img src="{{ $article->thumbnail }}">
