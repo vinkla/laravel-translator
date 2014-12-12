@@ -19,11 +19,11 @@ return [
 	| Locale Identifier Column
 	|--------------------------------------------------------------------------
 	|
-	| Specify the column that you want to compare with when fetching
+	| Specify the column key that you want to compare with when fetching
 	| translations trough the App::getLocale() method.
 	|
 	*/
 
-	'key' => 'language'
+	'column' => 'language'
 
 ];

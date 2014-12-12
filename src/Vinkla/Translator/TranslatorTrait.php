@@ -195,7 +195,7 @@ trait TranslatorTrait {
 	{
 		$localeInstance = $this->getLocaleInstance();
 
-		$key = $this->getLocaleKey();
+		$key = $this->getLocaleColumn();
 		$value = App::getLocale();
 
 		return $localeInstance->where($key, $value)->first()->id;
@@ -224,9 +224,9 @@ trait TranslatorTrait {
 	 *
 	 * @return string
 	 */
-	public function getLocaleKey()
+	public function getLocaleColumn()
 	{
-		return Config::get('translator::key') ?: 'language';
+		return Config::get('translator::column') ?: 'language';
 	}
 
 	/**
