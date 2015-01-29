@@ -40,11 +40,11 @@ To add the configuration files to the `app/config/packages` directory, run the c
 php artisan config:publish vinkla/translator
 ```
 
-## Getting started
+## Documentation
 
-Below we have examples of [migrations](#migrations), [models](#models), [seeding](#seeding) and [templating](#templating).
+Below we have examples of [migrations](#migrations), [models](#models), [seeds](#seeds) and [templates](#templates).
 
-### Migrations
+## Migrations
 
 Here's an example of the localisations migration.
 
@@ -97,7 +97,7 @@ Schema::create('article_translations', function(Blueprint $table)
 });
 ```
 
-### Models
+## Models
 Firstly you'll need to setup the `Locale` Eloquent model. Then add the `Locale` model path to the configuration file.
 
 ```php
@@ -161,7 +161,7 @@ class ArticleTranslation extends Model {
 }
 ```
 
-### Seeding
+## Seed
 Before you start to populate your database with translations you'll need to add languages to the locales table that you want to support. Below is an example seeder.
 
 ```php
@@ -184,7 +184,7 @@ class LocaleTableSeeder extends Seeder {
 }
 ```
 
-### Templating
+### Templates
 
 That's it! You're done. Now you can do:
 ```php
