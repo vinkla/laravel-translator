@@ -26,21 +26,23 @@ trait TranslatorTrait {
 	/**
 	 * Prepare a translator instance and fetch translations.
 	 *
-	 * @throws TranslatorException
+	 * @param null $locale
 	 * @return mixed
+	 * @throws TranslatorException
 	 */
-	public function translate()
+	public function translate($locale = null)
 	{
-		return $this->getTranslation();
+		return $this->getTranslation($locale);
 	}
 
 	/**
 	 * Fetch the translation by their relations and locale.
 	 *
-	 * @throws TranslatorException
+	 * @param null $locale
 	 * @return mixed
+	 * @throws TranslatorException
 	 */
-	private function getTranslation()
+	private function getTranslation($locale = null)
 	{
 		if (!$this->translator || !class_exists($this->translator))
 		{
@@ -59,7 +61,7 @@ trait TranslatorTrait {
 		}
 
 		// Fetch the translation by their locale id.
-		$translation = $this->getTranslationByLocale($this->getLocaleId());
+		$translation = $this->getTranslationByLocale($this->getLocaleId($locale));
 
 		if (!$translation)
 		{
@@ -189,14 +191,16 @@ trait TranslatorTrait {
 	/**
 	 * Get the current locale set within the app.
 	 *
+	 * @param null $locale
 	 * @return mixed
+	 * @throws TranslatorException
 	 */
-	public function getLocaleId()
+	public function getLocaleId($locale = null)
 	{
 		$localeInstance = $this->getLocaleInstance();
 
 		$key = $this->getLocaleColumn();
-		$value = App::getLocale();
+		$value = $locale ?: App::getLocale();
 
 		return $localeInstance->where($key, $value)->first()->id;
 	}
