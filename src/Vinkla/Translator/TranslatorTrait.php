@@ -1,11 +1,10 @@
 <?php namespace Vinkla\Translator;
 
+use Vinkla\Translator\Exceptions\TranslatorException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
-use Vinkla\Translator\Exceptions\TranslatorException;
-use Vinkla\Translator\Models\Translation;
 
 trait TranslatorTrait {
 
@@ -61,7 +60,9 @@ trait TranslatorTrait {
 		}
 
 		// Fetch the translation by their locale id.
-		$translation = $this->getTranslationByLocale($this->getLocaleId($locale));
+		$translation = $this->getTranslationByLocaleId(
+			$this->getLocaleId($locale)
+		);
 
 		if (!$translation)
 		{
@@ -70,20 +71,6 @@ trait TranslatorTrait {
 		}
 
 		return $translation;
-	}
-
-	/**
-	 * Fetch the translation by their locale.
-	 *
-	 * @param $localeId
-	 * @return mixed
-	 */
-	public function getTranslationByLocale($localeId)
-	{
-		return $this->translatorInstance
-			->where('locale_id', $localeId)
-			->where($this->getForeignKey(), $this->id)
-			->first();
 	}
 
 	/**
@@ -189,20 +176,54 @@ trait TranslatorTrait {
 	}
 
 	/**
+	 * Fetch the translation by their locale.
+	 *
+	 * @param $localeId
+	 * @return mixed
+	 */
+	private function getTranslationByLocaleId($localeId)
+	{
+		return $this->translatorInstance
+			->where('locale_id', $localeId)
+			->where($this->getForeignKey(), $this->id)
+			->first();
+	}
+
+	/**
 	 * Get the current locale set within the app.
 	 *
 	 * @param null $locale
 	 * @return mixed
 	 * @throws TranslatorException
 	 */
-	public function getLocaleId($locale = null)
+	private function getLocaleId($locale = null)
+	{
+		$locale = $this->getLocale($locale ?: App::getLocale());
+
+		$useFallback = Config::get('translator::fallback');
+
+		if (!$locale && $useFallback)
+		{
+			$locale = $this->getLocale(Config::get('app.fallback_locale'));
+		}
+
+		return $locale->id;
+	}
+
+	/**
+	 * Fetch a locale by its locale.
+	 *
+	 * @param $locale
+	 * @return mixed
+	 * @throws TranslatorException
+	 */
+	private function getLocale($locale)
 	{
 		$localeInstance = $this->getLocaleInstance();
 
-		$key = $this->getLocaleColumn();
-		$value = $locale ?: App::getLocale();
+		$column = $this->getLocaleColumn();
 
-		return $localeInstance->where($key, $value)->first()->id;
+		return $localeInstance->where($column, $locale)->first();
 	}
 
 	/**
@@ -212,7 +233,7 @@ trait TranslatorTrait {
 	 * @param bool $exists
 	 * @return mixed
 	 */
-	public function newTranslation($attributes = [], $exists = false)
+	private function newTranslation($attributes = [], $exists = false)
 	{
 		$attributes = array_add($attributes, 'locale_id', $this->getLocaleId());
 
@@ -228,7 +249,7 @@ trait TranslatorTrait {
 	 *
 	 * @return string
 	 */
-	public function getLocaleColumn()
+	private function getLocaleColumn()
 	{
 		return Config::get('translator::column') ?: 'language';
 	}
@@ -239,7 +260,7 @@ trait TranslatorTrait {
 	 * @return mixed
 	 * @throws TranslatorException
 	 */
-	public function getLocaleInstance()
+	private function getLocaleInstance()
 	{
 		if (!Config::has('translator::locale'))
 		{

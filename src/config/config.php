@@ -24,6 +24,19 @@ return [
 	|
 	*/
 
-	'column' => 'language'
+	'column' => 'language',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Fallback Support
+	|--------------------------------------------------------------------------
+	|
+	| Set this to true if you want to fetch the default translation if the
+	| current locale doesn't have any translated attributes yet. The default
+	| fallback is fetched from app/config/app.php
+	|
+	*/
+
+	'fallback' => false
 
 ];
