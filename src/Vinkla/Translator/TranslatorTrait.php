@@ -31,17 +31,18 @@ trait TranslatorTrait {
 	 */
 	public function translate($locale = null)
 	{
-		return $this->getTranslation($locale);
+		return $this->getTranslation(true, $locale);
 	}
 
 	/**
 	 * Fetch the translation by their relations and locale.
 	 *
+	 * @param bool $empty
 	 * @param null $locale
 	 * @return mixed
 	 * @throws TranslatorException
 	 */
-	private function getTranslation($locale = null)
+	private function getTranslation($empty = true, $locale = null)
 	{
 		if (!$this->translator || !class_exists($this->translator))
 		{
@@ -54,23 +55,25 @@ trait TranslatorTrait {
 		}
 
 		// If there already is a current translation, use it.
-		if ($this->translation)
-		{
-			return $this->translation;
-		}
+		if ($this->translation) { return $this->translation; }
 
 		// Fetch the translation by their locale id.
 		$translation = $this->getTranslationByLocaleId(
 			$this->getLocaleId($locale)
 		);
 
-		if (!$translation)
+		if ($translation) { return $translation; }
+
+		// Fetch fallback translation if its set in the config.
+		if ($empty && $this->useFallback())
 		{
-			// If we can't find a translation, create a new instance.
-			$translation = $this->newTranslation();
+			return $this->getTranslationByLocaleId(
+				$this->getFallackLocaleId()
+			);
 		}
 
-		return $translation;
+		// If we can't find any translation, return a new instance.
+		return $this->newTranslation();
 	}
 
 	/**
@@ -89,7 +92,7 @@ trait TranslatorTrait {
 		{
 			if (!in_array($key, $this->translatedAttributes)) { continue; }
 
-			$this->translation = $this->getTranslation();
+			$this->translation = $this->getTranslation(false);
 
 			if ($this->isFillable($key))
 			{
@@ -198,16 +201,12 @@ trait TranslatorTrait {
 	 */
 	private function getLocaleId($locale = null)
 	{
-		$locale = $this->getLocale($locale ?: App::getLocale());
+		return $this->getLocale($locale ?: App::getLocale())->id;
+	}
 
-		$useFallback = Config::get('translator::fallback');
-
-		if (!$locale && $useFallback)
-		{
-			$locale = $this->getLocale(Config::get('app.fallback_locale'));
-		}
-
-		return $locale->id;
+	private function getFallackLocaleId()
+	{
+		return $this->getLocaleId(Config::get('app.fallback_locale'));
 	}
 
 	/**
@@ -270,6 +269,17 @@ trait TranslatorTrait {
 		}
 
 		return App::make(Config::get('translator::locale'));
+	}
+
+	/**
+	 * Check if whether we should fetch the
+	 * fallback translation or not.
+	 *
+	 * @return mixed
+	 */
+	private function useFallback()
+	{
+		return (bool) Config::get('translator::fallback');
 	}
 
 	/**
