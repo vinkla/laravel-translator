@@ -37,12 +37,12 @@ trait TranslatorTrait {
 	/**
 	 * Fetch the translation by their relations and locale.
 	 *
-	 * @param bool $empty
+	 * @param bool $exists
 	 * @param null $locale
 	 * @return mixed
 	 * @throws TranslatorException
 	 */
-	private function getTranslation($empty = true, $locale = null)
+	private function getTranslation($exists = true, $locale = null)
 	{
 		if (!$this->translator || !class_exists($this->translator))
 		{
@@ -65,7 +65,7 @@ trait TranslatorTrait {
 		if ($translation) { return $translation; }
 
 		// Fetch fallback translation if its set in the config.
-		if ($empty && $this->useFallback())
+		if ($exists && $this->useFallback())
 		{
 			return $this->getTranslationByLocaleId(
 				$this->getFallackLocaleId()
@@ -239,13 +239,19 @@ trait TranslatorTrait {
 	 */
 	private function newTranslation($attributes = [], $exists = false)
 	{
+		$translation = new $this->translatorInstance();
+
+		$fillable = $this->getParentFillable($translation->getFillable());
+
+		$translation->fillable($fillable);
+
 		$attributes = array_add($attributes, 'locale_id', $this->getLocaleId());
 
-		$model = new $this->translatorInstance((array) $attributes);
+		$translation->fill((array) $attributes);
 
-		$model->exists = $exists;
+		$translation->exists = $exists;
 
-		return $model;
+		return $translation;
 	}
 
 	/**
@@ -274,6 +280,21 @@ trait TranslatorTrait {
 		}
 
 		return App::make(Config::get('translator::locale'));
+	}
+
+	/**
+	 * Get the fillable attributes.
+	 *
+	 * @param array $defaults
+	 * @return array
+	 */
+	private function getParentFillable($defaults = [])
+	{
+		$fillable = $this->getFillable();
+
+		array_push($fillable, 'locale_id');
+
+		return array_merge($fillable, $defaults);
 	}
 
 	/**
