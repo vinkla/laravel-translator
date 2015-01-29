@@ -188,16 +188,16 @@ class LocaleTableSeeder extends Seeder {
 
 That's it! You're done. Now you can do:
 ```php
-<h1>{{ $article->translate()->title }}</h1>
-<img src="{{ $article->thumbnail }}">
-<p>{{ $article->translate()->content }}</p>
-```
-
-With a little magic from the `$translatedAttributes` array you can even do this:
-```php
 <h1>{{ $article->title }}</h1>
 <img src="{{ $article->thumbnail }}">
 <p>{{ $article->content }}</p>
+```
+
+If you want to fetch a specific translation that isn't the current one you can specify it in the translate method as in the example below.
+```php
+<h1>{{ $article->translate('sv')->title }}</h1>
+<img src="{{ $article->thumbnail }}">
+<p>{{ $article->translate('sv')->content }}</p>
 ```
 
 ## Contributing
