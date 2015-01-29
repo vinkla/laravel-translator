@@ -204,6 +204,11 @@ trait TranslatorTrait {
 		return $this->getLocale($locale ?: App::getLocale())->id;
 	}
 
+	/**
+	 * Get the fallback locale set within the app.
+	 *
+	 * @return mixed
+	 */
 	private function getFallackLocaleId()
 	{
 		return $this->getLocaleId(Config::get('app.fallback_locale'));
