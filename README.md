@@ -115,7 +115,8 @@ class Locale extends Model {
 }
 ```
 
-Here's an example of a translatable Laravel Eloquent model.
+Here's an example of a translatable Laravel Eloquent model. Remember to fill the `$fillable` array the translatable attributes.
+
 
 ```php
 <?php namespace Acme\Articles;
@@ -130,7 +131,7 @@ class Article extends Model {
 	/**
 	 * @var array
 	 */
-	protected $fillable = ['thumbnail'];
+	protected $fillable = ['title', 'content', 'thumbnail'];
 
 	/**
 	 * @var string
@@ -145,20 +146,13 @@ class Article extends Model {
 }
 ```
 
-The ArticleTranslation basically is an empty Eloquent object. The only thing you will need to add is the `$fillable` array with the `locale_id` and your translatable attributes.
+The ArticleTranslation basically is an empty Eloquent object.
 ```php
 <?php namespace Acme\Articles;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ArticleTranslation extends Model {
-
-	/**
-	 * @var array
-	 */
-	protected $fillable = ['title', 'content', 'locale_id'];
-
-}
+class ArticleTranslation extends Model {}
 ```
 
 ## Seed
