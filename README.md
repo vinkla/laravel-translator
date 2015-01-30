@@ -26,7 +26,7 @@ Read more about how this package was created and why it exists [in this blog pos
 Require this package, with [Composer](https://getcomposer.org/), in the root directory of your project.
 
 ```bash
-composer require vinkla/translator:~1.0
+composer require vinkla/translator
 ```
 
 Add the service provider to `config/app.php` in the providers array.
