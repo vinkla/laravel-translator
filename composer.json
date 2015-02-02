@@ -11,16 +11,22 @@
 		}
 	],
 	"require": {
-		"php": ">=5.4.0",
-		"illuminate/support": "~4.0"
+		"php": ">=5.4.7",
+		"illuminate/support": "~5.0"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "~4.0"
+		"graham-campbell/testbench": "~2.0"
 	},
 	"autoload": {
 		"psr-0": {
 			"Vinkla\\Translator": "src/"
 		}
 	},
-	"minimum-stability": "stable"
+	"autoload-dev": {
+		"psr-4": {
+			"Vinkla\\Tests\\Translator\\": "tests/"
+		}
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
 }

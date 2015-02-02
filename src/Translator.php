@@ -25,4 +25,5 @@ abstract class Translator {
 	{
 		return $this->entity->{$property};
 	}
+
 }

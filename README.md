@@ -40,6 +40,14 @@ To add the configuration files to the `app/config/packages` directory, run the c
 php artisan config:publish vinkla/translator
 ```
 
+#### Looking for a Laravel 4 compatible version?
+
+Please use `1.0` branch instead. Installable by requiring:
+
+```bash
+composer require "vinkla/translator=~1.0"
+```
+
 ## Documentation
 
 Below we have examples of [migrations](#migrations), [models](#models), [seeds](#seeds) and [templates](#templates).
