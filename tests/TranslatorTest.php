@@ -1,5 +1,6 @@
 <?php namespace Vinkla\Tests\Translator;
 
+use PHPUnit_Framework_TestCase;
 use Vinkla\Translator\TranslatorTrait;
 
 class TranslatorTest extends PHPUnit_Framework_TestCase {
@@ -9,11 +10,6 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	public function setUp()
 	{
 		$this->foo = new Foo();
-	}
-
-	public function testThatTranslatorIsInitiated()
-	{
-		$this->assertInstanceOf($this->foo->translator, new FooTranslation());
 	}
 
 	public function testTranslatorTrait()
@@ -39,13 +35,11 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 }
 
 class Foo {
-
 	use TranslatorTrait;
 
 	public $translator = 'FooTranslation';
 
 	public $translatedAttributes = ['one', 'two'];
-
 }
 
 class FooTranslation {}

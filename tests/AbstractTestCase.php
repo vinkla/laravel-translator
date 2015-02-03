@@ -13,7 +13,7 @@ class AbstractTestCase extends AbstractPackageTestCase {
 	 */
 	protected function getServiceProviderClass($app)
 	{
-		return 'Vinkla\Vimeo\VimeoServiceProvider';
+		return 'Vinkla\Translator\TranslatorServiceProvider';
 	}
 
 }

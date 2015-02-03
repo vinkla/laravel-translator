@@ -18,8 +18,8 @@
 		"graham-campbell/testbench": "~2.0"
 	},
 	"autoload": {
-		"psr-0": {
-			"Vinkla\\Translator": "src/"
+		"psr-4": {
+			"Vinkla\\Translator\\": "src/"
 		}
 	},
 	"autoload-dev": {
