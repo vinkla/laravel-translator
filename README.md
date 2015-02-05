@@ -1,7 +1,7 @@
 Laravel Translator
 ==================
 
-Please **NOTE** the master branch is under development for Laravel 5.
+> Please **NOTE** the master branch is under development for Laravel 5.
 
 ![image](https://raw.githubusercontent.com/vinkla/vinkla.github.io/master/images/laravel-translator.png)
 
