@@ -1,8 +1,6 @@
 Laravel Translator
 ==================
 
-> Please **NOTE** the master branch is under development for Laravel 5.
-
 ![image](https://raw.githubusercontent.com/vinkla/vinkla.github.io/master/images/laravel-translator.png)
 
 This package gives you an easy way to translate Eloquent models into multiple languages.
@@ -20,15 +18,15 @@ echo $foo->title;
 Read more about how this package was created and why it exists [in this blog post](http://vinkla.com/2014/11/laravel-translator/).
 
 [![Build Status](https://img.shields.io/travis/vinkla/translator/master.svg?style=flat)](https://travis-ci.org/vinkla/translator)
-	[![Latest Stable Version](http://img.shields.io/packagist/v/vinkla/translator.svg?style=flat)](https://packagist.org/packages/vinkla/translator)
-	[![License](https://img.shields.io/packagist/l/vinkla/translator.svg?style=flat)](https://packagist.org/packages/vinkla/translator)
+[![Latest Stable Version](http://img.shields.io/packagist/v/vinkla/translator.svg?style=flat)](https://packagist.org/packages/vinkla/translator)
+[![License](https://img.shields.io/packagist/l/vinkla/translator.svg?style=flat)](https://packagist.org/packages/vinkla/translator)
 
 ## Installation
 
 Require this package, with [Composer](https://getcomposer.org/), in the root directory of your project.
 
 ```bash
-composer require vinkla/translator
+composer require vinkla/translator:~2.0
 ```
 
 Add the service provider to `config/app.php` in the providers array.
@@ -42,7 +40,7 @@ Add the service provider to `config/app.php` in the providers array.
 Please use `1.0` branch instead. Installable by requiring:
 
 ```bash
-composer require "vinkla/translator=~1.0"
+composer require vinkla/translator:~1.0
 ```
 
 ## Configuration
@@ -135,8 +133,9 @@ Here's an example of a translatable Laravel Eloquent model. Remember to fill the
 
 use Illuminate\Database\Eloquent\Model;
 use Vinkla\Translator\Translatable;
+use Vinkla\Translator\Contracts\Translatable as TranslatableContract;
 
-class Article extends Model {
+class Article extends Model implements TranslatableContract {
 
 	use Translatable;
 
