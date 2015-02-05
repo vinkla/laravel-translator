@@ -12,6 +12,7 @@ class TranslatorServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->setupConfig();
+		$this->setupMigrations();
 	}
 
 	/**
@@ -27,12 +28,21 @@ class TranslatorServiceProvider extends ServiceProvider {
 	}
 
 	/**
+	 * Setup the migrations.
+	 *
+	 * @return void
+	 */
+	protected function setupMigrations()
+	{
+		$source = realpath(__DIR__.'/../database/migrations/');
+		$this->publishes([$source => base_path('/database/migrations')], 'migrations');
+	}
+
+	/**
 	 * Register the service provider.
 	 *
 	 * @return void
 	 */
-	public function register()
-	{
-	}
+	public function register() {}
 
 }
