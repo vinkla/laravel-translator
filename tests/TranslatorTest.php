@@ -1,7 +1,8 @@
 <?php namespace Vinkla\Tests\Translator;
 
 use PHPUnit_Framework_TestCase;
-use Vinkla\Translator\TranslatorTrait;
+use Vinkla\Translator\Translatable;
+use Vinkla\Translator\Contracts\Translatable as TranslatableContract;
 
 class TranslatorTest extends PHPUnit_Framework_TestCase {
 
@@ -34,8 +35,9 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 
 }
 
-class Foo {
-	use TranslatorTrait;
+class Foo implements TranslatableContract {
+	
+	use Translatable;
 
 	public $translator = 'FooTranslation';
 
