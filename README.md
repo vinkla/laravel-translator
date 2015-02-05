@@ -37,17 +37,19 @@ Add the service provider to `config/app.php` in the providers array.
 'Vinkla\Translator\TranslatorServiceProvider'
 ```
 
-To add the configuration files to the `app/config/packages` directory, run the command below.
-```bash
-php artisan config:publish vinkla/translator
-```
-
 #### Looking for a Laravel 4 compatible version?
 
 Please use `1.0` branch instead. Installable by requiring:
 
 ```bash
 composer require "vinkla/translator=~1.0"
+```
+
+## Configuration
+
+To add the configuration files to the `app/config/packages` directory, run the command below.
+```bash
+php artisan vendor:publish
 ```
 
 ## Documentation
@@ -132,11 +134,11 @@ Here's an example of a translatable Laravel Eloquent model. Remember to fill the
 <?php namespace Acme\Articles;
 
 use Illuminate\Database\Eloquent\Model;
-use Vinkla\Translator\TranslatorTrait;
+use Vinkla\Translator\Translatable;
 
 class Article extends Model {
 
-	use TranslatorTrait;
+	use Translatable;
 
 	/**
 	 * @var array

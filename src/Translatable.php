@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 
-trait TranslatorTrait {
+trait Translatable {
 
 	/**
 	 * The current translation.
