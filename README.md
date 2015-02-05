@@ -45,7 +45,7 @@ composer require vinkla/translator:~1.0
 
 ## Configuration
 
-Laravel Translator requires locales configuration. To get started, you'll need to publish all vendor assets:
+Laravel Translator requires configuration. To get started, you'll need to publish all vendor assets:
 ```bash
 php artisan vendor:publish
 ```
