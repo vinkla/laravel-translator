@@ -260,7 +260,7 @@ trait Translatable {
 	 */
 	private function getLocaleColumn()
 	{
-		return Config::get('translator::column') ?: 'language';
+		return Config::get('translator.column') ?: 'language';
 	}
 
 	/**
@@ -271,14 +271,14 @@ trait Translatable {
 	 */
 	private function getLocaleInstance()
 	{
-		if (!Config::has('translator::locale'))
+		if (!Config::has('translator.locale'))
 		{
 			throw new TranslatorException(
 				"Please set the 'locale' property in the configuration to your Locale model path."
 			);
 		}
 
-		return App::make(Config::get('translator::locale'));
+		return App::make(Config::get('translator.locale'));
 	}
 
 	/**
@@ -304,7 +304,7 @@ trait Translatable {
 	 */
 	private function useFallback()
 	{
-		return (bool) Config::get('translator::fallback');
+		return (bool) Config::get('translator.fallback');
 	}
 
 	/**

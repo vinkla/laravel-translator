@@ -45,10 +45,23 @@ composer require vinkla/translator:~1.0
 
 ## Configuration
 
-To add the configuration files to the `app/config/packages` directory, run the command below.
+Laravel Translator requires locales configuration. To get started, you'll need to publish all vendor assets:
 ```bash
 php artisan vendor:publish
 ```
+
+This will create a `config/translator.php` file in your app that you can modify to set your configuration. Also, make sure you check for changes to the original config file in this package between releases.
+
+This also creates a default locales migration in your `database/migrations` directory.
+
+#### Locale Eloquent Model
+This option `locale` is your full namespaced path for the `Locale` Eloquent object.
+
+#### Locale Identifier Column
+This option `column` is the column in your `locales` table which you want to compare the current set locale in your application. This column is compared with the `App::getLocale()` method to fetch the translations.
+
+#### Fallback Support
+This option `fallback` check whether you want to use the fallback translations if the current translation doesn't exist.
 
 ## Documentation
 
@@ -67,10 +80,7 @@ Schema::create('locales', function(Blueprint $table)
 });
 ```
 
-This example migration comes out of the box with this package. Run the command below to add it in your database.
-```bash
-php artisan migrate --package="vinkla/translator"
-```
+This example migration comes out of the box with this package. When you run `endor:publish` a default locales migration will be added to you `database/migrations` directory.
 
 Add the Laravel migration for the base table which you want to translate.
 
