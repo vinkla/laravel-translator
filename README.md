@@ -218,10 +218,6 @@ If you want to fetch a specific translation that isn't the current one you can s
 ## Example
 If you want a working example you can visit the [example respository](https://github.com/vinkla/translator-example) for this package. It's a Laravel 5 application that utilies the translator package.
 
-## Contributing
-
-Thank you for considering contributing to the Translator package. If you are submitting a bug-fix, or an enhancement that is **not** a breaking change, submit your pull request to the the latest stable release of the package, the `master` branch. If you are submitting a breaking change or an entirely new component, submit your pull request to the `develop` branch.
-
 ## License
 
 The Translator package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
