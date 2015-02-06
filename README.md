@@ -65,7 +65,7 @@ This option `fallback` check whether you want to use the fallback translations i
 
 ## Documentation
 
-Below we have examples of [migrations](#migrations), [models](#models), [seeds](#seeds) and [templates](#templates).
+Below we have examples of [migrations](#migrations), [models](#models), [seeds](#seeds) and [templates](#templates). There also is an [example](#example) application that you can use as reference.
 
 ## Migrations
 
@@ -214,6 +214,9 @@ If you want to fetch a specific translation that isn't the current one you can s
 <img src="{{ $article->thumbnail }}">
 <p>{{ $article->translate('sv')->content }}</p>
 ```
+
+## Example
+If you want a working example you can visit the [example respository](https://github.com/vinkla/translator) for this package. It's a Laravel 5 application that utilies the translator package.
 
 ## Contributing
 

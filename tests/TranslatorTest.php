@@ -36,7 +36,6 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 }
 
 class Foo implements TranslatableContract {
-	
 	use Translatable;
 
 	public $translator = 'FooTranslation';
