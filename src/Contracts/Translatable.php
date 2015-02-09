@@ -1,9 +1,11 @@
-<?php namespace Vinkla\Translator\Contracts;
+<?php
+
+namespace Vinkla\Translator\Contracts;
 
 use Vinkla\Translator\Exceptions\TranslatorException;
 
-interface Translatable {
-
+interface Translatable
+{
 	/**
 	 * Prepare a translator instance and fetch translations.
 	 *
@@ -19,5 +21,4 @@ interface Translatable {
 	 * @return mixed
 	 */
 	public function translations();
-
 }

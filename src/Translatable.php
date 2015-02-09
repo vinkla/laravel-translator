@@ -1,12 +1,14 @@
-<?php namespace Vinkla\Translator;
+<?php
+
+namespace Vinkla\Translator;
 
 use Vinkla\Translator\Exceptions\TranslatorException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 
-trait Translatable {
-
+trait Translatable
+{
 	/**
 	 * The current translation.
 	 *
@@ -43,29 +45,30 @@ trait Translatable {
 	 */
 	private function getTranslation($exists = true, $locale = null)
 	{
-		if (!$this->translator || !class_exists($this->translator))
-		{
+		if (!$this->translator || !class_exists($this->translator)) {
 			throw new TranslatorException('Please set the $translator property to your translation model path.');
 		}
 
-		if (!$this->translatorInstance)
-		{
+		if (!$this->translatorInstance) {
 			$this->translatorInstance = new $this->translator();
 		}
 
 		// If there already is a current translation, use it.
-		if ($this->translation) { return $this->translation; }
+		if ($this->translation) {
+			return $this->translation;
+		}
 
 		// Fetch the translation by their locale id.
 		$translation = $this->getTranslationByLocaleId(
 			$this->getLocaleId($locale)
 		);
 
-		if ($translation) { return $translation; }
+		if ($translation) {
+			return $translation;
+		}
 
 		// Fetch fallback translation if its set in the config.
-		if ($exists && $this->useFallback())
-		{
+		if ($exists && $this->useFallback()) {
 			return $this->getTranslationByLocaleId(
 				$this->getFallackLocaleId()
 			);
@@ -87,18 +90,17 @@ trait Translatable {
 	{
 		$totallyGuarded = $this->totallyGuarded();
 
-		foreach ($attributes as $key => $value)
-		{
-			if (!in_array($key, $this->translatedAttributes)) { continue; }
+		foreach ($attributes as $key => $value) {
+
+			if (!in_array($key, $this->translatedAttributes)) {
+				continue;
+			}
 
 			$this->translation = $this->getTranslation(false);
 
-			if ($this->isFillable($key))
-			{
+			if ($this->isFillable($key)) {
 				$this->setAttribute($key, $value);
-			}
-			elseif ($totallyGuarded)
-			{
+			} elseif ($totallyGuarded) {
 				throw new MassAssignmentException($key);
 			}
 
@@ -118,8 +120,7 @@ trait Translatable {
 	{
 		$saved = parent::save($options);
 
-		if ($saved && $this->translation)
-		{
+		if ($saved && $this->translation) {
 			$this->translations()->save($this->translation);
 		}
 
@@ -136,8 +137,7 @@ trait Translatable {
 	{
 		$updated = parent::update($attributes);
 
-		if ($updated)
-		{
+		if ($updated) {
 			$this->translations()->save($this->translation);
 		}
 
@@ -153,8 +153,7 @@ trait Translatable {
 	 */
 	public function setAttribute($key, $value)
 	{
-		if (in_array($key, $this->translatedAttributes))
-		{
+		if (in_array($key, $this->translatedAttributes)) {
 			return $this->getTranslation()->$key = $value;
 		}
 
@@ -169,8 +168,7 @@ trait Translatable {
 	 */
 	public function getAttribute($key)
 	{
-		if (in_array($key, $this->translatedAttributes))
-		{
+		if (in_array($key, $this->translatedAttributes)) {
 			return $this->getTranslation() ? $this->getTranslation()->$key : null;
 		}
 
@@ -271,10 +269,9 @@ trait Translatable {
 	 */
 	private function getLocaleInstance()
 	{
-		if (!Config::has('translator.locale'))
-		{
+		if (!Config::has('translator.locale')) {
 			throw new TranslatorException(
-				"Please set the 'locale' property in the configuration to your Locale model path."
+				'Please set the \'locale\' property in the configuration to your Locale model path.'
 			);
 		}
 
@@ -316,5 +313,4 @@ trait Translatable {
 	{
 		return $this->hasMany($this->translator);
 	}
-
 }

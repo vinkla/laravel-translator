@@ -1,9 +1,11 @@
-<?php namespace Vinkla\Translator;
+<?php
+
+namespace Vinkla\Translator;
 
 use Illuminate\Support\ServiceProvider;
 
-class TranslatorServiceProvider extends ServiceProvider {
-
+class TranslatorServiceProvider extends ServiceProvider
+{
 	/**
 	 * Boot the service provider.
 	 *
@@ -44,5 +46,4 @@ class TranslatorServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register() {}
-
 }

@@ -1,7 +1,9 @@
-<?php namespace Vinkla\Translator;
+<?php
 
-abstract class Translator {
+namespace Vinkla\Translator;
 
+abstract class Translator
+{
 	/**
 	 * @var mixed
 	 */
@@ -25,5 +27,4 @@ abstract class Translator {
 	{
 		return $this->entity->{$property};
 	}
-
 }
