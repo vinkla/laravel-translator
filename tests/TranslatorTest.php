@@ -25,7 +25,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException Vinkla\Translator\Exceptions\TranslatorException
+	 * @expectedException Exception
 	 */
 	public function testException()
 	{

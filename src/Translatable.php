@@ -2,6 +2,7 @@
 
 namespace Vinkla\Translator;
 
+use Exception;
 use Vinkla\Translator\Exceptions\TranslatorException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Support\Facades\App;
@@ -46,7 +47,7 @@ trait Translatable
 	private function getTranslation($exists = true, $locale = null)
 	{
 		if (!$this->translator || !class_exists($this->translator)) {
-			throw new TranslatorException('Please set the $translator property to your translation model path.');
+			throw new Exception('Please set the $translator property to your translation model path.');
 		}
 
 		if (!$this->translatorInstance) {
