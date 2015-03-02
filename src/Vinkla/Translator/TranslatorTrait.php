@@ -201,13 +201,9 @@ trait TranslatorTrait {
 	 */
 	private function getLocaleId($locale = null)
 	{
-		$existLocale = $this->getLocale($locale ?: App::getLocale());
-
-		if (is_null($existLocale)) {
-			return $this->getFallbackLocaleId();
-		}
-
-		return $this->getLocale($locale ?: App::getLocale())->id;
+		$exist = $this->getLocale($locale ?: App::getLocale());
+		
+		return $exist ? $exist->id : null;
 	}
 
 	/**
