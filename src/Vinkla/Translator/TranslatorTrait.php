@@ -68,7 +68,7 @@ trait TranslatorTrait {
 		if ($exists && $this->useFallback())
 		{
 			return $this->getTranslationByLocaleId(
-				$this->getFallackLocaleId()
+				$this->getFallbackLocaleId()
 			);
 		}
 
@@ -201,6 +201,12 @@ trait TranslatorTrait {
 	 */
 	private function getLocaleId($locale = null)
 	{
+		$existLocale = $this->getLocale($locale ?: App::getLocale());
+
+		if (is_null($existLocale)) {
+			return $this->getFallbackLocaleId();
+		}
+
 		return $this->getLocale($locale ?: App::getLocale())->id;
 	}
 
@@ -209,7 +215,7 @@ trait TranslatorTrait {
 	 *
 	 * @return mixed
 	 */
-	private function getFallackLocaleId()
+	private function getFallbackLocaleId()
 	{
 		return $this->getLocaleId(Config::get('app.fallback_locale'));
 	}
