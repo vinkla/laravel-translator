@@ -121,17 +121,18 @@ Schema::create('article_translations', function(Blueprint $table)
 Firstly you'll need to setup the `Locale` Eloquent model. Then add the `Locale` model path to the configuration file.
 
 ```php
-<?php namespace Acme\Locales;
+<?php
+
+namespace Acme\Locales;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Locale extends Model {
-
+class Locale extends Model
+{
 	/**
 	 * @var array
 	 */
 	protected $fillable = ['language'];
-
 }
 ```
 
@@ -139,7 +140,9 @@ Here's an example of a translatable Laravel Eloquent model. Remember to fill the
 
 
 ```php
-<?php namespace Acme\Articles;
+<?php
+
+namespace Acme\Articles;
 
 use Illuminate\Database\Eloquent\Model;
 use Vinkla\Translator\Translatable;
