@@ -171,7 +171,9 @@ class Article extends Model implements TranslatableContract
 
 The ArticleTranslation basically is an empty Eloquent object.
 ```php
-<?php namespace Acme\Articles;
+<?php
+
+namespace Acme\Articles;
 
 use Illuminate\Database\Eloquent\Model;
 
