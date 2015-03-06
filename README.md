@@ -148,8 +148,8 @@ use Illuminate\Database\Eloquent\Model;
 use Vinkla\Translator\Translatable;
 use Vinkla\Translator\Contracts\Translatable as TranslatableContract;
 
-class Article extends Model implements TranslatableContract {
-
+class Article extends Model implements TranslatableContract
+{
 	use Translatable;
 
 	/**
@@ -166,7 +166,6 @@ class Article extends Model implements TranslatableContract {
 	 * @var array
 	 */
 	protected $translatedAttributes = ['title', 'content'];
-
 }
 ```
 
