@@ -189,8 +189,8 @@ Before you start to populate your database with translations you'll need to add 
 use Acme\Locales\Locale;
 use Illuminate\Database\Seeder;
 
-class LocaleTableSeeder extends Seeder {
-
+class LocaleTableSeeder extends Seeder
+{
 	public function run()
 	{
 		$languages = ['en', 'sv', 'no'];
