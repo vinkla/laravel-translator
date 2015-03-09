@@ -4,43 +4,46 @@ use PHPUnit_Framework_TestCase;
 use Vinkla\Translator\Translatable;
 use Vinkla\Translator\Contracts\Translatable as TranslatableContract;
 
-class TranslatorTest extends PHPUnit_Framework_TestCase {
+class TranslatorTest extends PHPUnit_Framework_TestCase
+{
 
-	protected $foo;
+    protected $foo;
 
-	public function setUp()
-	{
-		$this->foo = new Foo();
-	}
+    public function setUp()
+    {
+        $this->foo = new Foo();
+    }
 
-	public function testTranslatorTrait()
-	{
-		$this->assertTrue(method_exists($this->foo, 'translate'));
-		$this->assertTrue(method_exists($this->foo, 'translations'));
-	}
+    public function testTranslatorTrait()
+    {
+        $this->assertTrue(method_exists($this->foo, 'translate'));
+        $this->assertTrue(method_exists($this->foo, 'translations'));
+    }
 
-	public function testTranslatedAttributes()
-	{
-		$this->assertTrue(is_array($this->foo->translatedAttributes));
-	}
+    public function testTranslatedAttributes()
+    {
+        $this->assertTrue(is_array($this->foo->translatedAttributes));
+    }
 
-	/**
-	 * @expectedException Exception
-	 */
-	public function testException()
-	{
-		$this->foo->translator = null;
-		$this->foo->translate()->title;
-	}
-
+    /**
+     * @expectedException Exception
+     */
+    public function testException()
+    {
+        $this->foo->translator = null;
+        $this->foo->translate()->title;
+    }
 }
 
-class Foo implements TranslatableContract {
-	use Translatable;
+class Foo implements TranslatableContract
+{
+    use Translatable;
 
-	public $translator = 'FooTranslation';
+    public $translator = 'FooTranslation';
 
-	public $translatedAttributes = ['one', 'two'];
+    public $translatedAttributes = ['one', 'two'];
 }
 
-class FooTranslation {}
+class FooTranslation
+{
+}
