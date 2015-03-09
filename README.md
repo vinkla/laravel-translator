@@ -18,6 +18,7 @@ echo $foo->title;
 Read more about how this package was created and why it exists [in this blog post](http://vinkla.com/2014/11/laravel-translator/).
 
 [![Build Status](https://img.shields.io/travis/vinkla/translator/master.svg?style=flat)](https://travis-ci.org/vinkla/translator)
+[![StyleCI](https://styleci.io/repos/24419399/shield?style=flat)](https://styleci.io/repos/24419399)
 [![Latest Stable Version](http://img.shields.io/packagist/v/vinkla/translator.svg?style=flat)](https://packagist.org/packages/vinkla/translator)
 [![License](https://img.shields.io/packagist/l/vinkla/translator.svg?style=flat)](https://packagist.org/packages/vinkla/translator)
 
