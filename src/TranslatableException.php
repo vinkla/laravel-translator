@@ -2,4 +2,6 @@
 
 namespace Vinkla\Translator;
 
-class TranslatableException extends \Exception {}
+class TranslatableException extends \Exception
+{
+}
