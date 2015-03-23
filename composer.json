@@ -1,14 +1,12 @@
 {
 	"name": "vinkla/translator",
 	"description": "Laravel translator for multilingual Eloquent objects.",
-	"homepage": "https://github.com/vinkla/translator",
 	"keywords": ["translations", "translator", "laravel", "language", "multilingual", "translation"],
 	"license": "MIT",
 	"authors": [
 		{
 			"name": "Vincent Klaiber",
-			"email": "hello@vinkla.com",
-			"homepage": "https://vinkla.com"
+			"email": "hello@vinkla.com"
 		}
 	],
 	"require": {
