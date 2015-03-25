@@ -1,8 +1,10 @@
-<?php namespace Vinkla\Tests\Translator;
+<?php 
+
+namespace Vinkla\Tests\Translator;
 
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
 
-class AbstractTestCase extends AbstractPackageTestCase
+abstract class AbstractTestCase extends AbstractPackageTestCase
 {
 
     /**

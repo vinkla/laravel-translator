@@ -1,4 +1,6 @@
-<?php namespace Vinkla\Tests\Translator;
+<?php 
+
+namespace Vinkla\Tests\Translator;
 
 use PHPUnit_Framework_TestCase;
 use Vinkla\Translator\Translatable;
