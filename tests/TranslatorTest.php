@@ -1,4 +1,13 @@
-<?php 
+<?php
+
+/*
+ * This file is part of Laravel Translator.
+ *
+ * (c) Vincent Klaiber <hello@vinkla.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Vinkla\Tests\Translator;
 
@@ -6,9 +15,13 @@ use PHPUnit_Framework_TestCase;
 use Vinkla\Translator\Translatable;
 use Vinkla\Translator\Contracts\Translatable as TranslatableContract;
 
+/**
+ * This is the translator test class.
+ *
+ * @author Vincent Klaiber <hello@vinkla.com>
+ */
 class TranslatorTest extends PHPUnit_Framework_TestCase
 {
-
     protected $foo;
 
     public function setUp()

@@ -1,11 +1,25 @@
 <?php
 
+/*
+ * This file is part of Laravel Translator.
+ *
+ * (c) Vincent Klaiber <hello@vinkla.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Vinkla\Translator;
 
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 
+/**
+ * This is the translatable trait.
+ *
+ * @author Vincent Klaiber <hello@vinkla.com>
+ */
 trait Translatable
 {
     /**
