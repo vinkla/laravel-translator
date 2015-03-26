@@ -225,4 +225,4 @@ If you want a working example you can visit the [example respository](https://gi
 
 ## License
 
-The Translator package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Laravel Translator is licensed under [The MIT License (MIT)](LICENSE).
