@@ -73,12 +73,12 @@ trait Translatable
         }
 
         // Fetch the translation by their locale id.
-        $translation = $this->getTranslationByLocaleId(
+        $this->translation = $this->getTranslationByLocaleId(
             $this->getLocaleId($locale)
         );
 
-        if ($translation) {
-            return $translation;
+        if ($this->translation) {
+            return $this->translation;
         }
 
         // Fetch fallback translation if its set in the config.
