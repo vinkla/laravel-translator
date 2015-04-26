@@ -187,6 +187,16 @@ trait Translatable
 
         return parent::getAttribute($key);
     }
+    
+    /**
+    * Get an attribute array of all arrayable attributes.
+    *
+    * @return array
+    */
+    protected function getArrayableAttributes()
+    {
+        return array_merge(parent::getArrayableAttributes($this->attributes), $this->getTranslation()->getArrayableAttributes());
+    }
 
     /**
      * Fetch the translation by their locale.
@@ -196,10 +206,16 @@ trait Translatable
      */
     private function getTranslationByLocaleId($localeId)
     {
-        return $this->translatorInstance
+        $translation = $this->translatorInstance
             ->where('locale_id', $localeId)
             ->where($this->getForeignKey(), $this->id)
             ->first();
+
+        if ($translation) {
+            $translation->visible = $this->translatedAttributes;
+        }
+
+        return $translation;
     }
 
     /**
@@ -254,6 +270,7 @@ trait Translatable
         $fillable = $this->getParentFillable($translation->getFillable());
 
         $translation->fillable($fillable);
+        $translation->visible = $this->translatedAttributes;
 
         $attributes = array_add($attributes, 'locale_id', $this->getLocaleId());
 
