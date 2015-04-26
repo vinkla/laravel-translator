@@ -75,11 +75,11 @@ trait Translatable
         }
 
         // Fetch the translation by their locale id.
-        $this->cachedTranslations[$localeId] = $this->getTranslationByLocaleId(
-            $localeId
-        );
+        $translation = $this->getTranslationByLocaleId($localeId);
 
-        if (isset($this->cachedTranslations[$localeId])) {
+        if ($translation) {
+            $this->cachedTranslations[$localeId] = $translation;
+
             return $this->cachedTranslations[$localeId];
         }
 
@@ -91,7 +91,7 @@ trait Translatable
         }
 
         // If we can't find any translation, return a new instance.
-        return $this->newTranslation(['locale_id' => $this->getLocaleId($locale)]);
+        return $this->newTranslation(['locale_id' => $localeId]);
     }
 
     /**
@@ -189,7 +189,7 @@ trait Translatable
 
         return parent::getAttribute($key);
     }
-    
+
     /**
     * Get an attribute array of all arrayable attributes.
     *
@@ -197,7 +197,10 @@ trait Translatable
     */
     protected function getArrayableAttributes()
     {
-        return array_merge(parent::getArrayableAttributes($this->attributes), $this->getTranslation()->getArrayableAttributes());
+        return array_merge(
+            parent::getArrayableAttributes($this->attributes),
+            $this->getTranslation()->getArrayableAttributes()
+        );
     }
 
     /**
