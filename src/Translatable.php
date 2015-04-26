@@ -210,8 +210,11 @@ trait Translatable
             ->where('locale_id', $localeId)
             ->where($this->getForeignKey(), $this->id)
             ->first();
-        $translation->visible = $this->translatedAttributes;
-        
+
+        if ($translation) {
+            $translation->visible = $this->translatedAttributes;
+        }
+
         return $translation;
     }
 
