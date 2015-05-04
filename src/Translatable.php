@@ -23,7 +23,15 @@ use Illuminate\Support\Facades\Config;
 trait Translatable
 {
     /**
-     * The current translation.
+    * The cached locales.
+    *
+    * @static
+    * @var array
+    */
+    protected static $cachedLocales = [];
+    
+    /**
+     * The cached translations.
      *
      * @var array
      */
@@ -254,11 +262,17 @@ trait Translatable
      */
     private function getLocale($locale)
     {
+        if (isset(self::$cachedLocales[$locale])) {
+            return self::$cachedLocales[$locale];
+        }
+
         $localeInstance = $this->getLocaleInstance();
 
         $column = $this->getLocaleColumn();
 
-        return $localeInstance->where($column, $locale)->first();
+        self::$cachedLocales[$locale] = $localeInstance->where($column, $locale)->first();
+
+        return self::$cachedLocales[$locale];
     }
 
     /**
