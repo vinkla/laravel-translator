@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1 (released 2015-05-07)
+
+- Add cached locales to minimize number of queries executed (#31)
+
 ## 2.1.0 (released 2015-04-26)
 
 - Add translated attributes to arrayable attributes (#28)
