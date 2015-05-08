@@ -11,7 +11,7 @@
 
 namespace Vinkla\Tests\Translator;
 
-/**
+/*
  * This is the abstract test case class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>

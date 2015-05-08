@@ -36,14 +36,6 @@ Add the service provider to `config/app.php` in the providers array.
 'Vinkla\Translator\TranslatorServiceProvider'
 ```
 
-#### Looking for a Laravel 4 compatible version?
-
-Please use [1.0 branch](https://github.com/vinkla/translator/tree/1.0) instead. Installable by requiring:
-
-```bash
-composer require vinkla/translator:~1.0
-```
-
 ## Configuration
 
 Laravel Translator requires configuration. To get started, you'll need to publish all vendor assets:

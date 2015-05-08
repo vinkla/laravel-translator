@@ -12,8 +12,8 @@
 namespace Vinkla\Tests\Translator;
 
 use PHPUnit_Framework_TestCase;
-use Vinkla\Translator\Translatable;
 use Vinkla\Translator\Contracts\Translatable as TranslatableContract;
+use Vinkla\Translator\Translatable;
 
 /**
  * This is the translator test class.

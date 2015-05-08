@@ -24,8 +24,10 @@ interface Translatable
      * Prepare a translator instance and fetch translations.
      *
      * @param null $locale
+     *
+     * @throws \Vinkla\Translator\TranslatorException
+     *
      * @return mixed
-     * @throws TranslatorException
      */
     public function translate($locale = null);
 

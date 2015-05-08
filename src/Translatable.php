@@ -23,13 +23,14 @@ use Illuminate\Support\Facades\Config;
 trait Translatable
 {
     /**
-    * The cached locales.
-    *
-    * @static
-    * @var array
-    */
+     * The cached locales.
+     *
+     * @static
+     *
+     * @var array
+     */
     protected static $cachedLocales = [];
-    
+
     /**
      * The cached translations.
      *
@@ -48,8 +49,10 @@ trait Translatable
      * Prepare a translator instance and fetch translations.
      *
      * @param null $locale
+     *
+     * @throws \Vinkla\Translator\TranslatorException
+     *
      * @return mixed
-     * @throws TranslatorException
      */
     public function translate($locale = null)
     {
@@ -62,8 +65,9 @@ trait Translatable
      * @param bool $exists
      * @param null $locale
      *
+     * @throws \Vinkla\Translator\TranslatorException
+     *
      * @return mixed
-     * @throws TranslatableException
      */
     private function getTranslation($exists = true, $locale = null)
     {
@@ -106,9 +110,10 @@ trait Translatable
      * Fill the model with an array of attributes.
      *
      * @param array $attributes
-     * @return $this
      *
      * @throws \Illuminate\Database\Eloquent\MassAssignmentException
+     *
+     * @return $this
      */
     public function fill(array $attributes)
     {
@@ -137,6 +142,7 @@ trait Translatable
      * Save the model to the database.
      *
      * @param array $options
+     *
      * @return bool
      */
     public function save(array $options = [])
@@ -154,6 +160,7 @@ trait Translatable
      * Update the model in the database.
      *
      * @param array $attributes
+     *
      * @return bool|int
      */
     public function update(array $attributes = [])
@@ -172,6 +179,7 @@ trait Translatable
      *
      * @param $key
      * @param $value
+     *
      * @return mixed
      */
     public function setAttribute($key, $value)
@@ -187,6 +195,7 @@ trait Translatable
      * Get an attribute from the model.
      *
      * @param $key
+     *
      * @return mixed
      */
     public function getAttribute($key)
@@ -199,10 +208,10 @@ trait Translatable
     }
 
     /**
-    * Get an attribute array of all arrayable attributes.
-    *
-    * @return array
-    */
+     * Get an attribute array of all arrayable attributes.
+     *
+     * @return array
+     */
     protected function getArrayableAttributes()
     {
         return array_merge(
@@ -215,6 +224,7 @@ trait Translatable
      * Fetch the translation by their locale.
      *
      * @param $localeId
+     *
      * @return mixed
      */
     private function getTranslationByLocaleId($localeId)
@@ -235,8 +245,10 @@ trait Translatable
      * Get the current locale set within the app.
      *
      * @param null $locale
+     *
+     * @throws \Vinkla\Translator\TranslatorException
+     *
      * @return mixed
-     * @throws TranslatorException
      */
     private function getLocaleId($locale = null)
     {
@@ -257,8 +269,10 @@ trait Translatable
      * Fetch a locale by its locale.
      *
      * @param $locale
+     *
+     * @throws \Vinkla\Translator\TranslatorException
+     *
      * @return mixed
-     * @throws TranslatorException
      */
     private function getLocale($locale)
     {
@@ -280,6 +294,7 @@ trait Translatable
      *
      * @param array $attributes
      * @param bool $exists
+     *
      * @return mixed
      */
     private function newTranslation($attributes = [], $exists = false)
@@ -315,8 +330,9 @@ trait Translatable
     /**
      * Fetch the locale instance.
      *
+     * @throws \Vinkla\Translator\TranslatorException
+     *
      * @return mixed
-     * @throws TranslatableException
      */
     private function getLocaleInstance()
     {
@@ -333,6 +349,7 @@ trait Translatable
      * Get the fillable attributes.
      *
      * @param array $defaults
+     *
      * @return array
      */
     private function getParentFillable($defaults = [])
