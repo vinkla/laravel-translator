@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.0 (released 2015-05-08)
+
+- Support both Laravel 5.0 and 5.1
+- Dropped PHP 5.4 support
+
 ## 2.1.1 (released 2015-05-07)
 
 - Add cached locales to minimize number of queries executed (#31)
