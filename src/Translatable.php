@@ -77,6 +77,13 @@ trait Translatable
 
         if (!$this->translatorInstance) {
             $this->translatorInstance = new $this->translator();
+
+            // If translations have been eager loaded, copy them to the cache.
+            if (array_key_exists('translations', $this->relations)) {
+                foreach ($this->translations as $translation) {
+                    $this->cachedTranslations[$translation->locale_id] = $translation;
+                }
+            }
         }
 
         $localeId = $this->getLocaleId($locale);
