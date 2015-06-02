@@ -1,36 +1,36 @@
 {
-	"name": "vinkla/translator",
-	"description": "Laravel translator for Eloquent objects",
-	"keywords": ["translations", "translator", "laravel", "language", "multilingual", "translation"],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Vincent Klaiber",
-			"email": "hello@vinkla.com"
-		}
-	],
-	"require": {
-		"php": ">=5.5.9",
-		"illuminate/support": "5.0.*|5.1.*"
-	},
-	"require-dev": {
-		"graham-campbell/testbench": "~2.1"
-	},
-	"autoload": {
-		"psr-4": {
-			"Vinkla\\Translator\\": "src/"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Vinkla\\Tests\\Translator\\": "tests/"
-		}
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "3.0-dev"
-		}
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true
+    "name": "vinkla/translator",
+    "description": "Laravel translator for Eloquent objects",
+    "keywords": ["translations", "translator", "laravel", "language", "multilingual", "translation"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vincent Klaiber",
+            "email": "hello@vinkla.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/support": "5.0.*|5.1.*"
+    },
+    "require-dev": {
+        "graham-campbell/testbench": "~2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vinkla\\Translator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vinkla\\Tests\\Translator\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
