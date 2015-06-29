@@ -39,7 +39,11 @@ class TranslatorServiceProvider extends ServiceProvider
     protected function setupConfig()
     {
         $source = realpath(__DIR__.'/../config/translator.php');
-        $this->publishes([$source => config_path('translator.php')]);
+        
+        if (class_exists('Illuminate\Foundation\Application', false)) {
+            $this->publishes([$source => config_path('translator.php')]);
+        }
+        
         $this->mergeConfigFrom($source, 'translator');
     }
 
