@@ -11,8 +11,6 @@
 
 namespace Vinkla\Translator\Contracts;
 
-use Vinkla\Translator\Exceptions\TranslatorException;
-
 /**
  * This is the translatable trait interface.
  *
