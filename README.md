@@ -212,9 +212,6 @@ If you want to fetch a specific translation that isn't the current one you can s
 <p>{{ $article->translate('sv')->content }}</p>
 ```
 
-## Example
-If you want a working example you can visit the [example respository](https://github.com/vinkla/translator-example) for this package. It's a Laravel 5 application that utilies the translator package.
-
 ## License
 
 Laravel Translator is licensed under [The MIT License (MIT)](LICENSE).
