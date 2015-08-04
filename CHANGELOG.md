@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.0.0 (upcoming)
+
+- Update testbench
+
 ## 2.2.0 (released 2015-05-08)
 
 - Support both Laravel 5.0 and 5.1
