@@ -55,6 +55,7 @@ class TranslatorServiceProvider extends ServiceProvider
     protected function setupMigrations()
     {
         $source = realpath(__DIR__.'/../database/migrations/');
+
         $this->publishes([$source => base_path('/database/migrations')], 'migrations');
     }
 

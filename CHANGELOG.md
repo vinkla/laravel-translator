@@ -3,6 +3,7 @@
 ## 3.0.0 (upcoming)
 
 - Update testbench
+- Lumen support
 
 ## 2.2.0 (released 2015-05-08)
 
