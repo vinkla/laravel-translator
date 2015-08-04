@@ -11,6 +11,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * This is the locales table seeder class.
@@ -27,8 +28,7 @@ class CreateLocalesTable extends Migration
     public function up()
     {
         Schema::create('locales', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('language', 2);
+            $table->string('id', 2)->index()->primary();
             $table->timestamps();
         });
     }
