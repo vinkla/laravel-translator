@@ -16,7 +16,7 @@ namespace Vinkla\Translator\Contracts;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-interface Translatable
+interface TranslatableInterface
 {
     /**
      * Prepare a translator instance and fetch translations.
