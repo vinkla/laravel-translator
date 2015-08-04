@@ -12,7 +12,7 @@
 namespace Vinkla\Tests\Translator;
 
 use PHPUnit_Framework_TestCase;
-use Vinkla\Translator\Contracts\Translatable as TranslatableContract;
+use Vinkla\Translator\TranslatableInterface;
 use Vinkla\Translator\Translatable;
 
 /**
@@ -50,7 +50,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class Foo implements TranslatableContract
+class Foo implements TranslatableInterface
 {
     use Translatable;
 

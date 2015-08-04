@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Vinkla\Translator\Contracts;
+namespace Vinkla\Translator;
 
 /**
  * This is the translatable trait interface.
