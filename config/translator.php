@@ -21,19 +21,7 @@ return [
     |
     */
 
-    'locale' => 'Acme\Locales\Locale',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Locale Identifier Column
-    |--------------------------------------------------------------------------
-    |
-    | Specify the column key that you want to compare with when fetching
-    | translations trough the App::getLocale() method.
-    |
-    */
-
-    'column' => 'language',
+    'locale' => 'App\Locale',
 
     /*
     |--------------------------------------------------------------------------

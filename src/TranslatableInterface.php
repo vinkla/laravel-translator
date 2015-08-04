@@ -21,7 +21,7 @@ interface TranslatableInterface
     /**
      * Prepare a translator instance and fetch translations.
      *
-     * @param null $locale
+     * @param string|null $locale
      *
      * @throws \Vinkla\Translator\TranslatorException
      *
@@ -30,9 +30,9 @@ interface TranslatableInterface
     public function translate($locale = null);
 
     /**
-     * Setup a one-to-many relation.
+     * Get the translations relation.
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function translations();
 }

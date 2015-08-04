@@ -23,13 +23,11 @@ use Illuminate\Support\Facades\Config;
 trait Translatable
 {
     /**
-     * The cached locales.
+     * The translation instance.
      *
-     * @static
-     *
-     * @var array
+     * @var mixed
      */
-    protected static $cachedLocales = [];
+    protected $translatorInstance;
 
     /**
      * The cached translations.
@@ -39,16 +37,16 @@ trait Translatable
     protected $cachedTranslations = [];
 
     /**
-     * The translation instance.
+     * The cached locales.
      *
-     * @var mixed
+     * @var array
      */
-    protected $translatorInstance;
+    protected static $cachedLocales = [];
 
     /**
      * Prepare a translator instance and fetch translations.
      *
-     * @param null $locale
+     * @param string|null $locale
      *
      * @throws \Vinkla\Translator\TranslatorException
      *
@@ -184,10 +182,10 @@ trait Translatable
     /**
      * Set a given attribute on the model.
      *
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param string|int|bool $value
      *
-     * @return mixed
+     * @return void
      */
     public function setAttribute($key, $value)
     {
@@ -195,13 +193,13 @@ trait Translatable
             return $this->getTranslation()->$key = $value;
         }
 
-        return parent::setAttribute($key, $value);
+        parent::setAttribute($key, $value);
     }
 
     /**
      * Get an attribute from the model.
      *
-     * @param $key
+     * @param string $key
      *
      * @return mixed
      */
@@ -232,7 +230,7 @@ trait Translatable
      *
      * @param $localeId
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     private function getTranslationByLocaleId($localeId)
     {
@@ -255,7 +253,7 @@ trait Translatable
      *
      * @throws \Vinkla\Translator\TranslatorException
      *
-     * @return mixed
+     * @return int
      */
     private function getLocaleId($locale = null)
     {
@@ -269,7 +267,7 @@ trait Translatable
      */
     private function getFallackLocaleId()
     {
-        return $this->getLocaleId(Config::get('app.fallback_locale'));
+        return $this->getLocaleId(Config::get('app.fallback_locale', 'en'));
     }
 
     /**
@@ -331,7 +329,7 @@ trait Translatable
      */
     private function getLocaleColumn()
     {
-        return Config::get('translator.column') ?: 'language';
+        return Config::get('translator.column', 'id');
     }
 
     /**
@@ -369,20 +367,19 @@ trait Translatable
     }
 
     /**
-     * Check if whether we should fetch the
-     * fallback translation or not.
+     * Check if whether we should fetch the fallback translation or not.
      *
-     * @return mixed
+     * @return bool
      */
     private function useFallback()
     {
-        return (bool) Config::get('translator.fallback');
+        return (bool) Config::get('translator.fallback', false);
     }
 
     /**
-     * Setup a one-to-many relation.
+     * Get the translations relation.
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function translations()
     {
