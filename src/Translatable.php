@@ -72,7 +72,7 @@ trait Translatable
     private function getTranslation($exists = true, $locale = null)
     {
         if (!$this->translator || !class_exists($this->translator)) {
-            throw new TranslatableException('Please set the $translator property to your translation model path.');
+            throw new TranslatorException('Please set the $translator property to your translation model path.');
         }
 
         if (!$this->translatorInstance) {
@@ -344,7 +344,7 @@ trait Translatable
     private function getLocaleInstance()
     {
         if (!Config::has('translator.locale')) {
-            throw new TranslatableException(
+            throw new TranslatorException(
                 'Please set the \'locale\' property in the configuration to your Locale model path.'
             );
         }
