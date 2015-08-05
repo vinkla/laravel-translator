@@ -25,7 +25,7 @@ Read more about how this package was created and why it exists [in this blog pos
 
 ## Documentation
 
-This package features an [extensive wiki](https://github.com/lucadegasperi/oauth2-server-laravel/wiki) to help you getting started implementing the translator in your Laravel and Lumen applications.
+This package features an [extensive wiki](https://github.com/vinkla/translator/wiki) to help you getting started implementing the translator in your Laravel and Lumen applications.
 
 ## License
 
