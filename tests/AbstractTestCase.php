@@ -11,13 +11,14 @@
 
 namespace Vinkla\Tests\Translator;
 
+use GrahamCampbell\TestBench\AbstractPackageTestCase;
+use Vinkla\Translator\TranslatorServiceProvider;
+
 /*
  * This is the abstract test case class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
-
 abstract class AbstractTestCase extends AbstractPackageTestCase
 {
     /**
@@ -29,6 +30,6 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
      */
     protected function getServiceProviderClass($app)
     {
-        return 'Vinkla\Translator\TranslatorServiceProvider';
+        return TranslatorServiceProvider::class;
     }
 }
