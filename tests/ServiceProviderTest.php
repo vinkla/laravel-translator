@@ -12,6 +12,7 @@
 namespace Vinkla\Tests\Translator;
 
 use GrahamCampbell\TestBenchCore\ServiceProviderTrait;
+use Vinkla\Translator\TranslatorServiceProvider;
 
 /**
  * This is the service provider class.
@@ -21,4 +22,16 @@ use GrahamCampbell\TestBenchCore\ServiceProviderTrait;
 class ServiceProviderTest extends AbstractTestCase
 {
     use ServiceProviderTrait;
+
+    /**
+     * Get the service provider class.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     *
+     * @return string
+     */
+    protected function getServiceProviderClass($app)
+    {
+        return TranslatorServiceProvider::class;
+    }
 }

@@ -24,6 +24,13 @@ class Article extends Model
     use Translatable;
 
     /**
+     * A list of methods protected from mass assignment.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['_token', '_method'];
+
+    /**
      * The translations model.
      *
      * @var \Vinkla\Tests\Translator\Models\ArticleTranslation

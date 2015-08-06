@@ -12,7 +12,7 @@
 namespace Vinkla\Tests\Translator;
 
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
-use Vinkla\Translator\TranslatorServiceProvider;
+use Vinkla\Tests\Translator\Models\Locale;
 
 /*
  * This is the abstract test case class.
@@ -22,14 +22,17 @@ use Vinkla\Translator\TranslatorServiceProvider;
 abstract class AbstractTestCase extends AbstractPackageTestCase
 {
     /**
-     * Get the service provider class.
+     * Define environment setup.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Foundation\Application $app
      *
-     * @return string
+     * @return void
      */
-    protected function getServiceProviderClass($app)
+    protected function getEnvironmentSetUp($app)
     {
-        return TranslatorServiceProvider::class;
+        parent::getEnvironmentSetUp($app);
+
+        $app->config->set('translator.locale', Locale::class);
+        $app->config->set('translator.fallback', false);
     }
 }

@@ -14,11 +14,11 @@ namespace Vinkla\Tests\Translator\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * This is the article translation eloquent model class.
+ * This is the locale eloquent model class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class ArticleTranslation extends Model
+class Locale extends Model
 {
     /**
      * A list of methods protected from mass assignment.
