@@ -3,7 +3,7 @@ Laravel Translator
 
 ![laravel-translator](https://cloud.githubusercontent.com/assets/499192/7440607/b7c867cc-f0bf-11e4-9d13-0ce90882ae14.png)
 
-This package gives you an easy way to translate Eloquent models into multiple languages.
+A simple Eloquent translator for Laravel.
 
 ```php
 // Display the default title for an Eloquent object.
