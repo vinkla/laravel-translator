@@ -20,4 +20,5 @@ use Exception;
  */
 class TranslatorException extends Exception
 {
+    //
 }
