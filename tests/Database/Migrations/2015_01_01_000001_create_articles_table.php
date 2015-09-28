@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-namespace Vinkla\Tests\Translator\Database\Migrations;
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +18,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class CreateArticlesTable extends Migration
+final class CreateArticlesTable extends Migration
 {
     /**
      * Run the migrations.

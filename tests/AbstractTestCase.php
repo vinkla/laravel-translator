@@ -11,8 +11,9 @@
 
 namespace Vinkla\Tests\Translator;
 
+use ArticleTableSeeder;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
-use Vinkla\Tests\Translator\Models\Locale;
+use TranslationTableSeeder;
 
 /*
  * This is the abstract test case class.
@@ -32,7 +33,31 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
     {
         parent::getEnvironmentSetUp($app);
 
-        $app->config->set('translator.locale', Locale::class);
-        $app->config->set('translator.fallback', false);
+        $app->config->set('app.locale', 'sv');
+        $app->config->set('app.fallback', 'en');
+    }
+
+    /**
+     * @before
+     */
+    public function runDatabaseMigrations()
+    {
+        $this->artisan('migrate', [
+            '--database' => 'sqlite',
+            '--realpath' => realpath(__DIR__.'/database/migrations')
+        ]);
+
+        $this->beforeApplicationDestroyed(function () {
+            $this->artisan('migrate:rollback');
+        });
+    }
+
+    /**
+     * @before
+     */
+    public function seedDatabase()
+    {
+        $this->seed(ArticleTableSeeder::class);
+        $this->seed(TranslationTableSeeder::class);
     }
 }

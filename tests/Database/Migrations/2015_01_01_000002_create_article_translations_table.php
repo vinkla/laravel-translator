@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-namespace Vinkla\Tests\Translator\Database\Migrations;
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +18,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class CreateArticleTranslationsTable extends Migration
+final class CreateArticleTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -33,13 +31,11 @@ class CreateArticleTranslationsTable extends Migration
             $table->increments('id');
 
             $table->string('title');
-            $table->string('content');
 
             $table->integer('article_id')->unsigned()->index();
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
 
-            $table->integer('locale')->unsigned()->index();
-            $table->foreign('locale')->references('id')->on('locales')->onDelete('cascade');
+            $table->string('locale')->index();
 
             $table->unique(['article_id', 'locale']);
 

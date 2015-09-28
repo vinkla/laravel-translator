@@ -9,17 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Vinkla\Tests\Translator\Database\Seeds;
-
 use Illuminate\Database\Seeder;
-use Vinkla\Tests\Translator\Models\Locale;
+use Vinkla\Tests\Translator\Models\Article;
 
 /**
- * This is the locale table seeder class.
+ * This is the article table seeder class.
  *
- * @author Vincent Klaiber <hello@vinkla.com>
+ * @author Vincent Klaiber <vincent@schimpanz.com>
  */
-class LocaleSeeder extends Seeder
+final class ArticleTableSeeder extends Seeder
 {
     /**
      * Run the seeder.
@@ -28,9 +26,6 @@ class LocaleSeeder extends Seeder
      */
     public function run()
     {
-        foreach (['en', 'sv', 'no'] as $locale)
-        {
-            Locale::create(['id' => $locale]);
-        }
+        Article::create(['thumbnail' => 'http://cdn.hitfix.com/photos/6014912/David-Hasselhoff.jpg']);
     }
 }
