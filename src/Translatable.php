@@ -19,6 +19,20 @@ namespace Vinkla\Translator;
 trait Translatable
 {
     /**
+     * Get a translation.
+     *
+     * @param string|null $locale
+     *
+     * @throws \Vinkla\Translator\TranslatorException
+     *
+     * @return mixed
+     */
+    public function translate($locale = null)
+    {
+        //
+    }
+
+    /**
      * Get the translations relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

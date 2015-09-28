@@ -19,7 +19,7 @@ namespace Vinkla\Translator;
 interface TranslatableInterface
 {
     /**
-     * Prepare a translator instance and fetch translations.
+     * Get a translation.
      *
      * @param string|null $locale
      *
