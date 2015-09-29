@@ -26,6 +26,6 @@ final class ArticleTableSeeder extends Seeder
      */
     public function run()
     {
-        Article::create(['thumbnail' => 'http://cdn.hitfix.com/photos/6014912/David-Hasselhoff.jpg']);
+        Article::create(['thumbnail' => 'http://i.imgur.com/V2wxB.jpg']);
     }
 }

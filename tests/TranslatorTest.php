@@ -29,7 +29,7 @@ class TranslatorTest extends AbstractTestCase
     {
         $article = Article::first();
 
-        $this->assertSame($article->translate('en')->title, 'Hassle with the Hoff');
-        $this->assertSame($article->translate('sv')->title, 'Hassla med Hoffen');
+        $this->assertSame($article->translate('en')->title, 'Use the force Harry');
+        $this->assertSame($article->translate('sv')->title, 'Använd kraften Harry');
     }
 }
