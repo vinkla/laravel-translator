@@ -14,7 +14,6 @@ namespace Vinkla\Tests\Translator;
 use Illuminate\Support\Facades\DB;
 use ReflectionClass;
 use SebastianBergmann\PeekAndPoke\Proxy;
-use Vinkla\Tests\Translator\Models\Article;
 use Vinkla\Translator\TranslatableInterface;
 
 /**
