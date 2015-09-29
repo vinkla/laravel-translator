@@ -2,8 +2,11 @@
 
 ## 3.0.0 (upcoming)
 
-- Update testbench
-- Lumen support
+- Better test suit
+- Official Lumen support
+- Remove configuration
+- Remove providers
+- Remove migrations
 
 ## 2.2.0 (released 2015-05-08)
 
