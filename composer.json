@@ -15,6 +15,7 @@
     },
     "require-dev": {
         "graham-campbell/testbench": "^3.0",
+        "sebastian/peek-and-poke": "^1.0",
         "mockery/mockery": "^0.9.4",
         "phpunit/phpunit": "^4.7.6"
     },

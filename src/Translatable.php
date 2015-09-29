@@ -22,6 +22,13 @@ use Illuminate\Support\Facades\Config;
 trait Translatable
 {
     /**
+     * The cached translations.
+     *
+     * @var array
+     */
+    protected $translations = [];
+
+    /**
      * Get a translation.
      *
      * @param string|null $locale
@@ -62,7 +69,17 @@ trait Translatable
      */
     protected function getTranslation($locale)
     {
-        return $this->translations()->where('locale', $locale)->first();
+        if (isset($this->translations[$locale])) {
+            return $this->translations[$locale];
+        }
+
+        $translation = $this->translations()->where('locale', $locale)->first();
+
+        if ($translation) {
+            $this->translations[$locale] = $translation;
+        }
+
+        return $translation;
     }
 
     /**

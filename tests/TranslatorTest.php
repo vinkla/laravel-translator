@@ -11,7 +11,9 @@
 
 namespace Vinkla\Tests\Translator;
 
+use Illuminate\Support\Facades\DB;
 use ReflectionClass;
+use SebastianBergmann\PeekAndPoke\Proxy;
 use Vinkla\Tests\Translator\Models\Article;
 use Vinkla\Translator\TranslatableInterface;
 
@@ -44,5 +46,18 @@ class TranslatorTest extends AbstractTestCase
     {
         $article = Article::first();
         $this->assertSame($article->translate('de')->title, 'Use the force Harry');
+    }
+
+    public function testCachedTranslations()
+    {
+        $article = Article::first();
+        $translations = ['en' => $article->translate('en'), 'sv' => $article->translate('sv')];
+        $cache = new Proxy($article);
+        $this->assertCount(2, $cache->translations);
+        $this->assertSame($translations, $cache->translations);
+
+        DB::enableQueryLog();
+        $article->translate('en');
+        $this->assertEmpty(DB::getQueryLog());
     }
 }
