@@ -23,7 +23,7 @@ interface TranslatableInterface
      *
      * @param string|null $locale
      *
-     * @throws \Vinkla\Translator\TranslatorException
+     * @throws \Vinkla\Translator\TranslatableException
      *
      * @return mixed
      */

@@ -14,11 +14,11 @@ namespace Vinkla\Translator;
 use Exception;
 
 /**
- * This is the translator exception class.
+ * This is the translatable exception class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class TranslatorException extends Exception
+class TranslatableException extends Exception
 {
     //
 }
