@@ -23,8 +23,6 @@ interface TranslatableInterface
      *
      * @param string|null $locale
      *
-     * @throws \Vinkla\Translator\TranslatableException
-     *
      * @return mixed
      */
     public function translate($locale = null);
