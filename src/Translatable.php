@@ -33,7 +33,7 @@ trait Translatable
      *
      * @param string|null $locale
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model|static|null
      */
     public function translate($locale = null)
     {
@@ -63,7 +63,7 @@ trait Translatable
      *
      * @param string $locale
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model|static|null
      */
     protected function getTranslation($locale)
     {

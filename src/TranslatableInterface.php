@@ -23,7 +23,7 @@ interface TranslatableInterface
      *
      * @param string|null $locale
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model|static|null
      */
     public function translate($locale = null);
 
