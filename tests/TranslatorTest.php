@@ -11,7 +11,9 @@
 
 namespace Vinkla\Tests\Translator;
 
+use ReflectionClass;
 use Vinkla\Tests\Translator\Models\Article;
+use Vinkla\Translator\TranslatableInterface;
 
 /**
  * This is the translator test class.
@@ -20,6 +22,12 @@ use Vinkla\Tests\Translator\Models\Article;
  */
 class TranslatorTest extends AbstractTestCase
 {
+    public function testInterface()
+    {
+        $article = new ReflectionClass(Article::class);
+        $this->assertTrue($article->implementsInterface(TranslatableInterface::class));
+    }
+
     public function testHasManyRelation()
     {
         $this->assertCount(2, Article::first()->translations);
