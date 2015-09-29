@@ -44,7 +44,7 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
     {
         $this->artisan('migrate', [
             '--database' => 'sqlite',
-            '--realpath' => realpath(__DIR__.'/database/migrations')
+            '--realpath' => realpath(__DIR__.'/database/migrations'),
         ]);
 
         $this->beforeApplicationDestroyed(function () {

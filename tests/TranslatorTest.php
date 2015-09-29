@@ -55,7 +55,6 @@ class TranslatorTest extends AbstractTestCase
         $cache = new Proxy($article);
         $this->assertCount(2, $cache->translations);
         $this->assertSame($translations, $cache->translations);
-
         DB::enableQueryLog();
         $article->translate('en');
         $this->assertEmpty(DB::getQueryLog());
