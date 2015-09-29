@@ -30,11 +30,6 @@ class TranslatorTest extends AbstractTestCase
         $this->assertTrue($article->implementsInterface(TranslatableInterface::class));
     }
 
-    public function testHasManyRelation()
-    {
-        $this->assertCount(2, Article::first()->translations);
-    }
-
     public function testTranslate()
     {
         $article = Article::first();
@@ -52,9 +47,9 @@ class TranslatorTest extends AbstractTestCase
     {
         $article = Article::first();
         $translations = ['en' => $article->translate('en'), 'sv' => $article->translate('sv')];
-        $cache = new Proxy($article);
-        $this->assertCount(2, $cache->translations);
-        $this->assertSame($translations, $cache->translations);
+        $proxy = new Proxy($article);
+        $this->assertCount(2, $proxy->cache);
+        $this->assertSame($translations, $proxy->cache);
         DB::enableQueryLog();
         $article->translate('en');
         $this->assertEmpty(DB::getQueryLog());

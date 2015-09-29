@@ -10,7 +10,7 @@
  */
 
 use Illuminate\Database\Seeder;
-use Vinkla\Tests\Translator\Models\ArticleTranslation;
+use Illuminate\Support\Facades\DB;
 
 /**
  * This is the translation table seeder class.
@@ -26,7 +26,9 @@ final class TranslationTableSeeder extends Seeder
      */
     public function run()
     {
-        ArticleTranslation::create(['title' => 'Use the force Harry', 'article_id' => 1, 'locale' => 'en']);
-        ArticleTranslation::create(['title' => 'Använd kraften Harry', 'article_id' => 1, 'locale' => 'sv']);
+        DB::table('article_translations')->insert([
+            ['title' => 'Use the force Harry', 'article_id' => 1, 'locale' => 'en', 'created_at' => time(), 'updated_at' => time()],
+            [ 'title' => 'Använd kraften Harry', 'article_id' => 1, 'locale' => 'sv', 'created_at' => time(), 'updated_at' => time()],
+        ]);
     }
 }

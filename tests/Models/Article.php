@@ -32,13 +32,6 @@ class Article extends Model implements TranslatableInterface
     protected $guarded = ['_token', '_method'];
 
     /**
-     * The translations model.
-     *
-     * @var \Vinkla\Tests\Translator\Models\ArticleTranslation
-     */
-    public $translator = ArticleTranslation::class;
-
-    /**
      * The translated attributes.
      *
      * @var string[]

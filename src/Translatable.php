@@ -13,6 +13,8 @@ namespace Vinkla\Translator;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * This is the translatable trait.
@@ -22,11 +24,11 @@ use Illuminate\Support\Facades\Config;
 trait Translatable
 {
     /**
-     * The cached translations.
+     * The translations cache.
      *
      * @var array
      */
-    protected $translations = [];
+    protected $cache = [];
 
     /**
      * Get a translation.
@@ -49,13 +51,13 @@ trait Translatable
     }
 
     /**
-     * Get the translations relation.
+     * Get the translation table name.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return string
      */
-    public function translations()
+    public function getTranslationTableName()
     {
-        return $this->hasMany($this->translator);
+        return Str::singular($this->getTable()).'_translations';
     }
 
     /**
@@ -67,14 +69,14 @@ trait Translatable
      */
     protected function getTranslation($locale)
     {
-        if (isset($this->translations[$locale])) {
-            return $this->translations[$locale];
+        if (isset($this->cache[$locale])) {
+            return $this->cache[$locale];
         }
 
-        $translation = $this->translations()->where('locale', $locale)->first();
+        $translation = DB::table($this->getTranslationTableName())->where('locale', $locale)->first();
 
         if ($translation) {
-            $this->translations[$locale] = $translation;
+            $this->cache[$locale] = $translation;
         }
 
         return $translation;
