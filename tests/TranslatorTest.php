@@ -20,8 +20,16 @@ use Vinkla\Tests\Translator\Models\Article;
  */
 class TranslatorTest extends AbstractTestCase
 {
-    public function testTranslations()
+    public function testHasManyRelation()
     {
         $this->assertCount(2, Article::first()->translations);
+    }
+
+    public function testTranslate()
+    {
+        $article = Article::first();
+
+        $this->assertSame($article->translate('en')->title, 'Hassle with the Hoff');
+        $this->assertSame($article->translate('sv')->title, 'Hassla med Hoffen');
     }
 }

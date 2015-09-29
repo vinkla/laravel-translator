@@ -11,6 +11,9 @@
 
 namespace Vinkla\Translator;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
+
 /**
  * This is the translatable trait.
  *
@@ -29,7 +32,15 @@ trait Translatable
      */
     public function translate($locale = null)
     {
-        //
+        $locale = $locale ?: $this->getLocale();
+
+        $translation = $this->getTranslation($locale);
+
+        if (!$translation) {
+            $translation = $this->getTranslation($this->getFallback());
+        }
+
+        return $translation;
     }
 
     /**
@@ -40,5 +51,37 @@ trait Translatable
     public function translations()
     {
         return $this->hasMany($this->translator);
+    }
+
+    /**
+     * Get a translation.
+     *
+     * @param string $locale
+     *
+     * @return mixed
+     */
+    protected function getTranslation($locale)
+    {
+        return $this->translations()->where('locale', $locale)->first();
+    }
+
+    /**
+     * Get the locale.
+     *
+     * @return string
+     */
+    protected function getLocale()
+    {
+        return App::getLocale();
+    }
+
+    /**
+     * Get the fallback locale.
+     *
+     * @return string
+     */
+    protected function getFallback()
+    {
+        return Config::get('app.fallback_locale');
     }
 }

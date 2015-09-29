@@ -26,8 +26,8 @@ final class TranslationTableSeeder extends Seeder
      */
     public function run()
     {
-        ArticleTranslation::create(['title' => 'Don\'t Hassle with the Hoff', 'article_id' => 1, 'locale'
+        ArticleTranslation::create(['title' => 'Hassle with the Hoff', 'article_id' => 1, 'locale'
         => 'en']);
-        ArticleTranslation::create(['title' => 'Hassla inte med Hoffen', 'article_id' => 1, 'locale' => 'sv']);
+        ArticleTranslation::create(['title' => 'Hassla med Hoffen', 'article_id' => 1, 'locale' => 'sv']);
     }
 }
