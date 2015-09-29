@@ -36,8 +36,13 @@ class TranslatorTest extends AbstractTestCase
     public function testTranslate()
     {
         $article = Article::first();
-
         $this->assertSame($article->translate('en')->title, 'Use the force Harry');
         $this->assertSame($article->translate('sv')->title, 'Använd kraften Harry');
+    }
+
+    public function testFallback()
+    {
+        $article = Article::first();
+        $this->assertSame($article->translate('de')->title, 'Use the force Harry');
     }
 }
