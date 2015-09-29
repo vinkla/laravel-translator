@@ -3,7 +3,7 @@ Laravel Translator
 
 ![laravel-translator](https://cloud.githubusercontent.com/assets/499192/7440607/b7c867cc-f0bf-11e4-9d13-0ce90882ae14.png)
 
-A simple Eloquent translator for Laravel.
+An Eloquent translator for Laravel. Read more about how this package was created and why it exists [in this blog post](http://vinkla.com/2014/11/laravel-translator/).
 
 ```php
 // Display the default title for an Eloquent object.
@@ -15,7 +15,6 @@ App::setLocale('sv');
 // Display the translated title in Swedish.
 echo $foo->title;
 ```
-Read more about how this package was created and why it exists [in this blog post](http://vinkla.com/2014/11/laravel-translator/).
 
 [![Build Status](https://img.shields.io/travis/vinkla/translator/master.svg?style=flat)](https://travis-ci.org/vinkla/translator)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/vinkla/translator.svg?style=flat)](https://scrutinizer-ci.com/g/vinkla/translator/code-structure)
