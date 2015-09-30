@@ -73,7 +73,9 @@ trait Translatable
             return $this->cache[$locale];
         }
 
-        $translation = DB::table($this->getTranslationTableName())->where('locale', $locale)->first();
+        $translation = DB::table($this->getTranslationTableName())
+            ->where('locale', $locale)
+            ->first();
 
         if ($translation) {
             $this->cache[$locale] = $translation;

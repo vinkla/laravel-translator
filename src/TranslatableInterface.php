@@ -26,6 +26,4 @@ interface TranslatableInterface
      * @return \Illuminate\Database\Eloquent\Model|static|null
      */
     public function translate($locale = null);
-
-
 }

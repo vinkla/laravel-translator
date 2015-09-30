@@ -28,7 +28,7 @@ final class TranslationTableSeeder extends Seeder
     {
         DB::table('article_translations')->insert([
             ['title' => 'Use the force Harry', 'article_id' => 1, 'locale' => 'en', 'created_at' => time(), 'updated_at' => time()],
-            [ 'title' => 'Använd kraften Harry', 'article_id' => 1, 'locale' => 'sv', 'created_at' => time(), 'updated_at' => time()],
+            ['title' => 'Använd kraften Harry', 'article_id' => 1, 'locale' => 'sv', 'created_at' => time(), 'updated_at' => time()],
         ]);
     }
 }
