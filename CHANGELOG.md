@@ -1,9 +1,8 @@
 # CHANGELOG
 
-## 3.0.0 (upcoming)
+## 2.2.1 (released 2015-10-01)
 
-- Update testbench
-- Lumen support
+- Added ability to refuse the fallback translation
 
 ## 2.2.0 (released 2015-05-08)
 
