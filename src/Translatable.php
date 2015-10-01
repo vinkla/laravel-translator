@@ -49,14 +49,15 @@ trait Translatable
      * Prepare a translator instance and fetch translations.
      *
      * @param null $locale
+     * @param bool $exists
      *
      * @throws \Vinkla\Translator\TranslatorException
      *
      * @return mixed
      */
-    public function translate($locale = null)
+    public function translate($locale = null, $exists = true)
     {
-        return $this->getTranslation(true, $locale);
+        return $this->getTranslation($exists, $locale);
     }
 
     /**
