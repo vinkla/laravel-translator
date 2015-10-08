@@ -101,6 +101,23 @@ trait Translatable
     }
 
     /**
+     * Set a given attribute on the model.
+     *
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function setAttribute($key, $value)
+    {
+        if (in_array($key, $this->translatedAttributes)) {
+            return $this->translate()->$key = $value;
+        }
+
+        return parent::setAttribute($key, $value);
+    }
+
+    /**
      * Get the locale.
      *
      * @return string

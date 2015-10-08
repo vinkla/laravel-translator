@@ -11,6 +11,7 @@
 
 namespace Vinkla\Tests\Translator;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use ReflectionClass;
 use SebastianBergmann\PeekAndPoke\Proxy;
@@ -36,13 +37,6 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame($article->translate('sv')->title, 'Använd kraften Harry');
     }
 
-    public function testGetAttributes()
-    {
-        $article = Article::first();
-        $this->assertSame($article->translate()->title, 'Använd kraften Harry');
-        $this->assertSame($article->title, 'Använd kraften Harry');
-    }
-
     public function testFallback()
     {
         $article = Article::first();
@@ -59,5 +53,23 @@ class TranslatorTest extends AbstractTestCase
         DB::enableQueryLog();
         $article->translate('en');
         $this->assertEmpty(DB::getQueryLog());
+    }
+
+    public function testGetAttributes()
+    {
+        $article = Article::first();
+        $this->assertSame($article->translate()->title, 'Använd kraften Harry');
+        $this->assertSame($article->title, 'Använd kraften Harry');
+    }
+
+    public function testSetAttributes()
+    {
+        App::setLocale('en');
+        $article = Article::first();
+        $this->assertSame($article->title, 'Use the force Harry');
+        $article->title = 'I\'m your father Hagrid';
+        $this->assertSame($article->title, 'I\'m your father Hagrid');
+        $this->assertSame($article->translate()->title, 'I\'m your father Hagrid');
+        $this->assertSame($article->translate('sv')->title, 'Använd kraften Harry');
     }
 }
