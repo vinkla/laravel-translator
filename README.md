@@ -6,14 +6,17 @@ Laravel Translator
 An Eloquent translator for Laravel. Read more about how this package was created and why it exists [in this blog post](http://vinkla.com/2014/11/laravel-translator/).
 
 ```php
-// Display the default title for an Eloquent object.
-echo $foo->title;
+// Fetch an Eloquent object
+$article = Article::find(1)
 
-// Change the current language to Swedish.
+// Display title in default language
+echo $article->title; // Use the force Harry
+
+// Change the current locale to Swedish
 App::setLocale('sv');
 
-// Display the translated title in Swedish.
-echo $foo->title;
+// Display title in Swedish
+echo $article->title; // Använd kraften Harry
 ```
 
 [![Build Status](https://img.shields.io/travis/vinkla/translator/master.svg?style=flat)](https://travis-ci.org/vinkla/translator)
