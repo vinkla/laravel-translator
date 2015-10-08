@@ -85,6 +85,22 @@ trait Translatable
     }
 
     /**
+     * Get an attribute from the model.
+     *
+     * @param $key
+     *
+     * @return mixed
+     */
+    public function getAttribute($key)
+    {
+        if (in_array($key, $this->translatedAttributes)) {
+            return $this->translate() ? $this->translate()->$key : null;
+        }
+
+        return parent::getAttribute($key);
+    }
+
+    /**
      * Get the locale.
      *
      * @return string

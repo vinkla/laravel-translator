@@ -36,5 +36,5 @@ class Article extends Model implements TranslatableInterface
      *
      * @var string[]
      */
-    public $translatedAttributes = ['title', 'content'];
+    public $translatedAttributes = ['title'];
 }

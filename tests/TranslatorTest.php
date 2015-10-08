@@ -36,6 +36,13 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame($article->translate('sv')->title, 'Använd kraften Harry');
     }
 
+    public function testGetAttributes()
+    {
+        $article = Article::first();
+        $this->assertSame($article->translate()->title, 'Använd kraften Harry');
+        $this->assertSame($article->title, 'Använd kraften Harry');
+    }
+
     public function testFallback()
     {
         $article = Article::first();
