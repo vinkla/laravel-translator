@@ -73,7 +73,7 @@ trait Translatable
     /**
      * Get an attribute from the model.
      *
-     * @param $key
+     * @param string $key
      *
      * @return mixed
      */
