@@ -32,17 +32,24 @@ trait Translatable
      * Get a translation.
      *
      * @param string|null $locale
+     * @param bool $fallback
      *
-     * @return \Illuminate\Database\Eloquent\Model|static|null
+     * @return \Illuminate\Database\Eloquent\Model|null|static
      */
-    public function translate($locale = null)
+    public function translate($locale = null, $fallback = true)
     {
         $locale = $locale ?: $this->getLocale();
 
         $translation = $this->getTranslation($locale);
 
-        if (!$translation) {
+        if (!$translation && $fallback) {
             $translation = $this->getTranslation($this->getFallback());
+        }
+
+        if (!$fallback) {
+            foreach ($this->translatedAttributes as $attribute) {
+                $translation = $this->setAttribute($attribute, null);
+            }
         }
 
         return $translation;
