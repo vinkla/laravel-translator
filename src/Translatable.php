@@ -60,7 +60,7 @@ trait Translatable
      *
      * @param string $locale
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model|static
      */
     protected function translateOrNew($locale)
     {
@@ -169,4 +169,11 @@ trait Translatable
     {
         return Config::get('app.fallback_locale');
     }
+
+    /**
+     * Get the translations relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    abstract public function translations();
 }
