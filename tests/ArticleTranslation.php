@@ -9,19 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Vinkla\Translator;
+namespace Vinkla\Tests\Translator;
+
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * This is the translatable trait interface.
+ * This is the article translation eloquent model class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-interface TranslatableInterface
+class ArticleTranslation extends Model
 {
     /**
-     * Get the translations relation.
+     * A list of methods protected from mass assignment.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @var string[]
      */
-    public function translations();
+    protected $guarded = ['_token', '_method'];
 }

@@ -10,7 +10,7 @@
  */
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Vinkla\Tests\Translator\Article;
 
 /**
  * This is the article table seeder class.
@@ -26,8 +26,6 @@ final class ArticleTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('articles')->insert([
-            ['thumbnail' => 'http://i.imgur.com/V2wxB.jpg', 'created_at' => time(), 'updated_at' => time()],
-        ]);
+        Article::create(['thumbnail' => 'http://i.imgur.com/V2wxB.jpg']);
     }
 }

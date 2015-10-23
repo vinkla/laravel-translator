@@ -13,6 +13,7 @@ namespace Vinkla\Tests\Translator;
 
 use ArticleTableSeeder;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
+use Illuminate\Foundation\Application;
 use TranslationTableSeeder;
 
 /*
@@ -29,7 +30,7 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
      *
      * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp(Application $app)
     {
         parent::getEnvironmentSetUp($app);
 

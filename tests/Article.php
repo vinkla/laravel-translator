@@ -37,4 +37,14 @@ class Article extends Model implements TranslatableInterface
      * @var string[]
      */
     public $translatedAttributes = ['title'];
+
+    /**
+     * Get the translations relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function translations()
+    {
+        return $this->hasMany(ArticleTranslation::class);
+    }
 }
