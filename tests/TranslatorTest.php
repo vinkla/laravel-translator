@@ -82,4 +82,17 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame($article->translate()->title, 'I\'m your father Hagrid');
         $this->assertSame($article->translate('sv')->title, 'Använd kraften Harry');
     }
+
+    public function testCreate()
+    {
+        App::setLocale('en');
+        $article = Article::create(['title' => 'Whoa. This is heavy.', 'thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
+        $this->seeInDatabase('article_translations', ['title' => 'Whoa. This is heavy.', 'article_id' => $article->id, 'locale' => 'en']);
+        $this->seeInDatabase('articles', ['thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
+
+        App::setLocale('de');
+        $article = Article::create(['title' => 'Whoa. Das ist schwer.', 'thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
+        $this->seeInDatabase('article_translations', ['title' => 'Whoa. Das ist schwer.', 'article_id' => $article->id, 'locale' => 'de']);
+        $this->seeInDatabase('articles', ['thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
+    }
 }

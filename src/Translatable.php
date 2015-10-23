@@ -49,6 +49,26 @@ trait Translatable
     }
 
     /**
+     * Get a translation or create new.
+     *
+     * @param string $locale
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    protected function translateOrNew($locale)
+    {
+        $translation = $this->translate($locale);
+
+        if (!$translation) {
+            $translation = $this->translations()
+                ->where('locale', $locale)
+                ->firstOrNew(['locale' => $locale]);
+        }
+
+        return $translation;
+    }
+
+    /**
      * Get a translation.
      *
      * @param string $locale
@@ -61,7 +81,9 @@ trait Translatable
             return $this->cache[$locale];
         }
 
-        $translation = $this->translations()->where('locale', $locale)->first();
+        $translation = $this->translations()
+            ->where('locale', $locale)
+            ->first();
 
         if ($translation) {
             $this->cache[$locale] = $translation;
@@ -71,7 +93,7 @@ trait Translatable
     }
 
     /**
-     * Get an attribute from the model.
+     * Get an attribute from the model or translation.
      *
      * @param string $key
      *
@@ -87,7 +109,7 @@ trait Translatable
     }
 
     /**
-     * Set a given attribute on the model.
+     * Set a given attribute on the model or translation.
      *
      * @param string $key
      * @param mixed $value
@@ -97,10 +119,28 @@ trait Translatable
     public function setAttribute($key, $value)
     {
         if (in_array($key, $this->translatedAttributes)) {
-            return $this->translate()->$key = $value;
+            $translation = $this->translateOrNew($this->getLocale());
+
+            $translation->$key = $value;
+
+            return $this->cache[$this->getLocale()] = $translation;
         }
 
         return parent::setAttribute($key, $value);
+    }
+
+    /**
+     * Finish processing on a successful save operation.
+     *
+     * @param array $options
+     *
+     * @return void
+     */
+    protected function finishSave(array $options)
+    {
+        $this->translations()->saveMany($this->cache);
+
+        parent::finishSave($options);
     }
 
     /**
