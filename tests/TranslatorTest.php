@@ -95,4 +95,16 @@ class TranslatorTest extends AbstractTestCase
         $this->seeInDatabase('article_translations', ['title' => 'Whoa. Das ist schwer.', 'article_id' => $article->id, 'locale' => 'de']);
         $this->seeInDatabase('articles', ['thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
     }
+
+    public function testUpdate()
+    {
+        App::setLocale('en');
+        $article = Article::find(1);
+        $article->title = 'Whoa. This is heavy.';
+        $article->save();
+        $this->seeInDatabase('article_translations', ['title' => 'Whoa. This is heavy.', 'article_id' => $article->id, 'locale' => 'en']);
+        App::setLocale('sv');
+        $article->update(['title' => 'Whoa. Detta är tung.']);
+        $this->seeInDatabase('article_translations', ['title' => 'Whoa. Detta är tung.', 'article_id' => $article->id, 'locale' => 'sv']);
+    }
 }
