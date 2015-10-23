@@ -36,6 +36,18 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame($article->translate('sv')->title, 'Använd kraften Harry');
     }
 
+    public function testLocale()
+    {
+        $article = Article::first();
+        $class = new ReflectionClass(Article::class);
+        $method = $class->getMethod('getLocale');
+        $method->setAccessible(true);
+        $this->assertSame('sv', $method->invokeArgs($article, []));
+        $method = $class->getMethod('getFallback');
+        $method->setAccessible(true);
+        $this->assertSame('en', $method->invokeArgs($article, []));
+    }
+
     public function testFallback()
     {
         $article = Article::first();
