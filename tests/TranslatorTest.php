@@ -29,6 +29,12 @@ class TranslatorTest extends AbstractTestCase
         $this->assertTrue($article->implementsInterface(IsTranslatable::class));
     }
 
+    public function testHasMany()
+    {
+        $article = Article::first();
+        $this->assertSame(2, $article->translations()->count());
+    }
+
     public function testTranslate()
     {
         $article = Article::first();
