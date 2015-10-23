@@ -12,8 +12,8 @@
 namespace Vinkla\Tests\Translator;
 
 use Illuminate\Database\Eloquent\Model;
-use Vinkla\Translator\Translatable;
 use Vinkla\Translator\IsTranslatable;
+use Vinkla\Translator\Translatable;
 
 /**
  * This is the article eloquent model class.
