@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use ReflectionClass;
 use SebastianBergmann\PeekAndPoke\Proxy;
-use Vinkla\Translator\TranslatableInterface;
+use Vinkla\Translator\IsTranslatable;
 
 /**
  * This is the translator test class.
@@ -27,7 +27,7 @@ class TranslatorTest extends AbstractTestCase
     public function testInterface()
     {
         $article = new ReflectionClass(Article::class);
-        $this->assertTrue($article->implementsInterface(TranslatableInterface::class));
+        $this->assertTrue($article->implementsInterface(IsTranslatable::class));
     }
 
     public function testTranslate()

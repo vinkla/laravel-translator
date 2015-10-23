@@ -13,14 +13,14 @@ namespace Vinkla\Tests\Translator;
 
 use Illuminate\Database\Eloquent\Model;
 use Vinkla\Translator\Translatable;
-use Vinkla\Translator\TranslatableInterface;
+use Vinkla\Translator\IsTranslatable;
 
 /**
  * This is the article eloquent model class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class Article extends Model implements TranslatableInterface
+class Article extends Model implements IsTranslatable
 {
     use Translatable;
 

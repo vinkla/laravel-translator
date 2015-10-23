@@ -12,11 +12,11 @@
 namespace Vinkla\Translator;
 
 /**
- * This is the translatable trait interface.
+ * This is the is translatable interface.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-interface TranslatableInterface
+interface IsTranslatable
 {
     /**
      * Get the translations relation.
