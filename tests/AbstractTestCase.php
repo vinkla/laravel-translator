@@ -14,6 +14,7 @@ namespace Vinkla\Tests\Translator;
 use ArticleTableSeeder;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\DB;
 use TranslationTableSeeder;
 
 /*
@@ -43,6 +44,8 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
      */
     public function runDatabaseMigrations()
     {
+        DB::statement(DB::raw('PRAGMA foreign_keys=1'));
+
         $this->artisan('migrate', [
             '--database' => 'sqlite',
             '--realpath' => realpath(__DIR__.'/database/migrations'),

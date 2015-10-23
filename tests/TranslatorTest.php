@@ -107,4 +107,11 @@ class TranslatorTest extends AbstractTestCase
         $article->update(['title' => 'Whoa. Detta är tung.']);
         $this->seeInDatabase('article_translations', ['title' => 'Whoa. Detta är tung.', 'article_id' => $article->id, 'locale' => 'sv']);
     }
+
+    public function testDelete()
+    {
+        Article::find(1)->delete();
+        $this->assertSame(0, Article::count());
+        $this->assertSame(0, ArticleTranslation::count());
+    }
 }
