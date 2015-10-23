@@ -8,6 +8,7 @@
 - Remove providers
 - Remove migrations
 - Simplified codebase
+- Add extensive documentation
 
 ## 2.2.0 (released 2015-05-08)
 
