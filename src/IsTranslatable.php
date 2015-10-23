@@ -21,7 +21,7 @@ interface IsTranslatable
     /**
      * Get the translations relation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function translations();
 }
