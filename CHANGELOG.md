@@ -7,6 +7,7 @@
 - Remove configuration
 - Remove providers
 - Remove migrations
+- Simplified codebase
 
 ## 2.2.0 (released 2015-05-08)
 
