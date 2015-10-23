@@ -14,7 +14,6 @@ namespace Vinkla\Tests\Translator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use ReflectionClass;
-use SebastianBergmann\PeekAndPoke\Proxy;
 use Vinkla\Translator\IsTranslatable;
 
 /**
@@ -57,9 +56,11 @@ class TranslatorTest extends AbstractTestCase
     {
         $article = Article::first();
         $translations = ['en' => $article->translate('en'), 'sv' => $article->translate('sv')];
-        $cache = (new Proxy($article))->cache;
-        $this->assertCount(2, $cache);
-        $this->assertSame($translations, $cache);
+        $class = new ReflectionClass(Article::class);
+        $property = $class->getProperty('cache');
+        $property->setAccessible(true);
+        $this->assertCount(2, $property->getValue($article));
+        $this->assertSame($translations, $property->getValue($article));
         DB::enableQueryLog();
         $article->translate('en');
         $this->assertEmpty(DB::getQueryLog());
@@ -89,7 +90,6 @@ class TranslatorTest extends AbstractTestCase
         $article = Article::create(['title' => 'Whoa. This is heavy.', 'thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
         $this->seeInDatabase('article_translations', ['title' => 'Whoa. This is heavy.', 'article_id' => $article->id, 'locale' => 'en']);
         $this->seeInDatabase('articles', ['thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
-
         App::setLocale('de');
         $article = Article::create(['title' => 'Whoa. Das ist schwer.', 'thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
         $this->seeInDatabase('article_translations', ['title' => 'Whoa. Das ist schwer.', 'article_id' => $article->id, 'locale' => 'de']);
