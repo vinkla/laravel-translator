@@ -7,7 +7,7 @@ An Eloquent translator for Laravel. Read more about how this package was created
 
 ```php
 // Fetch an Eloquent object
-$article = Article::find(1)
+$article = Article::find(1);
 
 // Display title in default language
 echo $article->title;
@@ -32,7 +32,7 @@ Require this package, with [Composer](https://getcomposer.org/), in the root dir
 composer require vinkla/translator
 ```
 
-Then, create a new migration for the translations. In our case we want to translate the `articles` table.
+Create a new migration for the translations. In our case we want to translate the `articles` table.
 
 ```bash
 php artisan make:migration create_article_translations_table
@@ -112,7 +112,7 @@ class ArticleTranslation extends Model
 
 ```
 
-Add the `Translatable` trait and the `IsTranslatable` interface to the `Article` Eloquent model. Add the has many `translations()` relation method and fill the `$translatedAttributes` array with translatable attributes.
+Add the `Translatable` trait and the `IsTranslatable` interface to the `Article` Eloquent model. Add the has-many `translations()` relation method and fill the `$translatedAttributes` array with translatable attributes.
 
 ```php
 use Illuminate\Database\Eloquent\Model;
@@ -188,7 +188,7 @@ Create instance with translated attributes.
 Article::create(['title' => 'Use the force Harry']);
 ```
 
-> Note that this package will automatically find translated attributes based on the `$translatedAttributes` array that is set on the Eloquent model.
+> Note that this package will automatically find translated attributes based on content of the `$translatedAttributes` array from the Eloquent model.
 
 Create instance with translated attributes for a specific locale.
 
@@ -209,7 +209,7 @@ Update translated attributes for a specific locale.
 ```php
 App::setLocale('sv');
 
-$article->update(['title' => 'Whoa. This is heavy.']);
+$article->update(['title' => 'Whoa. Detta är tung.']);
 ```
 
 Delete article with translations.
