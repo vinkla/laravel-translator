@@ -13,7 +13,6 @@ namespace Vinkla\Tests\Translator;
 
 use ArticleTableSeeder;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\DB;
 use TranslationTableSeeder;
 
