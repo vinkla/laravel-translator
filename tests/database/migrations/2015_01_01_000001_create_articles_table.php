@@ -11,13 +11,14 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 /**
- * This is the locales table seeder class.
+ * This is the articles table seeder class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class CreateLocalesTable extends Migration
+final class CreateArticlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -26,9 +27,9 @@ class CreateLocalesTable extends Migration
      */
     public function up()
     {
-        Schema::create('locales', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('language', 2);
+            $table->string('thumbnail');
             $table->timestamps();
         });
     }
@@ -40,6 +41,6 @@ class CreateLocalesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('locales');
+        Schema::drop('articles');
     }
 }

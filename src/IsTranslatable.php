@@ -12,10 +12,16 @@
 namespace Vinkla\Translator;
 
 /**
- * This is the translatable exception class.
+ * This is the is translatable interface.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class TranslatableException extends \Exception
+interface IsTranslatable
 {
+    /**
+     * Get the translations relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function translations();
 }

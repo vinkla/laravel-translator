@@ -11,54 +11,127 @@
 
 namespace Vinkla\Tests\Translator;
 
-use PHPUnit_Framework_TestCase;
-use Vinkla\Translator\Contracts\Translatable as TranslatableContract;
-use Vinkla\Translator\Translatable;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use ReflectionClass;
+use Vinkla\Translator\IsTranslatable;
 
 /**
  * This is the translator test class.
  *
- * @author Vincent Klaiber <hello@vinkla.com>
+ * @author Vincent Klaiber <vincent@schimpanz.com>
  */
-class TranslatorTest extends PHPUnit_Framework_TestCase
+class TranslatorTest extends AbstractTestCase
 {
-    protected $foo;
-
-    public function setUp()
+    public function testInterface()
     {
-        $this->foo = new Foo();
+        $article = new ReflectionClass(Article::class);
+        $this->assertTrue($article->implementsInterface(IsTranslatable::class));
     }
 
-    public function testTranslatorTrait()
+    public function testHasMany()
     {
-        $this->assertTrue(method_exists($this->foo, 'translate'));
-        $this->assertTrue(method_exists($this->foo, 'translations'));
+        $article = Article::first();
+        $this->assertSame(2, $article->translations()->count());
     }
 
-    public function testTranslatedAttributes()
+    public function testTranslate()
     {
-        $this->assertTrue(is_array($this->foo->translatedAttributes));
+        $article = Article::first();
+        $this->assertSame($article->translate('en')->title, 'Use the force Harry');
+        $this->assertSame($article->translate('sv')->title, 'Använd kraften Harry');
     }
 
-    /**
-     * @expectedException Exception
-     */
-    public function testException()
+    public function testLocale()
     {
-        $this->foo->translator = null;
-        $this->foo->translate()->title;
+        $article = Article::first();
+        $class = new ReflectionClass(Article::class);
+        $method = $class->getMethod('getLocale');
+        $method->setAccessible(true);
+        $this->assertSame('sv', $method->invokeArgs($article, []));
+        $method = $class->getMethod('getFallback');
+        $method->setAccessible(true);
+        $this->assertSame('en', $method->invokeArgs($article, []));
     }
-}
 
-class Foo implements TranslatableContract
-{
-    use Translatable;
+    public function testFallback()
+    {
+        $article = Article::first();
+        $this->assertSame($article->translate('de')->title, 'Use the force Harry');
+        $this->assertSame($article->translate('de', true)->title, 'Use the force Harry');
+        $this->assertSame($article->translate('de', false)->title, null);
+    }
 
-    public $translator = 'FooTranslation';
+    public function testSetLocale()
+    {
+        $article = Article::first();
+        $this->assertSame($article->title, 'Använd kraften Harry');
+        $this->assertSame($article->translate()->title, 'Använd kraften Harry');
+        App::setLocale('en');
+        $this->assertSame($article->title, 'Use the force Harry');
+        $this->assertSame($article->translate()->title, 'Use the force Harry');
+    }
 
-    public $translatedAttributes = ['one', 'two'];
-}
+    public function testCachedTranslations()
+    {
+        $article = Article::first();
+        $translations = ['en' => $article->translate('en'), 'sv' => $article->translate('sv')];
+        $class = new ReflectionClass(Article::class);
+        $property = $class->getProperty('cache');
+        $property->setAccessible(true);
+        $this->assertCount(2, $property->getValue($article));
+        $this->assertSame($translations, $property->getValue($article));
+        DB::enableQueryLog();
+        $article->translate('en');
+        $this->assertEmpty(DB::getQueryLog());
+    }
 
-class FooTranslation
-{
+    public function testGetAttributes()
+    {
+        $article = Article::first();
+        $this->assertSame($article->translate()->title, 'Använd kraften Harry');
+        $this->assertSame($article->title, 'Använd kraften Harry');
+    }
+
+    public function testSetAttributes()
+    {
+        App::setLocale('en');
+        $article = Article::first();
+        $this->assertSame($article->title, 'Use the force Harry');
+        $article->title = 'I\'m your father Hagrid';
+        $this->assertSame($article->title, 'I\'m your father Hagrid');
+        $this->assertSame($article->translate()->title, 'I\'m your father Hagrid');
+        $this->assertSame($article->translate('sv')->title, 'Använd kraften Harry');
+    }
+
+    public function testCreate()
+    {
+        App::setLocale('en');
+        $article = Article::create(['title' => 'Whoa. This is heavy.', 'thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
+        $this->seeInDatabase('article_translations', ['title' => 'Whoa. This is heavy.', 'article_id' => $article->id, 'locale' => 'en']);
+        $this->seeInDatabase('articles', ['thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
+        App::setLocale('de');
+        $article = Article::create(['title' => 'Whoa. Das ist schwer.', 'thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
+        $this->seeInDatabase('article_translations', ['title' => 'Whoa. Das ist schwer.', 'article_id' => $article->id, 'locale' => 'de']);
+        $this->seeInDatabase('articles', ['thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
+    }
+
+    public function testUpdate()
+    {
+        App::setLocale('en');
+        $article = Article::find(1);
+        $article->title = 'Whoa. This is heavy.';
+        $article->save();
+        $this->seeInDatabase('article_translations', ['title' => 'Whoa. This is heavy.', 'article_id' => $article->id, 'locale' => 'en']);
+        App::setLocale('sv');
+        $article->update(['title' => 'Whoa. Detta är tung.']);
+        $this->seeInDatabase('article_translations', ['title' => 'Whoa. Detta är tung.', 'article_id' => $article->id, 'locale' => 'sv']);
+    }
+
+    public function testDelete()
+    {
+        Article::find(1)->delete();
+        $this->assertSame(0, Article::count());
+        $this->assertSame(0, ArticleTranslation::count());
+    }
 }

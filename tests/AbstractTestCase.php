@@ -11,24 +11,57 @@
 
 namespace Vinkla\Tests\Translator;
 
+use ArticleTableSeeder;
+use GrahamCampbell\TestBench\AbstractPackageTestCase;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\DB;
+use TranslationTableSeeder;
+
 /*
  * This is the abstract test case class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
-
 abstract class AbstractTestCase extends AbstractPackageTestCase
 {
     /**
-     * Get the service provider class.
+     * Define environment setup.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Foundation\Application $app
      *
-     * @return string
+     * @return void
      */
-    protected function getServiceProviderClass($app)
+    protected function getEnvironmentSetUp($app)
     {
-        return 'Vinkla\Translator\TranslatorServiceProvider';
+        parent::getEnvironmentSetUp($app);
+
+        $app->config->set('app.locale', 'sv');
+        $app->config->set('app.fallback', 'en');
+    }
+
+    /**
+     * @before
+     */
+    public function runDatabaseMigrations()
+    {
+        DB::statement(DB::raw('PRAGMA foreign_keys=1'));
+
+        $this->artisan('migrate', [
+            '--database' => 'sqlite',
+            '--realpath' => realpath(__DIR__.'/database/migrations'),
+        ]);
+
+        $this->beforeApplicationDestroyed(function () {
+            $this->artisan('migrate:rollback');
+        });
+    }
+
+    /**
+     * @before
+     */
+    public function seedDatabase()
+    {
+        $this->seed(ArticleTableSeeder::class);
+        $this->seed(TranslationTableSeeder::class);
     }
 }

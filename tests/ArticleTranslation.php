@@ -11,14 +11,19 @@
 
 namespace Vinkla\Tests\Translator;
 
-use GrahamCampbell\TestBenchCore\ServiceProviderTrait;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * This is the service provider class.
+ * This is the article translation eloquent model class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class ServiceProviderTest extends AbstractTestCase
+class ArticleTranslation extends Model
 {
-    use ServiceProviderTrait;
+    /**
+     * A list of methods protected from mass assignment.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['_token', '_method'];
 }
