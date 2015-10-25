@@ -156,6 +156,8 @@ class Article extends Model implements IsTranslatable
 
 Now you're ready to start translating your Eloquent models!
 
+Want more? Then you should definitely check out [the tests](tests). They showcase how to setup a basic project and are quite readable. Happy hacking!
+
 ## Usage
 
 Fetch pre-filled translated attributes.
