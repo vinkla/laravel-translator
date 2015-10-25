@@ -1,5 +1,6 @@
 # CHANGELOG
 
+
 ## 3.0.0 (upcoming)
 
 - Better test suit
@@ -9,6 +10,10 @@
 - Remove migrations
 - Simplified codebase
 - Add extensive documentation
+
+## 2.2.1 (released 2015-10-01)
+
+- Added ability to refuse the fallback translation
 
 ## 2.2.0 (released 2015-05-08)
 

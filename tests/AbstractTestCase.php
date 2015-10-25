@@ -31,7 +31,7 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
      *
      * @return void
      */
-    protected function getEnvironmentSetUp(Application $app)
+    protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
 
