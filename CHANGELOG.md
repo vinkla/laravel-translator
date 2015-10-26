@@ -1,7 +1,7 @@
 # CHANGELOG
 
 
-## 3.0.0 (upcoming)
+## 3.0.0 (released 2015-10-26)
 
 - Better test suit
 - Official Lumen support
