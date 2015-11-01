@@ -46,7 +46,7 @@ trait Translatable
             $translation = $this->getTranslation($this->getFallback());
         }
 
-        if (!$fallback) {
+        if (!$translation && !$fallback) {
             foreach ($this->translatedAttributes as $attribute) {
                 $translation = $this->setAttribute($attribute, null);
             }

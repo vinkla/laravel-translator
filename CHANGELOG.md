@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 3.0.1 (released 2015-11-01)
+
+- Fix fallback bug
 
 ## 3.0.0 (released 2015-10-26)
 
