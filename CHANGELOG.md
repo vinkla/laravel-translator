@@ -2,6 +2,7 @@
 
 ## 3.1.0 (upcoming)
 
+- Add Laravel 5.2 support
 - Updated translated attributes 
 
 ## 3.0.1 (released 2015-11-01)
