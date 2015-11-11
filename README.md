@@ -190,7 +190,7 @@ Create instance with translated attributes.
 Article::create(['title' => 'Use the force Harry']);
 ```
 
-> Note that this package will automatically find translated attributes based on content of the `$translatedAttributes` array from the Eloquent model.
+> Note that this package will automatically find translated attributes based on items from the `$translatedAttributes` array in the Eloquent model.
 
 Create instance with translated attributes for a specific locale.
 
@@ -214,7 +214,7 @@ App::setLocale('sv');
 $article->update(['title' => 'Whoa. Detta är tung.']);
 ```
 
-Delete article with translations.
+Delete an article with translations.
 
 ```php
 $article->delete();
