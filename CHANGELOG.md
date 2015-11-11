@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.1.0 (upcoming)
+
+- Updated translated attributes 
+
 ## 3.0.1 (released 2015-11-01)
 
 - Fix fallback bug
