@@ -1,9 +1,9 @@
 # CHANGELOG
 
-## 3.1.0 (upcoming)
+## 3.1.0 (released 2015-11-14)
 
 - Add Laravel 5.2 support
-- Updated translated attributes 
+- Updated translated attributes
 
 ## 3.0.1 (released 2015-11-01)
 
