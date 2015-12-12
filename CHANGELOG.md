@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.1.1 (released 2015-12-12)
+
+- Fix bug with fallback and update
+
 ## 3.1.0 (released 2015-11-14)
 
 - Add Laravel 5.2 support
