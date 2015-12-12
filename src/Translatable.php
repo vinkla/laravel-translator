@@ -64,7 +64,7 @@ trait Translatable
      */
     protected function translateOrNew($locale)
     {
-        $translation = $this->translate($locale);
+        $translation = $this->getTranslation($locale);
 
         if (!$translation) {
             $translation = $this->translations()
@@ -130,7 +130,9 @@ trait Translatable
 
             $translation->$key = $value;
 
-            return $this->cache[$this->getLocale()] = $translation;
+            $this->cache[$this->getLocale()] = $translation;
+
+            return $translation;
         }
 
         return parent::setAttribute($key, $value);

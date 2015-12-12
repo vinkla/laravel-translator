@@ -126,6 +126,9 @@ class TranslatorTest extends AbstractTestCase
         App::setLocale('sv');
         $article->update(['title' => 'Whoa. Detta är tung.']);
         $this->seeInDatabase('article_translations', ['title' => 'Whoa. Detta är tung.', 'article_id' => $article->id, 'locale' => 'sv']);
+        App::setLocale('de');
+        $article->update(['title' => 'Whoa. Das ist schwer.']);
+        $this->seeInDatabase('article_translations', ['title' => 'Whoa. Das ist schwer.', 'article_id' => $article->id, 'locale' => 'de']);
     }
 
     public function testDeleteTranslations()
