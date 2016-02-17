@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.1.3 (released 2016-02-17)
+
+- Fix bug where local was overridden
+
 ## 3.1.2 (released 2016-02-17)
 
 - Fix bug with cached fallback
