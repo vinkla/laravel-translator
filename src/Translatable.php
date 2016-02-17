@@ -47,15 +47,7 @@ trait Translatable
         }
 
         if (!$translation && !$fallback) {
-            $currentLocale = $this->getLocale();
-
-            $this->setLocale($locale);
-
-            foreach ($this->translatedAttributes as $attribute) {
-                $translation = $this->setAttribute($attribute, null);
-            }
-
-            $this->setLocale($currentLocale);
+            $translation = $this->getEmptyTranslation($locale);
         }
 
         return $translation;
@@ -101,6 +93,28 @@ trait Translatable
         if ($translation) {
             $this->cache[$locale] = $translation;
         }
+
+        return $translation;
+    }
+
+    /**
+     * Get an empty translation.
+     *
+     * @param string $locale
+     *
+     * @return mixed
+     */
+    protected function getEmptyTranslation($locale)
+    {
+        $appLocale = $this->getLocale();
+
+        $this->setLocale($locale);
+
+        foreach ($this->translatedAttributes as $attribute) {
+            $translation = $this->setAttribute($attribute, null);
+        }
+
+        $this->setLocale($appLocale);
 
         return $translation;
     }
