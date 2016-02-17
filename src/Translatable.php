@@ -47,6 +47,8 @@ trait Translatable
         }
 
         if (!$translation && !$fallback) {
+            $this->setLocale($locale);
+
             foreach ($this->translatedAttributes as $attribute) {
                 $translation = $this->setAttribute($attribute, null);
             }
@@ -150,6 +152,18 @@ trait Translatable
         $this->translations()->saveMany($this->cache);
 
         parent::finishSave($options);
+    }
+
+    /**
+     * Set the locale.
+     *
+     * @param string $locale
+     *
+     * @return string
+     */
+    protected function setLocale($locale)
+    {
+        App::setLocale($locale);
     }
 
     /**

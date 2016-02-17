@@ -45,13 +45,10 @@ class TranslatorTest extends AbstractTestCase
     public function testLocale()
     {
         $article = Article::first();
-        $class = new ReflectionClass(Article::class);
-        $method = $class->getMethod('getLocale');
-        $method->setAccessible(true);
-        $this->assertSame('sv', $method->invokeArgs($article, []));
-        $method = $class->getMethod('getFallback');
-        $method->setAccessible(true);
-        $this->assertSame('en', $method->invokeArgs($article, []));
+        $locale = $this->getProtectedMethod($article, 'getLocale');
+        $this->assertSame('sv', $locale);
+        $fallback = $this->getProtectedMethod($article, 'getFallback');
+        $this->assertSame('en', $fallback);
     }
 
     public function testFallback()
@@ -60,6 +57,11 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame($article->translate('de')->title, 'Use the force Harry');
         $this->assertSame($article->translate('de', true)->title, 'Use the force Harry');
         $this->assertSame($article->translate('de', false)->title, null);
+
+        App::setLocale('sv');
+        $this->assertSame($article->translate('sv', false)->title, 'Använd kraften Harry');
+        $this->assertSame($article->translate('nl', false)->title, null);
+        $this->assertSame($article->translate('sv', false)->title, 'Använd kraften Harry');
     }
 
     public function testSetLocale()
@@ -76,11 +78,9 @@ class TranslatorTest extends AbstractTestCase
     {
         $article = Article::first();
         $translations = ['en' => $article->translate('en'), 'sv' => $article->translate('sv')];
-        $class = new ReflectionClass(Article::class);
-        $property = $class->getProperty('cache');
-        $property->setAccessible(true);
-        $this->assertCount(2, $property->getValue($article));
-        $this->assertSame($translations, $property->getValue($article));
+        $cache = $this->getProtectedProperty($article, 'cache');
+        $this->assertCount(2, $cache);
+        $this->assertSame($translations, $cache);
         DB::enableQueryLog();
         $article->translate('en');
         $this->assertEmpty(DB::getQueryLog());
@@ -144,5 +144,23 @@ class TranslatorTest extends AbstractTestCase
         Article::first()->delete();
         $this->assertSame(0, Article::count());
         $this->assertSame(0, ArticleTranslation::count());
+    }
+
+    protected function getProtectedMethod($instance, $method, $parameters = null)
+    {
+        $rc = new ReflectionClass($instance);
+        $method = $rc->getMethod($method);
+        $method->setAccessible(true);
+
+        return $method->invoke($instance, $parameters);
+    }
+
+    protected function getProtectedProperty($instance, $property)
+    {
+        $rc = new ReflectionClass($instance);
+        $property = $rc->getProperty($property);
+        $property->setAccessible(true);
+
+        return $property->getValue($instance);
     }
 }
