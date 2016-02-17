@@ -110,6 +110,8 @@ trait Translatable
 
         $this->setLocale($locale);
 
+        $translation = null;
+
         foreach ($this->translatedAttributes as $attribute) {
             $translation = $this->setAttribute($attribute, null);
         }
