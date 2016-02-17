@@ -15,7 +15,7 @@ use Vinkla\Tests\Translator\Article;
 /**
  * This is the article table seeder class.
  *
- * @author Vincent Klaiber <vincent@schimpanz.com>
+ * @author Vincent Klaiber <hello@vinkla.com>
  */
 final class ArticleTableSeeder extends Seeder
 {
