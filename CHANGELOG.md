@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.1.2 (released 2016-02-17)
+
+- Fix bug with cached fallback
+
 ## 3.1.1 (released 2015-12-12)
 
 - Fix bug with fallback and update
