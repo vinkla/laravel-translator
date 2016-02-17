@@ -47,11 +47,13 @@ trait Translatable
         }
 
         if (!$translation && !$fallback) {
+            $currentLocale = $this->getLocale();
             $this->setLocale($locale);
 
             foreach ($this->translatedAttributes as $attribute) {
                 $translation = $this->setAttribute($attribute, null);
             }
+            $this->setLocale($currentLocale);
         }
 
         return $translation;

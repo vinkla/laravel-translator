@@ -62,6 +62,7 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame($article->translate('sv', false)->title, 'Använd kraften Harry');
         $this->assertSame($article->translate('nl', false)->title, null);
         $this->assertSame($article->translate('sv', false)->title, 'Använd kraften Harry');
+        $this->assertSame(App::getLocale(), 'sv');
     }
 
     public function testSetLocale()
