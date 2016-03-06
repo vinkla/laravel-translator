@@ -1,7 +1,7 @@
 Laravel Translator
 ==================
 
-![laravel-translator](https://cloud.githubusercontent.com/assets/499192/7440607/b7c867cc-f0bf-11e4-9d13-0ce90882ae14.png)
+![translator](https://cloud.githubusercontent.com/assets/499192/13553952/98b2db00-e39a-11e5-9e82-aca4df0961be.jpg)
 
 An Eloquent translator for Laravel. Read more about how this package was created and why it exists [in this blog post](http://vinkla.com/2014/11/laravel-translator/).
 
