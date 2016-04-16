@@ -20,7 +20,7 @@ use Vinkla\Tests\Translator\Article;
 final class ArticleTableSeeder extends Seeder
 {
     /**
-     * Run the seeder.
+     * Run the database seeds.
      *
      * @return void
      */

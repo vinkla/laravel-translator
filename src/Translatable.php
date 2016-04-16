@@ -65,7 +65,7 @@ trait Translatable
         $translation = $this->getTranslation($locale);
 
         if (!$translation) {
-            $translation = $this->translations()
+            return $this->translations()
                 ->where('locale', $locale)
                 ->firstOrNew(['locale' => $locale]);
         }
@@ -143,7 +143,7 @@ trait Translatable
      * @param string $key
      * @param mixed $value
      *
-     * @return mixed
+     * @return $this
      */
     public function setAttribute($key, $value)
     {
@@ -179,7 +179,7 @@ trait Translatable
      *
      * @param string $locale
      *
-     * @return string
+     * @return void
      */
     protected function setLocale($locale)
     {

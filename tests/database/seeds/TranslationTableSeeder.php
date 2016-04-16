@@ -20,7 +20,7 @@ use Vinkla\Tests\Translator\ArticleTranslation;
 final class TranslationTableSeeder extends Seeder
 {
     /**
-     * Run the seeder.
+     * Run the database seeds.
      *
      * @return void
      */
