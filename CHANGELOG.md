@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.2.0 (released 2016-05-05)
+
+- Added laravel 5.3 support
+
 ## 3.1.3 (released 2016-02-17)
 
 - Fix bug where local was overridden
