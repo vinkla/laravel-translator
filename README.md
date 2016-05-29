@@ -20,6 +20,7 @@ echo $article->title;
 ```
 
 [![Build Status](https://img.shields.io/travis/vinkla/translator/master.svg?style=flat)](https://travis-ci.org/vinkla/translator)
+[![StyleCI](https://styleci.io/repos/24419399/shield?style=flat)](https://styleci.io/repos/24419399)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/vinkla/translator.svg?style=flat)](https://scrutinizer-ci.com/g/vinkla/translator/code-structure)
 [![Quality Score](https://img.shields.io/scrutinizer/g/vinkla/translator.svg?style=flat)](https://scrutinizer-ci.com/g/vinkla/translator)
 [![Latest Version](https://img.shields.io/github/release/vinkla/translator.svg?style=flat)](https://github.com/vinkla/translator/releases)
