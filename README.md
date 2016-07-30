@@ -3,7 +3,7 @@ Laravel Translator
 
 ![translator](https://cloud.githubusercontent.com/assets/499192/13553952/98b2db00-e39a-11e5-9e82-aca4df0961be.jpg)
 
-An easy to use Eloquent translator for Laravel. No configuration or service providers needed.
+An easy to use Eloquent translator for Laravel. No configuration or service provider needed.
 
 ```php
 // Fetch an Eloquent object
