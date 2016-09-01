@@ -45,10 +45,9 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
     {
         DB::statement(DB::raw('PRAGMA foreign_keys=1'));
 
-        $this->artisan('migrate', [
-            '--database' => 'sqlite',
-            '--realpath' => realpath(__DIR__.'/database/migrations'),
-        ]);
+        $this->loadMigrationsFrom(realpath(__DIR__.'/database/migrations'));
+
+        $this->artisan('migrate');
 
         $this->beforeApplicationDestroyed(function () {
             $this->artisan('migrate:rollback');
