@@ -30,13 +30,13 @@ echo $article->title;
 Require this package, with [Composer](https://getcomposer.org/), in the root directory of your project.
 
 ```bash
-composer require vinkla/translator
+$ composer require vinkla/translator
 ```
 
 Create a new migration for the translations. In our case we want to translate the `articles` table.
 
 ```bash
-php artisan make:migration create_article_translations_table
+$ php artisan make:migration create_article_translations_table
 ```
 
 Make sure you add the `article_id` and `locale` columns. Also, make them unique.
