@@ -113,7 +113,7 @@ class ArticleTranslation extends Model
 
 ```
 
-Add the `Translatable` trait and the `IsTranslatable` interface to the `Article` Eloquent model. Add the has-many `translations()` relation method and fill the `$translatedAttributes` array with translatable attributes.
+Add the `Translatable` trait and the `IsTranslatable` interface to the `Article` Eloquent model. Add the has-many `translations()` relation method and fill the `$translatable` array with translatable attributes.
 
 ```php
 use Illuminate\Database\Eloquent\Model;
@@ -137,11 +137,11 @@ class Article extends Model implements IsTranslatable
     protected $guarded = ['_token', '_method'];
 
     /**
-     * The translated attributes.
+     * List of translated attributes.
      *
      * @var string[]
      */
-    protected $translatedAttributes = ['title'];
+    protected $translatable = ['title'];
 
     /**
      * Get the translations relation.
@@ -191,7 +191,7 @@ Create instance with translated attributes.
 Article::create(['title' => 'Use the force Harry']);
 ```
 
-> Note that this package will automatically find translated attributes based on items from the `$translatedAttributes` array in the Eloquent model.
+> Note that this package will automatically find translated attributes based on items from the `$translatable` array in the Eloquent model.
 
 Create instance with translated attributes for a specific locale.
 

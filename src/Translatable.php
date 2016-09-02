@@ -112,7 +112,7 @@ trait Translatable
 
         $translation = null;
 
-        foreach ($this->translatedAttributes as $attribute) {
+        foreach ($this->translatable as $attribute) {
             $translation = $this->setAttribute($attribute, null);
         }
 
@@ -130,7 +130,7 @@ trait Translatable
      */
     public function getAttribute($key)
     {
-        if (in_array($key, $this->translatedAttributes)) {
+        if (in_array($key, $this->translatable)) {
             return $this->translate() ? $this->translate()->$key : null;
         }
 
@@ -147,7 +147,7 @@ trait Translatable
      */
     public function setAttribute($key, $value)
     {
-        if (in_array($key, $this->translatedAttributes)) {
+        if (in_array($key, $this->translatable)) {
             $translation = $this->translateOrNew($this->getLocale());
 
             $translation->$key = $value;

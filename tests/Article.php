@@ -32,11 +32,11 @@ class Article extends Model implements IsTranslatable
     protected $guarded = ['_token', '_method'];
 
     /**
-     * The translated attributes.
+     * List of translated attributes.
      *
      * @var string[]
      */
-    protected $translatedAttributes = ['title'];
+    protected $translatable = ['title'];
 
     /**
      * Get the translations relation.
