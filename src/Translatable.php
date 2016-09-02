@@ -11,6 +11,7 @@
 
 namespace Vinkla\Translator;
 
+use InvalidArgumentException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 
@@ -112,7 +113,7 @@ trait Translatable
 
         $translation = null;
 
-        foreach ($this->translatable as $attribute) {
+        foreach ($this->getTranslatable() as $attribute) {
             $translation = $this->setAttribute($attribute, null);
         }
 
@@ -130,7 +131,7 @@ trait Translatable
      */
     public function getAttribute($key)
     {
-        if (in_array($key, $this->translatable)) {
+        if (in_array($key, $this->getTranslatable())) {
             return $this->translate() ? $this->translate()->$key : null;
         }
 
@@ -147,7 +148,7 @@ trait Translatable
      */
     public function setAttribute($key, $value)
     {
-        if (in_array($key, $this->translatable)) {
+        if (in_array($key, $this->getTranslatable())) {
             $translation = $this->translateOrNew($this->getLocale());
 
             $translation->$key = $value;
@@ -158,6 +159,22 @@ trait Translatable
         }
 
         return parent::setAttribute($key, $value);
+    }
+
+    /**
+     * Get the translatable array.
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return array
+     */
+    protected function getTranslatable()
+    {
+        if (!property_exists($this, 'translatable')) {
+            throw new InvalidArgumentException('Missing property [translatable].');
+        }
+
+        return $this->translatable;
     }
 
     /**
