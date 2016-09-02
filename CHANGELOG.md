@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.0.0 (upcoming)
+
+- Dropped laravel 5.1 and 5.2 support
+
 ## 3.3.0 (released 2016-07-11)
 
 - Dropped php 5.5 support
