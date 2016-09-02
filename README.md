@@ -1,5 +1,4 @@
-Laravel Translator
-==================
+# Laravel Translator
 
 ![translator](https://cloud.githubusercontent.com/assets/499192/13553952/98b2db00-e39a-11e5-9e82-aca4df0961be.jpg)
 
