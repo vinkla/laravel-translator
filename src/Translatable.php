@@ -178,6 +178,24 @@ trait Translatable
     }
 
     /**
+     * Determine if the model or given attribute(s) have been modified.
+     *
+     * @param array|string|null $attributes
+     *
+     * @return bool
+     */
+    public function isDirty($attributes = null)
+    {
+        $dirty = parent::isDirty();
+
+        if (!$dirty) {
+            return count($this->cache) > 0;
+        }
+
+        return $dirty;
+    }
+
+    /**
      * Finish processing on a successful save operation.
      *
      * @param array $options
