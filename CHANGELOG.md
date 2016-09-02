@@ -2,7 +2,7 @@
 
 ## 4.0.0 (upcoming)
 
-- Dropped laravel 5.1 and 5.2 support
+- Dropped laravel 5.1 support
 
 ## 3.3.0 (released 2016-07-11)
 
