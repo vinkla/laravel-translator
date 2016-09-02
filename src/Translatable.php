@@ -11,9 +11,9 @@
 
 namespace Vinkla\Translator;
 
-use InvalidArgumentException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
+use InvalidArgumentException;
 
 /**
  * This is the translatable trait.
