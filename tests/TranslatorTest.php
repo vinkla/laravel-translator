@@ -181,17 +181,11 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame(0, ArticleTranslation::count());
     }
 
-    public function testUpdateTranslationMakesBaseModelDirty()
+    public function testIsDirty()
     {
         $article = Article::first();
         $article->title = 'A new title';
         $this->assertTrue($article->isDirty());
-    }
-    
-    public function testIsDirtyCallsBaseModelWhenUsedWithAttributes()
-    {
-        $article = Article::first();
-        $article->title = 'A new title';
         $this->assertFalse($article->isDirty('foo'));
     }
 

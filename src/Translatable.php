@@ -186,7 +186,7 @@ trait Translatable
      */
     public function isDirty($attributes = null)
     {
-        if (! empty($attributes)) {
+        if (!empty($attributes)) {
             return parent::isDirty($attributes);
         }
 
