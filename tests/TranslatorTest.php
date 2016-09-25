@@ -186,7 +186,15 @@ class TranslatorTest extends AbstractTestCase
         $article = Article::first();
         $article->title = 'A new title';
         $this->assertTrue($article->isDirty());
+        $this->assertTrue($article->isDirty('title'));
         $this->assertFalse($article->isDirty('foo'));
+    }
+
+    public function testGetDirtyTranslations()
+    {
+        $article = Article::first();
+        $article->title = 'A new title';
+        $this->assertSame(['title' => 'A new title'], $article->getDirtyTranslations());
     }
 
     protected function getProtectedMethod($instance, $method, $parameters = null)

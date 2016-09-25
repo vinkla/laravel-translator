@@ -186,11 +186,45 @@ trait Translatable
      */
     public function isDirty($attributes = null)
     {
-        if (!empty($attributes)) {
-            return parent::isDirty($attributes);
+        $dirty = array_merge($this->getDirty(), $this->getDirtyTranslations());
+
+        if (is_null($attributes)) {
+            return count($dirty) > 0;
         }
 
-        return parent::isDirty() ?: count($this->cache) > 0;
+        if (!is_array($attributes)) {
+            $attributes = func_get_args();
+        }
+
+        foreach ($attributes as $attribute) {
+            if (array_key_exists($attribute, $dirty)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the translatable attributes that have been changed since last sync.
+     *
+     * @return array
+     */
+    public function getDirtyTranslations()
+    {
+        $dirty = [];
+
+        foreach ($this->cache as $translation) {
+            foreach ($translation->attributes as $key => $value) {
+                if (!array_key_exists($key, $translation->original)) {
+                    $dirty[$key] = $value;
+                } elseif ($value !== $translation->original[$key] && !$translation->originalIsNumericallyEquivalent($key)) {
+                    $dirty[$key] = $value;
+                }
+            }
+        }
+
+        return $dirty;
     }
 
     /**
