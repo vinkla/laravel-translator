@@ -254,7 +254,7 @@ trait Translatable
     }
 
     /**
-     * Get the locale.
+     * Get the current locale.
      *
      * @return string
      */
