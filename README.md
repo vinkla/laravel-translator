@@ -2,7 +2,7 @@
 
 ![laravel translator](https://cloud.githubusercontent.com/assets/499192/13553952/98b2db00-e39a-11e5-9e82-aca4df0961be.jpg)
 
-An easy to use Eloquent translator for Laravel. No configuration or service provider needed.
+> An easy-to-use Eloquent translator for Laravel.
 
 ```php
 // Fetch an Eloquent object
@@ -20,8 +20,7 @@ echo $article->title;
 
 [![Build Status](https://img.shields.io/travis/vinkla/laravel-translator/master.svg?style=flat)](https://travis-ci.org/vinkla/laravel-translator)
 [![StyleCI](https://styleci.io/repos/24419399/shield?style=flat)](https://styleci.io/repos/24419399)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/vinkla/translator.svg?style=flat)](https://scrutinizer-ci.com/g/vinkla/translator/code-structure)
-[![Quality Score](https://img.shields.io/scrutinizer/g/vinkla/translator.svg?style=flat)](https://scrutinizer-ci.com/g/vinkla/translator)
+[![Coverage Status](https://img.shields.io/codecov/c/github/vinkla/laravel-translator.svg?style=flat)](https://codecov.io/github/vinkla/laravel-translator)
 [![Latest Version](https://img.shields.io/github/release/vinkla/translator.svg?style=flat)](https://github.com/vinkla/translator/releases)
 [![License](https://img.shields.io/packagist/l/vinkla/translator.svg?style=flat)](https://packagist.org/packages/vinkla/translator)
 

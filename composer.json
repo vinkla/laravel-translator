@@ -1,6 +1,6 @@
 {
     "name": "vinkla/translator",
-    "description": "An Eloquent translator for Laravel",
+    "description": " An easy-to-use Eloquent translator for Laravel",
     "keywords": ["eloquent", "language", "laravel", "locale", "multilingual", "translation", "translations", "translator", "translatable"],
     "license": "MIT",
     "authors": [
@@ -11,12 +11,12 @@
         }
     ],
     "require": {
-        "php": "^5.6.4 || ^7.0",
+        "php": "^7.0",
         "illuminate/support": "5.2.* || 5.3.*"
     },
     "require-dev": {
         "graham-campbell/testbench": "^3.2",
-        "phpunit/phpunit": "^5.4"
+        "phpunit/phpunit": "^5.6"
     },
     "autoload": {
         "psr-4": {
