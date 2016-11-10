@@ -131,7 +131,7 @@ trait Translatable
      *
      * @return mixed
      */
-    public function getAttribute(string $key)
+    public function getAttribute($key)
     {
         if (in_array($key, $this->getTranslatable())) {
             return $this->translate() ? $this->translate()->$key : null;
@@ -148,7 +148,7 @@ trait Translatable
      *
      * @return $this
      */
-    public function setAttribute(string $key, $value)
+    public function setAttribute($key, $value)
     {
         if (in_array($key, $this->getTranslatable())) {
             $translation = $this->translateOrNew($this->getLocale());
@@ -164,7 +164,7 @@ trait Translatable
     }
 
     /**
-     * Get the translatable array.
+     * Get the translatable attributes array.
      *
      * @throws \InvalidArgumentException
      *
