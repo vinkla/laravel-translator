@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Vinkla\Translator;
 
 use Illuminate\Support\Facades\App;
@@ -37,7 +39,7 @@ trait Translatable
      *
      * @return \Illuminate\Database\Eloquent\Model|null|static
      */
-    public function translate($locale = null, $fallback = true)
+    public function translate(string $locale = null, bool $fallback = true)
     {
         $locale = $locale ?: $this->getLocale();
 
@@ -61,7 +63,7 @@ trait Translatable
      *
      * @return \Illuminate\Database\Eloquent\Model|static
      */
-    protected function translateOrNew($locale)
+    protected function translateOrNew(string $locale)
     {
         $translation = $this->getTranslation($locale);
 
@@ -81,7 +83,7 @@ trait Translatable
      *
      * @return \Illuminate\Database\Eloquent\Model|static|null
      */
-    protected function getTranslation($locale)
+    protected function getTranslation(string $locale)
     {
         if (isset($this->cache[$locale])) {
             return $this->cache[$locale];
@@ -103,9 +105,9 @@ trait Translatable
      *
      * @param string $locale
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model|static|null
      */
-    protected function getEmptyTranslation($locale)
+    protected function getEmptyTranslation(string $locale)
     {
         $appLocale = $this->getLocale();
 
@@ -129,7 +131,7 @@ trait Translatable
      *
      * @return mixed
      */
-    public function getAttribute($key)
+    public function getAttribute(string $key)
     {
         if (in_array($key, $this->getTranslatable())) {
             return $this->translate() ? $this->translate()->$key : null;
@@ -146,7 +148,7 @@ trait Translatable
      *
      * @return $this
      */
-    public function setAttribute($key, $value)
+    public function setAttribute(string $key, $value)
     {
         if (in_array($key, $this->getTranslatable())) {
             $translation = $this->translateOrNew($this->getLocale());
@@ -168,7 +170,7 @@ trait Translatable
      *
      * @return array
      */
-    protected function getTranslatable()
+    protected function getTranslatable(): array
     {
         if (!property_exists($this, 'translatable')) {
             throw new InvalidArgumentException('Missing property [translatable].');
@@ -184,7 +186,7 @@ trait Translatable
      *
      * @return bool
      */
-    public function isDirty($attributes = null)
+    public function isDirty($attributes = null): bool
     {
         $dirty = array_merge($this->getDirty(), $this->getDirtyTranslations());
 
@@ -210,7 +212,7 @@ trait Translatable
      *
      * @return array
      */
-    public function getDirtyTranslations()
+    public function getDirtyTranslations(): array
     {
         $dirty = [];
 
@@ -248,7 +250,7 @@ trait Translatable
      *
      * @return void
      */
-    protected function setLocale($locale)
+    protected function setLocale(string $locale)
     {
         App::setLocale($locale);
     }
@@ -258,7 +260,7 @@ trait Translatable
      *
      * @return string
      */
-    protected function getLocale()
+    protected function getLocale(): string
     {
         return App::getLocale();
     }
@@ -268,7 +270,7 @@ trait Translatable
      *
      * @return string
      */
-    protected function getFallback()
+    protected function getFallback(): string
     {
         return Config::get('app.fallback_locale');
     }
