@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Vinkla\Translator;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 /**
  * This is the is translatable interface.
  *
@@ -25,5 +27,5 @@ interface IsTranslatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function translations();
+    public function translations(): HasMany;
 }

@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Vinkla\Translator;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
-use InvalidArgumentException;
+use LogicException;
 
 /**
  * This is the translatable trait.
@@ -37,9 +39,9 @@ trait Translatable
      * @param string|null $locale
      * @param bool $fallback
      *
-     * @return \Illuminate\Database\Eloquent\Model|null|static
+     * @return \Illuminate\Database\Eloquent\Model
      */
-    public function translate(string $locale = null, bool $fallback = true)
+    public function translate(string $locale = null, bool $fallback = true): Model
     {
         $locale = $locale ?: $this->getLocale();
 
@@ -61,9 +63,9 @@ trait Translatable
      *
      * @param string $locale
      *
-     * @return \Illuminate\Database\Eloquent\Model|static
+     * @return \Illuminate\Database\Eloquent\Model
      */
-    protected function translateOrNew(string $locale)
+    protected function translateOrNew(string $locale): Model
     {
         $translation = $this->getTranslation($locale);
 
@@ -81,7 +83,7 @@ trait Translatable
      *
      * @param string $locale
      *
-     * @return \Illuminate\Database\Eloquent\Model|static|null
+     * @return \Illuminate\Database\Eloquent\Model|null
      */
     protected function getTranslation(string $locale)
     {
@@ -105,9 +107,9 @@ trait Translatable
      *
      * @param string $locale
      *
-     * @return \Illuminate\Database\Eloquent\Model|static|null
+     * @return \Illuminate\Database\Eloquent\Model
      */
-    protected function getEmptyTranslation(string $locale)
+    protected function getEmptyTranslation(string $locale): Model
     {
         $appLocale = $this->getLocale();
 
@@ -166,14 +168,14 @@ trait Translatable
     /**
      * Get the translatable attributes array.
      *
-     * @throws \InvalidArgumentException
+     * @throws \LogicException
      *
      * @return array
      */
     protected function getTranslatable(): array
     {
         if (!property_exists($this, 'translatable')) {
-            throw new InvalidArgumentException('Missing property [translatable].');
+            throw new LogicException('Missing property [translatable].');
         }
 
         return $this->translatable;
@@ -280,5 +282,5 @@ trait Translatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    abstract public function translations();
+    abstract public function translations(): HasMany;
 }
