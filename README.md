@@ -116,6 +116,7 @@ Add the `Translatable` trait and the `IsTranslatable` interface to the `Article`
 
 ```php
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Vinkla\Translator\IsTranslatable;
 use Vinkla\Translator\Translatable;
 
@@ -147,7 +148,7 @@ class Article extends Model implements IsTranslatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function translations()
+    public function translations(): HasMany
     {
         return $this->hasMany(ArticleTranslation::class);
     }
