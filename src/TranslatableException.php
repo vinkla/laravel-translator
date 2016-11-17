@@ -13,19 +13,14 @@ declare(strict_types=1);
 
 namespace Vinkla\Translator;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use LogicException;
 
 /**
- * This is the is translatable interface.
+ * This is the translatable exception class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-interface IsTranslatable
+class TranslatableException extends LogicException
 {
-    /**
-     * Get the translations relation.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function translations(): HasMany;
+    //
 }

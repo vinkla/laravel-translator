@@ -13,7 +13,6 @@ namespace Vinkla\Tests\Translator;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Vinkla\Translator\IsTranslatable;
 use Vinkla\Translator\Translatable;
 
 /**
@@ -21,7 +20,7 @@ use Vinkla\Translator\Translatable;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class Article extends Model implements IsTranslatable
+class Article extends Model
 {
     use Translatable;
 

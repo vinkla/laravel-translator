@@ -14,7 +14,6 @@ namespace Vinkla\Tests\Translator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use ReflectionClass;
-use Vinkla\Translator\IsTranslatable;
 
 /**
  * This is the translator test class.
@@ -23,13 +22,6 @@ use Vinkla\Translator\IsTranslatable;
  */
 class TranslatorTest extends AbstractTestCase
 {
-    public function testInterface()
-    {
-        $article = new ReflectionClass(Article::class);
-
-        $this->assertTrue($article->implementsInterface(IsTranslatable::class));
-    }
-
     public function testHasMany()
     {
         $article = Article::first();

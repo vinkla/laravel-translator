@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
-use LogicException;
 
 /**
  * This is the translatable trait.
@@ -166,14 +165,14 @@ trait Translatable
     /**
      * Get the translatable attributes array.
      *
-     * @throws \LogicException
+     * @throws \Vinkla\Translator\TranslatableException
      *
      * @return array
      */
     protected function getTranslatable(): array
     {
         if (!property_exists($this, 'translatable')) {
-            throw new LogicException('Missing property [translatable].');
+            throw new TranslatableException('Missing property [translatable].');
         }
 
         return $this->translatable;
