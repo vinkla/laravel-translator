@@ -1,8 +1,9 @@
 # CHANGELOG
 
-## 4.0.0 (upcoming)
+## 4.0.0 (released 2016-11-25)
 
-- Dropped laravel 5.1 support
+- Added custom exception
+- Dropped laravel 5.1 and 5.2 support
 - Rename translatable property
 
 ## 3.3.0 (released 2016-07-11)
