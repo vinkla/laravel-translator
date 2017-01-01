@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.1.0 (released 2017-01-01)
+
+- Added laravel 5.4 support
+
 ## 4.0.0 (released 2016-11-25)
 
 - Added custom exception
