@@ -14,7 +14,7 @@ namespace Vinkla\Tests\Translator;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * This is the service provider with configurations for testing this package.
+ * This is the database service provider class.
  *
  * @author Alejandro Peinó <alepeino@gmail.com>
  */
