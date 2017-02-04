@@ -16,13 +16,18 @@ use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Illuminate\Support\Facades\DB;
 use TranslationTableSeeder;
 
-/*
+/**
  * This is the abstract test case class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
 abstract class AbstractTestCase extends AbstractPackageTestCase
 {
+    protected function getPackageProviders($app)
+    {
+        return [DatabaseServiceProvider::class];
+    }
+
     /**
      * Define environment setup.
      *
@@ -44,8 +49,6 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
     public function runDatabaseMigrations()
     {
         DB::statement(DB::raw('PRAGMA foreign_keys=1'));
-
-        $this->loadMigrationsFrom(realpath(__DIR__.'/database/migrations'));
 
         $this->artisan('migrate');
 
