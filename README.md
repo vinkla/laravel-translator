@@ -183,6 +183,18 @@ Fetch translated attributes without fallback support.
 $article->translate('de', false)->title;
 ```
 
+Fetch resources and eager load the translations.
+
+```php
+$articles = Article::with('translations')->get();
+```
+
+Fetch resources and eager load the translations for a single locale.
+
+```php
+$articles = Article::withTranslations('en')->get();
+```
+
 Create instance with translated attributes.
 
 ```php
