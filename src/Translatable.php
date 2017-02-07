@@ -61,16 +61,16 @@ trait Translatable
     /**
      * Query scope for eager-loading the translations for current (or a given) locale.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string|null $locale
      *
-     * @return void
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function scopeWithTranslations(Builder $builder, string $locale = null)
+    public function scopeWithTranslations(Builder $query, string $locale = null): Builder
     {
-        $locale = $locale ?: (new static())->getLocale();
+        $locale = $locale ?: $this->getLocale();
 
-        $builder->with(['translations' => function (HasMany $query) use ($locale) {
+        return $query->with(['translations' => function (HasMany $query) use ($locale) {
             $query->where('locale', $locale);
         }]);
     }

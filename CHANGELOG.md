@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.2.1 (released 2017-02-07)
+
+- Fix with translations query
+
 ## 4.2.0 (released 2017-02-07)
 
 - Added eager loading support
