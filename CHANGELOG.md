@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.2.0 (released 2017-02-07)
+
+- Added eager loading support
+
 ## 4.1.0 (released 2017-01-01)
 
 - Added laravel 5.4 support
