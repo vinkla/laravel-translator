@@ -177,6 +177,7 @@ class TranslatorTest extends AbstractTestCase
     {
         $article = Article::first();
         $article->title = 'A new title';
+
         $this->assertTrue($article->isDirty());
         $this->assertTrue($article->isDirty('title'));
         $this->assertFalse($article->isDirty('foo'));
@@ -186,29 +187,32 @@ class TranslatorTest extends AbstractTestCase
     {
         $article = Article::first();
         $article->title = 'A new title';
+
         $this->assertSame(['title' => 'A new title'], $article->getDirtyTranslations());
     }
 
     public function testNoEagerLoad()
     {
         $article = Article::create(['thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
+
         ArticleTranslation::create(['title' => 'Whoa. This is heavy.', 'article_id' => $article->id, 'locale' => 'en']);
         ArticleTranslation::create(['title' => 'Whoa. Detta är tung.', 'article_id' => $article->id, 'locale' => 'sv']);
 
-        $this->assertSame(Article::count() + 1, $this->getQueryCount(function () {
+        $this->assertQueryCount(Article::count() + 1, function () {
             Article::all()->pluck('title');
-        }));
+        });
     }
 
     public function testEagerLoad()
     {
         $article = Article::create(['thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
+
         ArticleTranslation::create(['title' => 'Whoa. This is heavy.', 'article_id' => $article->id, 'locale' => 'en']);
         ArticleTranslation::create(['title' => 'Whoa. Detta är tung.', 'article_id' => $article->id, 'locale' => 'sv']);
 
-        $this->assertSame(2, $this->getQueryCount(function () {
+        $this->assertQueryCount(2, function () {
             Article::with('translations')->get()->pluck('title');
-        }));
+        });
     }
 
     public function testWithTranslationsScopeWithNoParameter()
@@ -217,10 +221,10 @@ class TranslatorTest extends AbstractTestCase
 
         $this->assertTrue($article->relationLoaded('translations'));
 
-        $this->assertSame(0, $this->getQueryCount(function () use ($article) {
+        $this->assertQueryCount(0, function () use ($article) {
             $this->assertSame(1, $article->translations->count());
             $this->assertSame('Använd kraften Harry', $article->title);
-        }));
+        });
     }
 
     public function testWithTranslationsScopeWithParameter()
@@ -229,10 +233,10 @@ class TranslatorTest extends AbstractTestCase
 
         $this->assertTrue($article->relationLoaded('translations'));
 
-        $this->assertSame(0, $this->getQueryCount(function () use ($article) {
+        $this->assertQueryCount(0, function () use ($article) {
             $this->assertSame(1, $article->translations->count());
             $this->assertSame('Use the force Harry', $article->title);
-        }));
+        });
     }
 
     protected function getProtectedMethod($instance, $method, $parameters = null)
@@ -253,18 +257,16 @@ class TranslatorTest extends AbstractTestCase
         return $property->getValue($instance);
     }
 
-    protected function getQueryCount($callback)
+    protected function assertQueryCount($count, $callback)
     {
         DB::enableQueryLog();
 
         $callback();
 
-        $count = count(DB::getQueryLog());
+        $this->assertSame($count, count(DB::getQueryLog()));
 
         DB::disableQueryLog();
 
         DB::flushQueryLog();
-
-        return $count;
     }
 }
