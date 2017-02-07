@@ -34,23 +34,6 @@ trait Translatable
     protected $cache = [];
 
     /**
-     * Query scope for eager-loading the translations for current (or a given) locale.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param string|null $locale
-     *
-     * @return void
-     */
-    public static function scopeWithTranslations(Builder $builder, string $locale = null)
-    {
-        $locale = $locale ?: (new static())->getLocale();
-
-        $builder->with(['translations' => function (HasMany $query) use ($locale) {
-            $query->where('locale', $locale);
-        }]);
-    }
-
-    /**
      * Get a translation.
      *
      * @param string|null $locale
@@ -73,6 +56,23 @@ trait Translatable
         }
 
         return $translation;
+    }
+
+    /**
+     * Query scope for eager-loading the translations for current (or a given) locale.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param string|null $locale
+     *
+     * @return void
+     */
+    public static function scopeWithTranslations(Builder $builder, string $locale = null)
+    {
+        $locale = $locale ?: (new static())->getLocale();
+
+        $builder->with(['translations' => function (HasMany $query) use ($locale) {
+            $query->where('locale', $locale);
+        }]);
     }
 
     /**
