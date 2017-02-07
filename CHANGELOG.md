@@ -3,6 +3,7 @@
 ## 4.2.0 (released 2017-02-07)
 
 - Added eager loading support
+- Dropped laravel 5.3 support
 
 ## 4.1.0 (released 2017-01-01)
 
