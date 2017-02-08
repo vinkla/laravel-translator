@@ -37,6 +37,13 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame($article->translate('sv')->title, 'Använd kraften Harry');
     }
 
+    public function testEmptyTranslation()
+    {
+        $article = Article::create(['thumbnail' => 'http://i.imgur.com/tyfwfEX.jpg']);
+
+        $this->assertNull($article->title);
+    }
+
     public function testLocale()
     {
         $article = Article::first();

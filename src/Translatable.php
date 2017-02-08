@@ -39,9 +39,9 @@ trait Translatable
      * @param string|null $locale
      * @param bool $fallback
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model|null
      */
-    public function translate(string $locale = null, bool $fallback = true): Model
+    public function translate(string $locale = null, bool $fallback = true)
     {
         $locale = $locale ?: $this->getLocale();
 
@@ -80,9 +80,9 @@ trait Translatable
      *
      * @param string $locale
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model|null
      */
-    protected function translateOrNew(string $locale): Model
+    protected function translateOrNew(string $locale)
     {
         $translation = $this->getTranslation($locale);
 

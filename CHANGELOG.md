@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.2.2 (released 2017-02-08)
+
+- Fix empty translations
+
 ## 4.2.1 (released 2017-02-07)
 
 - Fix with translations query
