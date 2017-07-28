@@ -15,6 +15,7 @@ use ArticleTableSeeder;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Illuminate\Support\Facades\DB;
 use TranslationTableSeeder;
+use Vinkla\Tests\Translator\Providers\DatabaseServiceProvider;
 
 /**
  * This is the abstract test case class.
@@ -25,7 +26,9 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
 {
     protected function getPackageProviders($app)
     {
-        return [DatabaseServiceProvider::class];
+        return [
+            DatabaseServiceProvider::class,
+        ];
     }
 
     /**

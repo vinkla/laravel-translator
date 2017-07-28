@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Vinkla\Tests\Translator;
+namespace Vinkla\Tests\Translator\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -22,6 +22,6 @@ class DatabaseServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadMigrationsFrom(realpath(__DIR__.'/database/migrations'));
+        $this->loadMigrationsFrom(realpath(__DIR__.'/../database/migrations'));
     }
 }
