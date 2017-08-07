@@ -12,8 +12,8 @@
     ],
     "require": {
         "php": "^7.0",
-        "illuminate/database": "5.4.* || 5.5.*",
-        "illuminate/support": "5.4.* || 5.5.*"
+        "illuminate/database": "5.5.*",
+        "illuminate/support": "5.5.*"
     },
     "require-dev": {
         "graham-campbell/analyzer": "^1.1",
