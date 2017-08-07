@@ -24,26 +24,19 @@ use Vinkla\Tests\Translator\Providers\DatabaseServiceProvider;
  */
 abstract class AbstractTestCase extends AbstractPackageTestCase
 {
-    protected function getPackageProviders($app)
-    {
-        return [
-            DatabaseServiceProvider::class,
-        ];
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param \Illuminate\Foundation\Application $app
-     *
-     * @return void
-     */
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
 
         $app->config->set('app.locale', 'sv');
         $app->config->set('app.fallback', 'en');
+    }
+
+    protected function getRequiredServiceProviders($app)
+    {
+        return [
+            DatabaseServiceProvider::class,
+        ];
     }
 
     /**
