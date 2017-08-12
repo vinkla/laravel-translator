@@ -235,6 +235,20 @@ trait Translatable
     }
 
     /**
+     * Delete the model from the database with its translations.
+     *
+     * @return null|bool
+     */
+    public function delete()
+    {
+        if ($deleted = parent::delete()) {
+            $this->translations()->delete();
+        }
+
+        return $deleted;
+    }
+
+    /**
      * Set the locale.
      *
      * @param string $locale
