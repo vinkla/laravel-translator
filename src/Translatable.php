@@ -36,10 +36,10 @@ trait Translatable
     /**
      * Get a translation.
      *
-     * @param string|null $locale
+     * @param null|string $locale
      * @param bool $fallback
      *
-     * @return \Illuminate\Database\Eloquent\Model|null
+     * @return null|\Illuminate\Database\Eloquent\Model
      */
     public function translate(string $locale = null, bool $fallback = true)
     {
@@ -62,7 +62,7 @@ trait Translatable
      * Query scope for eager-loading the translations for current (or a given) locale.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string|null $locale
+     * @param null|string $locale
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -100,7 +100,7 @@ trait Translatable
      *
      * @param string $locale
      *
-     * @return \Illuminate\Database\Eloquent\Model|null
+     * @return null|\Illuminate\Database\Eloquent\Model
      */
     protected function getTranslation(string $locale)
     {
@@ -199,51 +199,25 @@ trait Translatable
     /**
      * Determine if the model or given attribute(s) have been modified.
      *
-     * @param array|string|null $attributes
+     * @param null|array|string $attributes
      *
      * @return bool
      */
     public function isDirty($attributes = null): bool
     {
-        $dirty = array_merge($this->getDirty(), $this->getDirtyTranslations());
+        $attributes = is_array($attributes) ? $attributes : func_get_args();
 
-        if (is_null($attributes)) {
-            return count($dirty) > 0;
+        if (parent::isDirty($attributes)) {
+            return true;
         }
 
-        if (!is_array($attributes)) {
-            $attributes = func_get_args();
-        }
-
-        foreach ($attributes as $attribute) {
-            if (array_key_exists($attribute, $dirty)) {
+        foreach ($this->cache as $translation) {
+            if ($translation->isDirty($attributes)) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    /**
-     * Get the translatable attributes that have been changed since last sync.
-     *
-     * @return array
-     */
-    public function getDirtyTranslations(): array
-    {
-        $dirty = [];
-
-        foreach ($this->cache as $translation) {
-            foreach ($translation->attributes as $key => $value) {
-                if (!array_key_exists($key, $translation->original)) {
-                    $dirty[$key] = $value;
-                } elseif ($value !== $translation->original[$key] && !$translation->originalIsNumericallyEquivalent($key)) {
-                    $dirty[$key] = $value;
-                }
-            }
-        }
-
-        return $dirty;
     }
 
     /**

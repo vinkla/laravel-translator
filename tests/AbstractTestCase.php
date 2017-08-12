@@ -13,7 +13,6 @@ namespace Vinkla\Tests\Translator;
 
 use ArticleTableSeeder;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
-use Illuminate\Support\Facades\DB;
 use TranslationTableSeeder;
 use Vinkla\Tests\Translator\Providers\DatabaseServiceProvider;
 
@@ -39,25 +38,12 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
         ];
     }
 
-    /**
-     * @before
-     */
-    public function runDatabaseMigrations()
+    public function setUp()
     {
-        DB::statement(DB::raw('PRAGMA foreign_keys=1'));
+        parent::setUp();
 
         $this->artisan('migrate');
 
-        $this->beforeApplicationDestroyed(function () {
-            $this->artisan('migrate:rollback');
-        });
-    }
-
-    /**
-     * @before
-     */
-    public function seedDatabase()
-    {
         $this->seed(ArticleTableSeeder::class);
         $this->seed(TranslationTableSeeder::class);
     }

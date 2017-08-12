@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use ReflectionClass;
 use Vinkla\Tests\Translator\Models\Article;
+use Vinkla\Tests\Translator\Models\ArticleTranslation;
 
 /**
  * This is the translator test class.
@@ -189,14 +190,6 @@ class TranslatorTest extends AbstractTestCase
         $this->assertTrue($article->isDirty());
         $this->assertTrue($article->isDirty('title'));
         $this->assertFalse($article->isDirty('foo'));
-    }
-
-    public function testGetDirtyTranslations()
-    {
-        $article = Article::first();
-        $article->title = 'A new title';
-
-        $this->assertSame(['title' => 'A new title'], $article->getDirtyTranslations());
     }
 
     public function testNoEagerLoad()
