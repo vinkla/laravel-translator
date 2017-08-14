@@ -84,15 +84,13 @@ trait Translatable
      */
     protected function translateOrNew(string $locale): Model
     {
-        $translation = $this->getTranslation($locale);
-
-        if (!$translation) {
-            return $this->translations()
-                ->where('locale', $locale)
-                ->firstOrNew(['locale' => $locale]);
+        if (isset($this->cache[$locale])) {
+            return $this->cache[$locale];
         }
 
-        return $translation;
+        return $this->translations()
+            ->where('locale', $locale)
+            ->firstOrNew(['locale' => $locale]);
     }
 
     /**
