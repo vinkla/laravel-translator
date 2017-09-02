@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 5.0.0 (released 2017-09-02)
+
+- Added laravel 5.5 support
+- Update translation lookup
+- Removed laravel 5.4 support
+
 ## 4.2.2 (released 2017-02-08)
 
 - Fix empty translations
