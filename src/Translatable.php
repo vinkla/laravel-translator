@@ -27,11 +27,11 @@ use Illuminate\Support\Facades\Config;
 trait Translatable
 {
     /**
-     * The translations cache.
+     * The cache of translations.
      *
      * @var array
      */
-    protected $cache = [];
+    protected $translationCache = [];
 
     /**
      * Get a translation.
@@ -84,8 +84,8 @@ trait Translatable
      */
     protected function translateOrNew(string $locale): Model
     {
-        if (isset($this->cache[$locale])) {
-            return $this->cache[$locale];
+        if (isset($this->translationCache[$locale])) {
+            return $this->translationCache[$locale];
         }
 
         return $this->translations()
@@ -102,8 +102,8 @@ trait Translatable
      */
     protected function getTranslation(string $locale)
     {
-        if (isset($this->cache[$locale])) {
-            return $this->cache[$locale];
+        if (isset($this->translationCache[$locale])) {
+            return $this->translationCache[$locale];
         }
 
         $translation = $this->translations
@@ -111,7 +111,7 @@ trait Translatable
             ->first();
 
         if ($translation) {
-            $this->cache[$locale] = $translation;
+            $this->translationCache[$locale] = $translation;
         }
 
         return $translation;
@@ -170,7 +170,7 @@ trait Translatable
 
             $translation->$key = $value;
 
-            $this->cache[$this->getLocale()] = $translation;
+            $this->translationCache[$this->getLocale()] = $translation;
 
             return $translation;
         }
@@ -209,7 +209,7 @@ trait Translatable
             return true;
         }
 
-        foreach ($this->cache as $translation) {
+        foreach ($this->translationCache as $translation) {
             if ($translation->isDirty($attributes)) {
                 return true;
             }
@@ -227,7 +227,7 @@ trait Translatable
      */
     protected function finishSave(array $options)
     {
-        $this->translations()->saveMany($this->cache);
+        $this->translations()->saveMany($this->translationCache);
 
         parent::finishSave($options);
     }

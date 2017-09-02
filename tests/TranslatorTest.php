@@ -92,10 +92,10 @@ class TranslatorTest extends AbstractTestCase
         $article = Article::first();
 
         $translations = ['en' => $article->translate('en'), 'sv' => $article->translate('sv')];
-        $cache = $this->getProtectedProperty($article, 'cache');
+        $translationCache = $this->getProtectedProperty($article, 'translationCache');
 
-        $this->assertCount(2, $cache);
-        $this->assertSame($translations, $cache);
+        $this->assertCount(2, $translationCache);
+        $this->assertSame($translations, $translationCache);
 
         DB::enableQueryLog();
 

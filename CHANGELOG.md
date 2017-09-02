@@ -3,8 +3,9 @@
 ## 5.0.0 (released 2017-09-02)
 
 - Added laravel 5.5 support
-- Update translation lookup
 - Removed laravel 5.4 support
+- Updated translation cache variable
+- Updated translation lookup
 
 ## 4.2.2 (released 2017-02-08)
 
