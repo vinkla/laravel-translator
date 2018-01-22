@@ -40,7 +40,7 @@ trait Translatable
      *
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    public function translate(string $locale = null, bool $fallback = true)
+    public function translate(string $locale = null, bool $fallback = true): ?Model
     {
         $locale = $locale ?: $this->getLocale();
 
@@ -103,14 +103,14 @@ trait Translatable
      *
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    protected function getTranslation(string $locale)
+    protected function getTranslation(string $locale): ?Model
     {
         if (isset($this->translationCache[$locale])) {
             return $this->translationCache[$locale];
         }
 
         if (!$this->exists) {
-            return;
+            return null;
         }
 
         $translation = $this->translations
@@ -232,7 +232,7 @@ trait Translatable
      *
      * @return void
      */
-    protected function finishSave(array $options)
+    protected function finishSave(array $options): void
     {
         $this->translations()->saveMany($this->translationCache);
 
@@ -244,7 +244,7 @@ trait Translatable
      *
      * @return bool|null
      */
-    public function delete()
+    public function delete(): ?bool
     {
         if ($deleted = parent::delete()) {
             $this->translations()->delete();
@@ -260,7 +260,7 @@ trait Translatable
      *
      * @return void
      */
-    protected function setLocale(string $locale)
+    protected function setLocale(string $locale): void
     {
         Config::set('app.locale', $locale);
     }
