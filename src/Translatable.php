@@ -87,6 +87,10 @@ trait Translatable
             return $this->translationCache[$locale];
         }
 
+        if (!$this->exists) {
+            return $this->translations()->newModelInstance(['locale' => $locale]);
+        }
+
         return $this->translations()
             ->where('locale', $locale)
             ->firstOrNew(['locale' => $locale]);
@@ -103,6 +107,10 @@ trait Translatable
     {
         if (isset($this->translationCache[$locale])) {
             return $this->translationCache[$locale];
+        }
+
+        if (!$this->exists) {
+            return null;
         }
 
         $translation = $this->translations
