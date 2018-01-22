@@ -35,10 +35,10 @@ trait Translatable
     /**
      * Get a translation.
      *
-     * @param null|string $locale
+     * @param string|null $locale
      * @param bool $fallback
      *
-     * @return null|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model|null
      */
     public function translate(string $locale = null, bool $fallback = true)
     {
@@ -61,7 +61,7 @@ trait Translatable
      * Query scope for eager-loading the translations for current (or a given) locale.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param null|string $locale
+     * @param string|null $locale
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -101,7 +101,7 @@ trait Translatable
      *
      * @param string $locale
      *
-     * @return null|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model|null
      */
     protected function getTranslation(string $locale)
     {
@@ -110,7 +110,7 @@ trait Translatable
         }
 
         if (!$this->exists) {
-            return null;
+            return;
         }
 
         $translation = $this->translations
@@ -204,7 +204,7 @@ trait Translatable
     /**
      * Determine if the model or given attribute(s) have been modified.
      *
-     * @param null|array|string $attributes
+     * @param array|string|null $attributes
      *
      * @return bool
      */
@@ -242,7 +242,7 @@ trait Translatable
     /**
      * Delete the model from the database with its translations.
      *
-     * @return null|bool
+     * @return bool|null
      */
     public function delete()
     {
