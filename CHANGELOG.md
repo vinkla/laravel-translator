@@ -4,7 +4,7 @@
 
 - Added laravel 5.6 support
 - Added optimized database queries
-- Removed laravel 5.6 support
+- Removed laravel 5.5 support
 - Removed php 7.0 support
 
 ## 5.0.0 (released 2017-09-02)
