@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 7.0.0 (upcoming)
+
+- Updated eloquent translation saving
+- Removed php 7.1 support
+
 ## 6.0.0 (released 2018-02-08)
 
 - Added laravel 5.6 support
