@@ -33,6 +33,22 @@ trait Translatable
     protected $translationCache = [];
 
     /**
+     * Boot the translatable trait.
+     *
+     * @return void
+     */
+    public static function bootTranslatable(): void
+    {
+        static::created(function (Model $model) {
+            $model->translations()->saveMany($model->translationCache);
+        });
+
+        static::updating(function (Model $model) {
+            $model->translations()->saveMany($model->translationCache);
+        });
+    }
+
+    /**
      * Get a translation.
      *
      * @param string|null $locale
@@ -223,20 +239,6 @@ trait Translatable
         }
 
         return false;
-    }
-
-    /**
-     * Finish processing on a successful save operation.
-     *
-     * @param array $options
-     *
-     * @return void
-     */
-    protected function finishSave(array $options): void
-    {
-        $this->translations()->saveMany($this->translationCache);
-
-        parent::finishSave($options);
     }
 
     /**
